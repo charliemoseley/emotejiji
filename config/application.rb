@@ -28,5 +28,10 @@ module Emotejiji
     # Add in Grape path
     config.paths.add "app/api", glob: "**/*.rb"
     config.autoload_paths += Dir["#{Rails.root}/app/api/*"]
+
+    # Minitest spec generators
+    config.generators do |g|
+      g.test_framework :mini_test, spec: true, fixture: false
+    end
   end
 end
