@@ -11,6 +11,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 20130517183930) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+  enable_extension "uuid-ossp"
+
+  create_table "emotes", id: false, force: true do |t|
+    t.uuid     "id",                  null: false
+    t.string   "text",                null: false
+    t.text     "description"
+    t.integer  "text_rows",           null: false
+    t.integer  "longest_line_length", null: false
+    t.text     "tags",                             array: true
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "emotes", ["tags"], name: "index_emotes_on_tags", using: :gin
+  add_index "emotes", ["text_rows"], name: "index_emotes_on_text_rows", using: :btree
 
 end

@@ -9,6 +9,9 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
 gem 'grape'
 
+# Architectural
+gem 'pg'
+
 group :development, :test do
   gem 'minitest-rails'
 end
