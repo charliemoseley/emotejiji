@@ -10,8 +10,7 @@ class Emote < ActiveRecord::Base
 
   def text=(text)
     super
-    self.text_rows           = calc_text_rows(text)
-    self.longest_line_length = calc_longest_line_length(text)
+    assign_text_numeric_vals
   end
 
   private
