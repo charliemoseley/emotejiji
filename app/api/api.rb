@@ -33,7 +33,7 @@ module API
       get ':id' do
         emote = Emote.find(params[:id]) rescue error!("Unknown id", 404)
         error!("Unknown id", 404) if emote.nil?
-        
+
         present emote, with: API::Entities::Emote, root: :emote
       end
 
@@ -43,7 +43,8 @@ module API
       end
       post do
         clean_params = sanitize_params(params)
-        emote  = Emote.create clean_params.permit(:text, :description, :tags)
+        emote  = Emote.create clean_params.permit(:text, :description, tags: [])
+
         present emote, with: API::Entities::Emote, root: :emote
       end
 
@@ -53,7 +54,7 @@ module API
         error!("Unknown id", 404) if emote.nil?
 
         clean_params = sanitize_params params
-        emote.update_attributes clean_params.permit(:text, :description, :tags)
+        emote.update_attributes clean_params.permit(:text, :description, tags: [])
         present emote, with: API::Entities::Emote, root: :emote
       end
 
