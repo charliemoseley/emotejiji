@@ -21,8 +21,15 @@ module API
 
     resource :emotes do
       desc "Gets a list of emotes"
+      params do
+        optional :tags, type: Array
+      end
       get do
-        emotes = Emote.all
+        if params.tags
+          emotes = Emote.all_tags params.tags
+        else
+          emotes = Emote.all
+        end
         present emotes, with: API::Entities::Emote, root: :emotes
       end
       
@@ -31,7 +38,7 @@ module API
         requires :id, desc: "Emoticon id."
       end
       get ':id' do
-        emote = Emote.find(params[:id]) rescue error!("Unknown id", 404)
+        emote = Emote.find(params.id) rescue error!("Unknown id", 404)
         error!("Unknown id", 404) if emote.nil?
 
         present emote, with: API::Entities::Emote, root: :emote
@@ -50,12 +57,17 @@ module API
 
       desc "Updates an emote."
       put ':id' do
-        emote = Emote.find(params[:id]) rescue error!("Unknown id", 404)
+        emote = Emote.find(params.id) rescue error!("Unknown id", 404)
         error!("Unknown id", 404) if emote.nil?
 
         clean_params = sanitize_params params
         emote.update_attributes clean_params.permit(:text, :description, tags: [])
         present emote, with: API::Entities::Emote, root: :emote
+      end
+
+      desc "Raises an exception."
+      get :error do
+        raise "Unexpected error."
       end
     end
   end

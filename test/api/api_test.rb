@@ -11,6 +11,13 @@ class APISpec < ActionDispatch::IntegrationTest
       get "/api/v1/emotes"
       parse(response).emotes.count.must_equal 2
     end
+
+    it "should respond with emotes that match the queried tags" do
+      get "/api/v1/emotes/", { tags: ["foo", "baz"] }
+      emotes = parse(response).emotes
+      emotes.count.must_equal 1
+      emotes.first.id.must_equal @emote2.id
+    end
   end
 
   describe "GET /api/v1/emotes/:id" do
@@ -63,6 +70,10 @@ class APISpec < ActionDispatch::IntegrationTest
       put "/api/v1/emotes/foobar", { text: "moobar" }
       response.success?.must_equal false
     end
+  end
+
+  describe "GET /api/v1/tags/list" do
+    it "should return a list of all tags"
   end
 
   def parse(response)
