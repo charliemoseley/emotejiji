@@ -25,6 +25,9 @@ module Emotejiji
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
 
+    # Change Schema Format to sql due to using postgres specific uuid
+    config.active_record.schema_format = :sql
+
     # Add in Grape path
     config.paths.add "app/api", glob: "**/*.rb"
     config.autoload_paths += Dir["#{Rails.root}/app/api/*"]

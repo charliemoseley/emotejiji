@@ -1,11 +1,19 @@
 require "test_helper"
 
 class APISpec < ActionDispatch::IntegrationTest
-  describe "emoticons" do
-    it "should respond to get" do
-      get "/api/v1/emotes"
+  before do
+    @emote1 = Emote.create text: "foobar1", description: "the first foobar"
+    @emote2 = Emote.create text: "foobar2", description: "the second foobar"
+  end
 
-      assert response.ok?
+  describe "/api/v1/emotes" do
+    it "with GET should respond a list of emotes" do
+      get "/api/v1/emotes"
+      parse(response).emotes.must_equal "list of emotes"
     end
+  end
+
+  def parse(response)
+    Hashie::Mash.new(JSON.parse(response.body))
   end
 end

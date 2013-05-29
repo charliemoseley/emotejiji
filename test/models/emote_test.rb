@@ -26,6 +26,12 @@ describe Emote do
     @emote.text_rows.must_equal 3
   end
 
+  it "should calculate text values when created with values" do
+    emote = Emote.new(text: "foobar\nfoobaz7\nfoo")
+    emote.text_rows.must_equal 3
+    emote.longest_line_length.must_equal 7
+  end
+
   it "should allow saving of tags as a ruby array" do
     @emote.tags = [:foo, :bar, :baz]
     @emote.tags.must_be_instance_of Array
