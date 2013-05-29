@@ -57,11 +57,6 @@ module API
         emote.update_attributes clean_params.permit(:text, :description, tags: [])
         present emote, with: API::Entities::Emote, root: :emote
       end
-
-      desc "Raises an exception."
-      get :error do
-        raise "Unexpected error."
-      end
     end
   end
 
