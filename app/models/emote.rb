@@ -5,6 +5,9 @@ class Emote < ActiveRecord::Base
   after_create :assign_text_numeric_vals
   before_save  :assign_text_numeric_vals
 
+  scope :all_tags, -> (tags) { where('tags @> ARRAY[?]', tags) }
+  scope :any_tags, -> (tags) { where('tags && ARRAY[?]', tags) }
+
   def text=(text)
     super
     self.text_rows           = calc_text_rows(text)
