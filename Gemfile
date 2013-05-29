@@ -13,6 +13,7 @@ gem 'pg'
 
 # API
 gem 'grape'
+gem 'grape-entity'
 gem 'hashie'
 
 group :development, :test do
