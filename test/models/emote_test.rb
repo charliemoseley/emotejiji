@@ -7,7 +7,7 @@ describe Emote do
     end
 
     it "should respond to it's attributes" do
-      attrs = [:text, :description, :text_rows, :longest_line_length, :tags]
+      attrs = [:text, :description, :text_rows, :max_length, :tags]
       attrs.each do |attr|
         @emote.must_respond_to attr
       end
@@ -15,9 +15,9 @@ describe Emote do
 
     it "should calculate the longest line length when text is assigned" do
       @emote.text = "foobar"
-      @emote.longest_line_length.must_equal 6
+      @emote.max_length.must_equal 6
       @emote.text = "foobar\nfoobaz7\nfoo"
-      @emote.longest_line_length.must_equal 7
+      @emote.max_length.must_equal 7
     end
 
     it "should calculate the row count when text is set" do
@@ -30,7 +30,7 @@ describe Emote do
     it "should calculate text values when created with values" do
       emote = Emote.new(text: "foobar\nfoobaz7\nfoo")
       emote.text_rows.must_equal 3
-      emote.longest_line_length.must_equal 7
+      emote.max_length.must_equal 7
     end
 
     it "should allow saving of tags as a ruby array" do

@@ -28,6 +28,7 @@ GEM
     arel (4.0.0)
     atomic (1.1.9)
     backports (2.6.7)
+    bcrypt-ruby (3.0.1)
     builder (3.1.4)
     coffee-rails (4.0.0)
       coffee-script (>= 2.2.0)
@@ -133,6 +134,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bcrypt-ruby
   coffee-rails (~> 4.0.0)
   grape
   grape-entity

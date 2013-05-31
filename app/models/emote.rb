@@ -17,10 +17,10 @@ class Emote < ActiveRecord::Base
 
   def assign_text_numeric_vals
     self.text_rows           = calc_text_rows(text)
-    self.longest_line_length = calc_longest_line_length(text)
+    self.max_length = calc_max_length(text)
   end
 
-  def calc_longest_line_length(text)
+  def calc_max_length(text)
     return nil if text.nil?
     lines = text.lines.map(&:chomp)
     lines.collect{ |l| l.length }.max

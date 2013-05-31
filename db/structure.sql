@@ -51,7 +51,9 @@ CREATE TABLE emotes (
     text character varying(255) NOT NULL,
     description text,
     text_rows integer NOT NULL,
-    longest_line_length integer NOT NULL,
+    max_length integer NOT NULL,
+    display_rows integer DEFAULT 1 NOT NULL,
+    display_columns integer DEFAULT 1 NOT NULL,
     tags text[],
     created_at timestamp without time zone,
     updated_at timestamp without time zone
@@ -75,7 +77,8 @@ CREATE TABLE users (
     id uuid DEFAULT uuid_generate_v4() NOT NULL,
     email character varying(255) NOT NULL,
     username character varying(255) NOT NULL,
-    password character varying(255) NOT NULL,
+    password_digest character varying(255) NOT NULL,
+    remember_token character varying(255) NOT NULL,
     created_at timestamp without time zone,
     updated_at timestamp without time zone
 );
@@ -105,10 +108,10 @@ CREATE INDEX index_emotes_on_tags ON emotes USING gin (tags);
 
 
 --
--- Name: index_emotes_on_text_rows; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_emotes_on_text; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE INDEX index_emotes_on_text_rows ON emotes USING btree (text_rows);
+CREATE INDEX index_emotes_on_text ON emotes USING btree (text);
 
 
 --
@@ -116,13 +119,6 @@ CREATE INDEX index_emotes_on_text_rows ON emotes USING btree (text_rows);
 --
 
 CREATE UNIQUE INDEX index_users_on_email ON users USING btree (email);
-
-
---
--- Name: index_users_on_password; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX index_users_on_password ON users USING btree (password);
 
 
 --

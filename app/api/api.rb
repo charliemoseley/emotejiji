@@ -78,7 +78,7 @@ module API
       expose :text
       expose :description
       expose :text_rows
-      expose :longest_line_length
+      expose :max_length
       expose :tags
     end
   end

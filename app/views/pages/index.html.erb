@@ -1,0 +1,13 @@
+<h1>The new emotejiji</h1>
+
+<% if current_user %>
+  Hi, <%= current_user.username %><br />
+<% end %>
+
+<% if signed_in? %>
+  User signed in<br />
+  <%= link_to "signout", signout_path %>
+<% else %>
+  User signed out<br />
+  <%= link_to "signin", signin_path, method: :delete %>
+<% end %>
