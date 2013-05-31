@@ -1,0 +1,387 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pure Test</title>
+  <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.1.0/pure-min.css">
+  <link href='http://fonts.googleapis.com/css?family=Raleway:500' rel='stylesheet' type='text/css'>
+  <style>
+    html,
+    body {
+      height: 100%; 
+      padding: 0;
+      margin: 0;
+      color: #333326;
+    }
+    #content {
+      margin-left: 310px;
+    }
+    #content ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    #content li {
+      float: left;
+    }
+    #content article {
+      margin: 0 5px 10px 5px;
+      background: #F5F5F5;
+      font-size: 30px;
+    }
+    #content .width-1 {
+      width: 150px;
+      height: 150px;
+    }
+    #content .width-2 {
+      width: 310px;
+      height: 150px;
+    }
+    #content .width-3 {
+      width: 470px;
+      height: 150px;
+    }
+    #content aside {
+      display: none;
+    }
+    #left-bar {
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      height: 100%;
+      width: 260px;
+      background: #F5F5F5;
+      padding-bottom: 30px;
+    }
+    #left-bar .margin {
+      margin: 0 20px;
+    }
+    .logo h1 {
+      display: inline-block;
+      line-height: normal;
+      letter-spacing: normal;
+      font-size: 30px;
+      font-weight: normal;
+      font-family: 'Raleway', sans-serif;
+    }
+    .logo span {
+      font-size: 20px;
+      color: #FFF;
+      background: #DB7600;
+      padding: 4px 5px 4px 6px;
+      position: relative;
+      top: -2px;
+    }
+    .search input {
+      width: 222px;
+      background-image: url('images/icon-search-small.png');
+      background-repeat: no-repeat;
+      background-position: 7px 6px;
+      background-color: #FFF;
+      border: none;
+      padding: 7px 3px 6px 35px;
+    }
+    #left-bar .pure-button {
+      /*background: #F5F5F5;*/
+      background: #FFF;
+      width: 100%;
+      text-align: left;
+      font-size: 15px;
+      padding: 4px 20px 4px 28px;
+    }
+    #left-bar .active {
+      /*background-color: #41ccb4 !important;*/
+    }
+    #left-bar .heading {
+      font-weight: bold;
+      color: gray;
+    }
+  </style>
+  <script src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
+  <script src="javascripts/jquery.masonry.js" type="text/javascript"></script>
+  <script>
+  $( document ).ready(function() {
+    $('#emoticon-list').masonry({
+        itemSelector: 'li',
+        columnWidth: 160
+      });
+  });
+  </script>
+</head>
+<body>
+  <div id="content">
+    <section id="emoticon-list" class="clearfix">
+    <ul>
+      <li id="emote-520">
+        <article data-favorite="false" class="width-1" >
+          <a>(･̆⍛･̆)</a>
+        </article>
+        <aside>serious clown face</aside>
+        <input type="hidden" value="['nose','eyebrows','serious','clown']" />
+      </li>
+
+              <li id="emote-519">
+    <article data-favorite="false" class="width-1" >
+      <a>( •ॢ◡-ॢ)</a>
+    </article>
+    <aside>a smll wink</aside>
+
+    <input type="hidden" value="['wink','cute','hands','small','girl']" />
+  </li>
+
+              <li id="emote-518">
+    <article data-favorite="false" class="width-1" >
+      <a>꒒ ০ ⌵ ୧</a>
+    </article>
+    <aside>love</aside>
+
+    <input type="hidden" value="['love']" />
+  </li>
+
+              <li id="emote-516">
+    <article data-favorite="false" class="width-1" >
+      <a>ఠ_ఠ</a>
+    </article>
+    <aside>stare</aside>
+
+    <input type="hidden" value="['stare','blank','serious']" />
+  </li>
+
+              <li id="emote-517">
+    <article data-favorite="false" class="width-1" >
+      <a>꒰ू ऀ•̥́ꈊ͒ੁ•ૅू॰˳ऀ꒱ ͟͟͞  ̊ ̥  ̥</a>
+    </article>
+    <aside>Cloud Rushing</aside>
+
+    <input type="hidden" value="['hands','cloud','run']" />
+  </li>
+
+              <li id="emote-515">
+    <article data-favorite="false" class="width-1" >
+      <a>ᕦ(ò_óˇ)ᕤ</a>
+    </article>
+    <aside>Flexing Emote</aside>
+
+    <input type="hidden" value="['angry','arms','flex','macho','tough','strong','showoff','manly']" />
+  </li>
+
+              <li id="emote-514">
+    <article data-favorite="false" class="width-1" >
+      <a>ᕦ(ò_óˇ)ᕤ</a>
+    </article>
+    <aside>Flexing Emote</aside>
+
+    <input type="hidden" value="['angry','arms','flex','macho','tough','strong','showoff','manly']" />
+  </li>
+
+              <li id="emote-513">
+    <article data-favorite="false" class="width-2" >
+      <a>d-_-b  &lt;(♪ ♫)</a>
+    </article>
+    <aside>Teenager listening to music</aside>
+
+    <input type="hidden" value="['headphones','music','listening','calm']" />
+  </li>
+
+              <li id="emote-512">
+    <article data-favorite="false" class="width-1" >
+      <a>☉.☉☂</a>
+    </article>
+    <aside>My Neighbor Totoro</aside>
+
+    <input type="hidden" value="['cartoons','anime','ghibli','umbrealla','totoro']" />
+  </li>
+
+              <li id="emote-511">
+    <article data-favorite="false" class="width-2" >
+      <a>&lt;(:0)::::::::::&gt;</a>
+    </article>
+    <aside>weedle sunbathing upsidedown</aside>
+
+    <input type="hidden" value="[]" />
+  </li>
+
+              <li id="emote-510">
+    <article data-favorite="false" class="width-2" >
+      <a>&lt;(:0)OOOO&gt;</a>
+    </article>
+    <aside>weedle</aside>
+
+    <input type="hidden" value="[]" />
+  </li>
+
+              <li id="emote-509">
+    <article data-favorite="false" class="width-1" >
+      <a>(o';'o)</a>
+    </article>
+    <aside>Pikachu</aside>
+
+    <input type="hidden" value="['ash ketchum']" />
+  </li>
+
+              <li id="emote-508">
+    <article data-favorite="false" class="width-2" >
+      <a>(　・д・)/－－＝≡(((卍</a>
+    </article>
+    <aside>Shuriken</aside>
+
+    <input type="hidden" value="['fight','shuriken','ninja','weapon']" />
+  </li>
+
+              <li id="emote-507">
+    <article data-favorite="false" class="width-1" >
+      <a>ヽ(´・｀)ﾉ♪</a>
+    </article>
+    <aside>singing</aside>
+
+    <input type="hidden" value="['music','sing','singing']" />
+  </li>
+
+              <li id="emote-506">
+    <article data-favorite="false" class="width-1" >
+      <a>♪( ´θ｀)ノ</a>
+    </article>
+    <aside>singing</aside>
+
+    <input type="hidden" value="['music','sing','song','singing']" />
+  </li>
+
+              <li id="emote-505">
+    <article data-favorite="false" class="width-1" >
+      <a>︻┳デ═一</a>
+    </article>
+    <aside>machine gun</aside>
+
+    <input type="hidden" value="['gun','machine']" />
+  </li>
+
+              <li id="emote-504">
+    <article data-favorite="false" class="width-1" >
+      <a>(づ0_0)づ</a>
+    </article>
+    <aside>big eyes, fat hand</aside>
+
+    <input type="hidden" value="['hands','big eyes']" />
+  </li>
+
+              <li id="emote-500">
+    <article data-favorite="false" class="width-1" >
+      <a>(ᵒ ᵔ ᵒ)</a>
+    </article>
+    <aside>a sad/tired face</aside>
+
+    <input type="hidden" value="['sad','tired']" />
+  </li>
+
+              <li id="emote-499">
+    <article data-favorite="false" class="width-1" >
+      <a>( ?´_ゝ｀)</a>
+    </article>
+    <aside>a confused face</aside>
+
+    <input type="hidden" value="['confused']" />
+  </li>
+
+              <li id="emote-503">
+    <article data-favorite="false" class="width-3" >
+      <a>
+        ∩___∩<br />
+        |(• ◡•)| (❍.̫ ❍ʋ)
+      </a>
+    </article>
+    <aside>Adventure Time - Finn and Jake</aside>
+
+    <input type="hidden" value="['adventure time','finn','jake','cartoon network','animal']" />
+  </li>
+
+              <li id="emote-498">
+    <article data-favorite="false" class="width-1" >
+      <a>｢(ﾟﾍﾟ)</a>
+    </article>
+    <aside>a confused face</aside>
+
+    <input type="hidden" value="['confused']" />
+  </li>
+              <li id="emote-496">
+    <article data-favorite="false" class="width-1" >
+      <a>【・_・?】</a>
+    </article>
+    <aside>a confused face</aside>
+
+    <input type="hidden" value="['confused']" />
+  </li>
+
+              <li id="emote-497">
+    <article data-favorite="false" class="width-2" >
+      <a>ヾ(´･ ･｀｡)ノ&quot;</a>
+    </article>
+    <aside>a worried face</aside>
+
+    <input type="hidden" value="['worried','arms shaking','concerned']" />
+  </li>
+
+              <li id="emote-495">
+    <article data-favorite="false" class="width-1" >
+      <a>【・ヘ・?】</a>
+    </article>
+    <aside>a confused face</aside>
+
+    <input type="hidden" value="['confused']" />
+  </li>
+
+              <li id="emote-494">
+    <article data-favorite="false" class="width-1" >
+      <a>(´｀;) ？</a>
+    </article>
+    <aside>a confused (and kinda aloof) face</aside>
+
+    <input type="hidden" value="['confused','aloof']" />
+  </li>
+
+              <li id="emote-493">
+    <article data-favorite="false" class="width-1" >
+      <a>ヽ(゜Q。)ノ？</a>
+    </article>
+    <aside>a confused (and weird) face</aside>
+
+    <input type="hidden" value="['confused','arms','messed up']" />
+  </li>
+
+              <li id="emote-492">
+    <article data-favorite="false" class="width-1" >
+      <a>('◇')?</a>
+    </article>
+    <aside>a confused face</aside>
+
+    <input type="hidden" value="['confused']" />
+  </li>
+</section>
+  </div>
+  <div id="left-bar">
+    <div class="logo margin">
+      <h1>emotejiji</h1>
+      <span>Σ(゜д゜;)</span>
+    </div>
+    <div class="search margin">
+      <input type="text" />
+    </div>
+    <div class="heading margin" style="margin: 20px 0 5px 20px;">
+      <span style="font-size: 12px">EMOTES</span><br />
+    </div>
+    <div class="emotes">
+      <button class="pure-button active">all</button><br />
+      <button class="pure-button">favorites</button><br />
+      <button class="pure-button">recent</button><br />
+    </div>
+    <div class="heading margin" style="margin: 20px 0 5px 20px;">
+      <span style="font-size: 12px">MYSELF</span><br />
+    </div>
+    <div class="user">
+      <button class="pure-button">settings</button>
+      <button class="pure-button">logout</button>
+    </div>
+  </div>
+</body>
+</html>
