@@ -1,19 +1,21 @@
 <h1>The new emotejiji</h1>
 
-
-<div ng-controller="EmoticonCtrl">
+<div ng-controller="TagSearchCtrl">
   <input type="text" ng-model="searchInput" on-keyup="searchKeyPress" keys="[13, 8]" />
     <span ng-repeat="tag in activeTags">{{tag}} </span>
-  <ul>
-    <li ng-repeat="emoticon in emoticons | filter:tagFilter">
-      Message: {{emoticon.text}}
-      <ul>
-        <li ng-repeat="tag in emoticon.tags">
-          {{tag}}
-        </li>
-    </li>
-  </ul>
 </div>
+
+<ul ng-controller="EmoticonCtrl">
+  <li ng-repeat="emoticon in emoticons | filter:tagFilter">
+    Message: {{emoticon.text}}
+    <ul>
+      <li ng-repeat="tag in emoticon.tags">
+        {{tag}}
+      </li>
+    </ul>
+  </li>
+</ul>
+
 
 <% if current_user %>
   Hi, <%= current_user.username %><br />
