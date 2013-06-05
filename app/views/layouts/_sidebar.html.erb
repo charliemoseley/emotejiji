@@ -1,0 +1,36 @@
+<div id="left-bar">
+  <div class="logo margin">
+    <h1>emotejiji</h1>
+    <span>Σ(゜д゜;)</span>
+  </div>
+  <div class="search margin" ng-controller="TagSearchCtrl">
+    <input ng-model="searchInput" on-keyup="searchKeyPress" keys="[13, 8]" />
+    <span ng-repeat="tag in activeTags">{{tag}} </span>
+  </div>
+  <div class="heading margin" style="margin: 20px 0 5px 20px;">
+    <span style="font-size: 12px">EMOTES</span><br />
+  </div>
+  <div class="emotes">
+    <button class="pure-button active">all</button><br />
+    <button class="pure-button">favorites</button><br />
+    <button class="pure-button">recent</button><br />
+  </div>
+  <div class="heading margin" style="margin: 20px 0 5px 20px;">
+    <span style="font-size: 12px">MYSELF</span><br />
+  </div>
+  <div class="user">
+    <button class="pure-button">settings</button>
+    <button class="pure-button">logout</button>
+  </div>
+
+  <% if current_user %>
+  Hi, <%= current_user.username %><br />
+  <% end %>
+  <% if signed_in? %>
+  User signed in<br />
+  <%= link_to "signout", signout_path %>
+  <% else %>
+  User signed out<br />
+  <%= link_to "signin", signin_path, method: :delete %>
+  <% end %>
+</div>
