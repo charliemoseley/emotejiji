@@ -1,7 +1,8 @@
 <section id="emoticon-list" class="clearfix">
 
 <ul ng-controller="EmoticonCtrl">
-  <li ng-repeat="emoticon in emoticons | filter:tagFilter">
+  <h1>[{{length()}}]</h1>
+  <li ng-repeat="emoticon in fEmoticons = (emoticons | filter:tagFilter)">
     <article class="clearfix">
       <a>{{emoticon.text}}</a>
     </article>

@@ -1,2 +1,2 @@
 App.factory "Data", ->
-  { activeTags: [] }
+  { activeTags: [], availableTags: [] }

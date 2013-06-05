@@ -5,7 +5,10 @@
   </div>
   <div class="search margin" ng-controller="TagSearchCtrl">
     <input ng-model="searchInput" on-keyup="searchKeyPress" keys="[13, 8]" />
-    <span ng-repeat="tag in activeTags">{{tag}} </span>
+    selected tags:<br />
+    <span ng-repeat="tag in activeTags">{{tag}} </span><br />
+    available tags:<br />
+    <span ng-repeat="atag in availableTags()">{{atag}} </span>
   </div>
   <div class="heading margin" style="margin: 20px 0 5px 20px;">
     <span style="font-size: 12px">EMOTES</span><br />
