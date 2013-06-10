@@ -3,7 +3,8 @@ require "test_helper"
 describe User do
   describe "validations" do
     before do
-      @user = User.new email: "foo@bar.com", username: "foobar", password: "randomfoo"
+      @user = User.new email: "foo@bar.com", username: "foobar",
+                       password: "randomfoo", password_confirmation: "randomfoo"
     end
 
     it "should be valid with valid attributes" do
@@ -18,13 +19,15 @@ describe User do
 
     it "should allow only unique email address" do
       @user.save
-      bad_user = User.new email: "foo@bar.com", username: "foobaz", password: "randomfoo"
+      bad_user = User.new email: "foo@bar.com", username: "foobaz",
+                          password: "randomfoo", password_confirmation: "randomfoo"
       bad_user.valid?.must_equal false
     end
 
     it "should allow only unique usernames address" do
       @user.save
-      bad_user = User.new email: "foo@baz.com", username: "foobar", password: "randomfoo"
+      bad_user = User.new email: "foo@baz.com", username: "foobar",
+                          password: "randomfoo", password_confirmation: "randomfoo"
       bad_user.valid?.must_equal false
     end
 
@@ -36,8 +39,10 @@ describe User do
 
   describe "finders" do
     before do
-      @user1 = User.create email: "foo@bar.com", username: "foobar", password: "randomfoo"
-      @user2 = User.create email: "foo@baz.com", username: "foobaz", password: "randombaz"
+      @user1 = User.create email: "foo@bar.com", username: "foobar",
+                           password: "randomfoo", password_confirmation: "randomfoo"
+      @user2 = User.create email: "foo@baz.com", username: "foobaz",
+                           password: "randombaz", password_confirmation: "randombaz"
     end
 
     it "should be able to find a user by either email or username" do

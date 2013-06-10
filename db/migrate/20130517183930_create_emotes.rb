@@ -5,9 +5,9 @@ class CreateEmotes < ActiveRecord::Migration
       t.text    :description
       t.integer :text_rows,       null: false
       t.integer :max_length,      null: false
-      t.integer :display_rows,    null: false, default: 1
-      t.integer :display_columns, null: false, default: 1
-      t.text    :tags,            array: true
+      t.integer :display_rows,    null: false
+      t.integer :display_columns, null: false
+      t.hstore  :tags,            null: false, default: ''
       t.timestamps
     end
 
