@@ -103,20 +103,69 @@ describe Emote do
     end
   end
 
-  describe "when dealing with tags" do
+  describe "tagging" do
     before do
       @emote1 = Emote.create text: "foobar", tags: { foo: 1, bar: 1 }
       @emote2 = Emote.create text: "foobaz", tags: { foo: 1, bar: 1 }
     end
 
-    it "should find all emotes containing a tag" do
-      emotes = Emote.all_tags ["foo"]
-      emotes.count.must_equal 2
+    describe "should find" do
+      it "all emotes containing a tag" do
+        emotes = Emote.all_tags ["foo"]
+        emotes.count.must_equal 2
+      end
+
+      it "all emotes containing any tags" do
+        emotes = Emote.any_tags ["bar", "baz"]
+        emotes.count.must_equal 2
+      end
     end
 
-    it "should find all emotes containing any tags" do
-      emotes = Emote.any_tags ["bar", "baz"]
-      emotes.count.must_equal 2
+    it "should convert tag types when creating" do
+      emote = Emote.new text: "foobar", tags: { "foo" => 2, baz: 1, "bar" => 3 }
+      emote.tags.must_equal({ foo: 2, baz: 1, bar: 3 })
+    end
+
+    describe "should modify" do
+      before do
+        @user1 = User.create email: "foo@bar.com", username: "foobar",
+                             password: "randomfoo", password_confirmation: "randomfoo"
+      end
+
+      it "by erroring if the user is invalid" do
+        bad_id = @emote1.id # Gives an ID that is a valid postgres UID but wont map to a user
+        proc { @emote1.add_tags(bad_id, ["foo"]) }.must_raise(ActiveRecord::RecordNotFound)
+
+        bad_value = 0 # Try passing in something that isnt a string or user
+        proc { @emote1.add_tags(bad_value, ["foo"]) }.must_raise(ActiveRecord::RecordNotFound)
+      end
+
+      it "by adding a tag" do
+        @emote1.add_tags @user1.id, ["foo"]
+        @emote1.tags.must_equal({ foo: 2, bar: 1 })
+      end
+
+      it "by adding multiple tags" do
+        @emote1.add_tags @user1, ["foo", "bar", "boo"]
+        @emote1.tags.must_equal({ foo: 2, bar: 2, boo: 1})
+      end
+
+      it "by creating the appropriate UserEmote to track tagging" do
+        @emote1.add_tags @user1, [:foo, :bar, "boo"]
+        ue = UserEmote.find_by_kind_and_user_id_and_emote_id "Tagged", @user1.id, @emote1.id
+        # Postgres arrays are always stored as strings, thus even if you add symbols, you get string back
+        ue.tags.must_equal ["foo", "bar", "boo"]
+        @emote1.tags.must_equal({ foo: 2, bar: 2, boo: 1 })
+      end
+
+      it "by updating the appropriate UserEmote to track tagging when it exists" do
+        @emote1.add_tags @user1, [:foo, :bar, "boo"]
+        @emote1.add_tags @user1, ["moo", :cow]
+        ue = UserEmote.where kind: "Tagged", user_id: @user1.id, emote_id: @emote1.id
+        ue.length.must_equal 1
+        ue.first.tags.must_equal ["foo", "bar", "boo", "moo", "cow"]
+        @emote1.tags.must_equal({ foo: 2, bar: 2, boo: 1, moo: 1, cow: 1 })
+      end
     end
   end
 end

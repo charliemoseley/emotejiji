@@ -10,6 +10,33 @@ class Emote < ActiveRecord::Base
   scope :all_tags, -> (tags) { where("tags ?& ARRAY[:tags]", tags: tags) }
   scope :any_tags, -> (tags) { where("tags ?| ARRAY[:tags]", tags: tags) }
 
+  # TAGGING
+  def tags=(input)
+    input.keys.each do |key|
+      input[(key.to_sym rescue key) || key] = input.delete(key)
+    end
+    super
+  end
+
+  def add_tags(user, tags)
+    user = User.find(user) if user.kind_of? String
+    raise ActiveRecord::RecordNotFound unless user.kind_of? User
+
+    ue = UserEmote.where(kind: "Tagged", user_id: user.id, emote_id: self.id).first_or_initialize
+    ue.tags = [] if ue.tags.nil?
+    ue.tags = (ue.tags + tags).uniq
+    ue.save
+
+    tags.each do |tag|
+      tag = tag.to_sym
+      if self.tags.has_key? tag
+        self.tags[tag] += 1
+      else
+        self.tags[tag] = 1
+      end
+    end
+  end
+
   def assign_text_numeric_vals
     self.text_rows  = calc_text_rows(text)
     self.max_length = calc_max_length(text)
