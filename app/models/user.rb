@@ -18,6 +18,19 @@ class User < ActiveRecord::Base
     end
   end
 
+  # CUSTOM RELATIONSHIPS (all indexed)
+  def owned_emotes
+    UserEmote.includes(:emote).where(kind: 'Owner', user_id: self.id)
+  end
+
+  def tagged_emotes
+    UserEmote.includes(:emote).where(kind: 'Tagged', user_id: self.id)
+  end
+
+  def favorited_emotes
+    UserEmote.includes(:emote).where(kind: 'Favorited', user_id: self.id)
+  end
+
   private
 
   def create_remember_token

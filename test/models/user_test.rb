@@ -37,6 +37,21 @@ describe User do
     end
   end
 
+  describe "relationships" do
+    before do
+      @user = User.create email: "foo@bar.com", username: "foobar",
+                          password: "randomfoo", password_confirmation: "randomfoo"
+    end
+
+    it "should be able to respond to it's relationships" do
+      relations = [:owned_emotes, :favorited_emotes, :tagged_emotes]
+      relations.each do |relation|
+        @user.must_respond_to relation
+        @user.send(relation).must_equal []
+      end
+    end
+  end
+
   describe "finders" do
     before do
       @user1 = User.create email: "foo@bar.com", username: "foobar",
