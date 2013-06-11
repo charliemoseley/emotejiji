@@ -61,11 +61,44 @@ describe Emote do
       @emote.must_respond_to :owner
       @emote.owner.must_equal nil
 
-      # Man relationships
+      # Many relationships
       relations = [:favorited, :tagged]
       relations.each do |relation|
         @emote.must_respond_to relation
         @emote.send(relation).must_equal []
+      end
+    end
+
+    describe "should return" do
+      before do
+        @user1 = User.create email: "foo@bar.com", username: "foobar",
+                             password: "randomfoo", password_confirmation: "randomfoo"
+        @user2 = User.create email: "foo@baz.com", username: "foobaz",
+                             password: "randombaz", password_confirmation: "randombaz"
+      end
+
+      it "valid users who favorited it" do
+        UserEmote.create kind: "Favorited", user_id: @user1.id, emote_id: @emote.id
+        UserEmote.create kind: "Favorited", user_id: @user2.id, emote_id: @emote.id
+
+        @emote.favorited.length.must_equal 2
+        @emote.favorited.include?(@user1).must_equal true
+        @emote.favorited.include?(@user2).must_equal true
+      end
+
+      it "valid users who tagged it" do
+        UserEmote.create kind: "Tagged", user_id: @user1.id, emote_id: @emote.id
+        UserEmote.create kind: "Tagged", user_id: @user2.id, emote_id: @emote.id
+
+        @emote.tagged.length.must_equal 2
+        @emote.tagged.include?(@user1).must_equal true
+        @emote.tagged.include?(@user2).must_equal true
+      end
+
+      it "valid owner" do
+        UserEmote.create kind: "Owner", user_id: @user1.id, emote_id: @emote.id
+
+        @emote.owner.must_equal @user1
       end
     end
   end

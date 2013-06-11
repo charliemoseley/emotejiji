@@ -17,16 +17,20 @@ class Emote < ActiveRecord::Base
 
   # CUSTOM RELATIONSHIPS (all indexed)
   def owner
-    result = UserEmote.includes(:user).where(kind: 'Owner', emote_id: self.id)
-    result.first.owner unless result.empty?
+    result = UserEmote.includes(:user).where(kind: 'Owner', emote_id: self.id).limit(1)
+    result.first.user unless result.empty?
   end
 
   def tagged
-    UserEmote.includes(:user).where(kind: 'Tagged', emote_id: self.id)
+    UserEmote.includes(:user).where(kind: 'Tagged', emote_id: self.id).map do |result|
+      result.user
+    end
   end
 
   def favorited
-    UserEmote.includes(:user).where(kind: 'Favorited', emote_id: self.id)
+    UserEmote.includes(:user).where(kind: 'Favorited', emote_id: self.id).map do |result|
+      result.user
+    end
   end
 
   private

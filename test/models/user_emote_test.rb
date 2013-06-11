@@ -6,7 +6,7 @@ describe UserEmote do
     @user  = User.create  email: "foo@bar.com", username: "foobar",
                           password: "randomfoo", password_confirmation: "randomfoo"
 
-    @user_emote = UserEmote.new kind: 'owner', user_id: @user.id, emote_id: @emote.id,
+    @user_emote = UserEmote.new kind: 'Owner', user_id: @user.id, emote_id: @emote.id,
                                 tags: ['foo', 'bar']
   end
 
@@ -24,7 +24,7 @@ describe UserEmote do
   end
 
   it "should be valid with a valid kind" do
-    valid = ['owner', 'favorited', 'tagged']
+    valid = ['Owner', 'Favorited', 'Tagged']
     valid.each do |kind|
       @user_emote.kind = kind
       @user_emote.valid?.must_equal true
