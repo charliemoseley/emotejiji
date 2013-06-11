@@ -9,6 +9,7 @@ class CreateUserEmotes < ActiveRecord::Migration
       t.timestamps
     end
 
-    add_index :user_emotes, [:kind, :user_id, :emote_id]
+    add_index :user_emotes, [:kind, :user_id]
+    add_index :user_emotes, [:kind, :emote_id]
   end
 end

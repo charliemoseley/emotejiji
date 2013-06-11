@@ -51,6 +51,25 @@ describe Emote do
     end
   end
 
+  describe "relationships" do
+    before do
+      @emote = Emote.create text: "foobar", tags: { foo: 1, bar: 1 }
+    end
+
+    it "should be able to respond to it's relationships" do
+      # Single relationships
+      @emote.must_respond_to :owner
+      @emote.owner.must_equal nil
+
+      # Man relationships
+      relations = [:favorited, :tagged]
+      relations.each do |relation|
+        @emote.must_respond_to relation
+        @emote.send(relation).must_equal []
+      end
+    end
+  end
+
   describe "when dealing with tags" do
     before do
       @emote1 = Emote.create text: "foobar", tags: { foo: 1, bar: 1 }

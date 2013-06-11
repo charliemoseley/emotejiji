@@ -24,7 +24,7 @@ describe UserEmote do
   end
 
   it "should be valid with a valid kind" do
-    valid = ['owner', 'favorite', 'tagged']
+    valid = ['owner', 'favorited', 'tagged']
     valid.each do |kind|
       @user_emote.kind = kind
       @user_emote.valid?.must_equal true

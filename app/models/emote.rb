@@ -15,6 +15,20 @@ class Emote < ActiveRecord::Base
     self.max_length = calc_max_length(text)
   end
 
+  # CUSTOM RELATIONSHIPS (all indexed)
+  def owner
+    result = UserEmote.includes(:user).where(kind: 'Owner', emote_id: self.id)
+    result.first.owner unless result.empty?
+  end
+
+  def tagged
+    UserEmote.includes(:user).where(kind: 'Tagged', emote_id: self.id)
+  end
+
+  def favorited
+    UserEmote.includes(:user).where(kind: 'Favorited', emote_id: self.id)
+  end
+
   private
 
   def calc_max_length(text)
