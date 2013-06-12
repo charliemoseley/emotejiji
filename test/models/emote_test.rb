@@ -126,13 +126,32 @@ describe Emote do
       emote.tags.must_equal({ foo: 2, baz: 1, bar: 3 })
     end
 
-    describe "should modify" do
+    describe "should create/modify" do
       before do
         @user1 = User.create email: "foo@bar.com", username: "foobar",
                              password: "randomfoo", password_confirmation: "randomfoo"
+
+        @unsaved_emote = Emote.new text: "foomoo", tags: { foo: 1, moo: 1 }
       end
 
-      it "by erroring if the user is invalid" do
+      it "by erroring if the user is invalid for add" do
+        bad_id = @emote1.id # Gives an ID that is a valid postgres UID but wont map to a user
+        proc { @unsaved_emote.create_with(bad_id) }.must_raise(ActiveRecord::RecordNotFound)
+
+        bad_value = 0 # Try passing in something that isnt a string or user
+        proc { @unsaved_emote.create_with(bad_value) }.must_raise(ActiveRecord::RecordNotFound)
+      end
+
+      it "should create a UserEmote when saved" do
+        @unsaved_emote.create_with @user1
+        ue = UserEmote.find_by_kind_and_user_id_and_emote_id "Owner", @user1.id, @unsaved_emote.id
+        ue.kind_of?(UserEmote).must_equal true
+
+        ue = UserEmote.find_by_kind_and_user_id_and_emote_id "Tagged", @user1.id, @unsaved_emote.id
+        ue.tags.must_equal ["foo", "moo"]
+      end
+
+      it "by erroring if the user is invalid for add_tags" do
         bad_id = @emote1.id # Gives an ID that is a valid postgres UID but wont map to a user
         proc { @emote1.add_tags(bad_id, ["foo"]) }.must_raise(ActiveRecord::RecordNotFound)
 

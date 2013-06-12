@@ -10,6 +10,16 @@ class Emote < ActiveRecord::Base
   scope :all_tags, -> (tags) { where("tags ?& ARRAY[:tags]", tags: tags) }
   scope :any_tags, -> (tags) { where("tags ?| ARRAY[:tags]", tags: tags) }
 
+  # When creating tags, this should always be used, not save
+  def create_with(user)
+    user = User.find(user) if user.kind_of? String
+    raise ActiveRecord::RecordNotFound unless user.kind_of? User
+
+    save
+    UserEmote.create kind: "Owner", user_id: user.id, emote_id: self.id
+    UserEmote.tag user, self, self.tags.keys
+  end
+
   # TAGGING
   def tags=(input)
     input.keys.each do |key|
@@ -22,10 +32,7 @@ class Emote < ActiveRecord::Base
     user = User.find(user) if user.kind_of? String
     raise ActiveRecord::RecordNotFound unless user.kind_of? User
 
-    ue = UserEmote.where(kind: "Tagged", user_id: user.id, emote_id: self.id).first_or_initialize
-    ue.tags = [] if ue.tags.nil?
-    ue.tags = (ue.tags + tags).uniq
-    ue.save
+    UserEmote.tag user, self, tags
 
     tags.each do |tag|
       tag = tag.to_sym
@@ -35,6 +42,7 @@ class Emote < ActiveRecord::Base
         self.tags[tag] = 1
       end
     end
+    save
   end
 
   def assign_text_numeric_vals
