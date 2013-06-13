@@ -101,6 +101,8 @@ module API
       expose :text_rows
       expose :max_length
       expose :tags
+      expose :display_rows
+      expose :display_columns
     end
   end
 end

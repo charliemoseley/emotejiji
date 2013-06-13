@@ -1,18 +1,7 @@
-<section id="emoticon-list" class="clearfix">
-
-<ul ng-controller="EmoticonCtrl">
-  <h1>[{{length()}}]</h1>
+<ul ng-controller="EmoticonCtrl" id="emoticon-list">
   <li ng-repeat="emoticon in fEmoticons = (emoticons | filter:tagFilter)">
-    <article class="clearfix">
-      <a>{{emoticon.text}}</a>
-    </article>
-    <!--
-    <ul>
-      <li ng-repeat="tag in emoticon.tags">
-        {{tag}}
-      </li>
-    </ul>
-    -->
+    <a class="width-{{emoticon.display_columns}}">
+      <pre>{{emoticon.text}}</pre>
+    </a>
   </li>
 </ul>
-</section>

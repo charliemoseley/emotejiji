@@ -4,8 +4,7 @@ class Emote < ActiveRecord::Base
   # Make sure the text numerics are assigned properly and display row/columns are calculated once
   before_create :calculate_display_columns
   before_create :calculate_display_rows
-
-  before_save  :assign_text_numeric_vals
+  before_save   :assign_text_numeric_vals
 
   scope :all_tags, -> (tags) { where("tags ?& ARRAY[:tags]", tags: tags) }
   scope :any_tags, -> (tags) { where("tags ?| ARRAY[:tags]", tags: tags) }
@@ -99,7 +98,12 @@ class Emote < ActiveRecord::Base
   end
 
   def calculate_display_columns
-    self.display_columns = 1
+    assign_text_numeric_vals
+    if max_length >= 10
+      self.display_columns = 2
+    else
+      self.display_columns = 1
+    end
   end
 
   def calculate_display_rows

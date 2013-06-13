@@ -9,27 +9,45 @@ html, body {
   color: #333326;
 }
 
-#content {
-  margin-left: 310px;
+.label {
+  border-radius: 3px;
+  display: inline-block;
+  padding: 2px 4px;
+  font-size: 11.844px;
+  font-weight: bold;
+  line-height: 14px;
+  color: #ffffff;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  white-space: nowrap;
+  vertical-align: baseline;
+  background-color: #999999;
+}
 
-  ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
+#content {
+  margin-left: 265px;
+}
+
+#emoticon-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
 
   li {
     float: left;
   }
 
-  article {
+  a {
+    display: table;
     margin: 0 5px 10px 5px;
     background: #F5F5F5;
     font-size: 30px;
-  }
+    text-align: center;
 
-  aside {
-    display: none;
+    pre {
+      display: table-cell;
+      vertical-align: middle;
+      font-family: inherit;
+    }
   }
 
   .width-1 {
@@ -41,11 +59,6 @@ html, body {
     width: 310px;
     height: 150px;
   }
-
-  .width-3 {
-    width: 470px;
-    height: 150px;
-  }
 }
 
 #left-bar {
@@ -55,7 +68,6 @@ html, body {
   left: 0;
   height: 100%;
   width: 260px;
-  background: #F5F5F5;
   padding-bottom: 30px;
 
   .margin {
@@ -77,6 +89,24 @@ html, body {
   }
 }
 
+#tag-search {
+  position: relative;
+
+  input {
+    border: 1px solid #CCC;
+  }
+
+  .current-tags {
+    position: absolute;
+    top: 1px;
+    left: 2px;
+  }
+
+  .tag {
+    margin-right: 2px;
+  }
+}
+
 .logo {
   h1 {
     display: inline-block;
@@ -85,6 +115,8 @@ html, body {
     font-size: 30px;
     font-weight: normal;
     font-family: 'Raleway', sans-serif;
+    margin-top: 5px;
+    margin-bottom: 8px;
   }
 
   span {

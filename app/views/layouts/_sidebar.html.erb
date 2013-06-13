@@ -3,10 +3,11 @@
     <h1>emotejiji</h1>
     <span>Σ(゜д゜;)</span>
   </div>
-  <div class="search margin" ng-controller="TagSearchCtrl">
+  <div id="tag-search" class="search margin" ng-controller="TagSearchCtrl">
     <input ng-model="searchInput" on-keyup="searchKeyPress" keys="[13, 8]" />
-    selected tags:<br />
-    <span ng-repeat="tag in activeTags">{{tag}} </span><br />
+    <div class="current-tags">
+      <span class="tag label" ng-repeat="tag in activeTags">{{tag}}</span>
+    </div>
     available tags:<br />
     <span ng-repeat="atag in availableTags()">{{atag}} </span>
   </div>
@@ -34,6 +35,6 @@
   <%= link_to "signout", signout_path %>
   <% else %>
   User signed out<br />
-  <%= link_to "signin", signin_path, method: :delete %>
+  <%= link_to "signin", signin_path %>
   <% end %>
 </div>
