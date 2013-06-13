@@ -63,59 +63,54 @@ describe Emote do
       owner.length.must_equal 1
       tagged = UserEmote.where kind: "Tagged", user_id: user.id, emote_id: emote.id
       tagged.length.must_equal 1
-      tagged.first.tags.must_equal emote.tags.keys
+      tagged.first.tags.must_equal emote.tags.keys.map{ |i| i.to_s }
     end
   end
 
   describe "relationships" do
     before do
-      @emote = Emote.create text: "foobar", tags: { foo: 1, bar: 1 }
+      @emote = Fabricate.build(:emote)
+      @user1 = Fabricate(:user)
+      @user2 = Fabricate(:user)
+      @emote.create_with(@user1)
+      # @emote.add_tags
     end
 
     it "should be able to respond to it's relationships" do
       # Single relationships
-      @emote.must_respond_to :owner
-      @emote.owner.must_equal nil
+      emote = Emote.new
+      emote.must_respond_to :owner
+      emote.owner.must_equal nil
 
       # Many relationships
       relations = [:favorited, :tagged]
       relations.each do |relation|
-        @emote.must_respond_to relation
-        @emote.send(relation).must_equal []
+        emote.must_respond_to relation
+        emote.send(relation).must_equal []
       end
     end
 
-    describe "should return" do
-      before do
-        @user1 = User.create email: "foo@bar.com", username: "foobar",
-                             password: "randomfoo", password_confirmation: "randomfoo"
-        @user2 = User.create email: "foo@baz.com", username: "foobaz",
-                             password: "randombaz", password_confirmation: "randombaz"
-      end
+    it "should return who created it" do
+      @emote.owner.must_equal @user1
+    end
 
-      it "valid users who favorited it" do
-        UserEmote.create kind: "Favorited", user_id: @user1.id, emote_id: @emote.id
-        UserEmote.create kind: "Favorited", user_id: @user2.id, emote_id: @emote.id
+    it "should return who favorited it" do
+      @emote.favorited_by(@user1)
+      @emote.favorited_by(@user2)
 
-        @emote.favorited.length.must_equal 2
-        @emote.favorited.include?(@user1).must_equal true
-        @emote.favorited.include?(@user2).must_equal true
-      end
+      @emote.favorited.length.must_equal 2
+      @emote.favorited.include?(@user1).must_equal true
+      @emote.favorited.include?(@user2).must_equal true
+    end
 
-      it "valid users who tagged it" do
-        UserEmote.create kind: "Tagged", user_id: @user1.id, emote_id: @emote.id
-        UserEmote.create kind: "Tagged", user_id: @user2.id, emote_id: @emote.id
+    it "should not allow duplicate favorites"
 
-        @emote.tagged.length.must_equal 2
-        @emote.tagged.include?(@user1).must_equal true
-        @emote.tagged.include?(@user2).must_equal true
-      end
+    it "should return who tagged it" do
+      @emote.add_tags @user2.id, ["foo"]
 
-      it "valid owner" do
-        UserEmote.create kind: "Owner", user_id: @user1.id, emote_id: @emote.id
-
-        @emote.owner.must_equal @user1
-      end
+      @emote.tagged.length.must_equal 2
+      @emote.tagged.include?(@user1).must_equal true
+      @emote.tagged.include?(@user2).must_equal true
     end
   end
 
