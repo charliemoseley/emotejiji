@@ -5,3 +5,24 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+User.all.each do |u|
+  u.delete
+end
+
+Emote.all.each do |e|
+  e.delete
+end
+
+user = User.create(username: "emotejiji_robot", password: "c1j2m3c1j2m3", password_confirmation: "c1j2m3c1j2m3")
+
+emotes = JSON.parse(File.read("db/emotes.json"))
+emotes.each do |e|
+  emote = Emote.new
+  emote.text = e["text"]
+  emote.tags = e["tags"]
+  begin
+    emote.create_with(user)
+  rescue
+  end
+end

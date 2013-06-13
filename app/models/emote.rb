@@ -15,9 +15,11 @@ class Emote < ActiveRecord::Base
     user = User.find(user) if user.kind_of? String
     raise ActiveRecord::RecordNotFound unless user.kind_of? User
 
-    save
-    UserEmote.create kind: "Owner", user_id: user.id, emote_id: self.id
-    UserEmote.tag user, self, self.tags.keys
+    ActiveRecord::Base.transaction do
+      save
+      UserEmote.create kind: "Owner", user_id: user.id, emote_id: self.id
+      UserEmote.tag user, self, self.tags.keys
+    end
   end
 
   def favorited_by(user)
