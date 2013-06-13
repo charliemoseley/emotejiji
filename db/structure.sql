@@ -123,7 +123,7 @@ ALTER SEQUENCE user_emotes_id_seq OWNED BY user_emotes.id;
 
 CREATE TABLE users (
     id uuid DEFAULT uuid_generate_v4() NOT NULL,
-    email character varying(255) NOT NULL,
+    email character varying(255),
     username character varying(255) NOT NULL,
     password_digest character varying(255) NOT NULL,
     remember_token character varying(255) NOT NULL,
@@ -178,17 +178,24 @@ CREATE INDEX index_emotes_on_text ON emotes USING btree (text);
 
 
 --
--- Name: index_user_emotes_on_kind_and_user_id_and_emote_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_user_emotes_on_kind_and_emote_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE INDEX index_user_emotes_on_kind_and_user_id_and_emote_id ON user_emotes USING btree (kind, user_id, emote_id);
+CREATE INDEX index_user_emotes_on_kind_and_emote_id ON user_emotes USING btree (kind, emote_id);
+
+
+--
+-- Name: index_user_emotes_on_kind_and_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_user_emotes_on_kind_and_user_id ON user_emotes USING btree (kind, user_id);
 
 
 --
 -- Name: index_users_on_email; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE UNIQUE INDEX index_users_on_email ON users USING btree (email);
+CREATE INDEX index_users_on_email ON users USING btree (email);
 
 
 --

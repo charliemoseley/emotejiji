@@ -53,6 +53,18 @@ describe Emote do
         emote.tags = ['foo', 'bar']
       }.must_raise(TagArrayNotAllowedError)
     end
+
+    it "should create an emote with a user and the right UserEmote relations" do
+      emote = Fabricate.build(:emote)
+      user  = Fabricate(:user)
+      emote.create_with(user)
+
+      owner  = UserEmote.where kind: "Owner",  user_id: user.id, emote_id: emote.id
+      owner.length.must_equal 1
+      tagged = UserEmote.where kind: "Tagged", user_id: user.id, emote_id: emote.id
+      tagged.length.must_equal 1
+      tagged.first.tags.must_equal emote.tags.keys
+    end
   end
 
   describe "relationships" do
