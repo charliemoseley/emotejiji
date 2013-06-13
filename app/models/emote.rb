@@ -22,6 +22,12 @@ class Emote < ActiveRecord::Base
 
   # TAGGING
   def tags=(input)
+    # Convenience for creating emotes for the first time
+    if input.kind_of? Array
+      raise TagArrayNotAllowedError if self.id
+      input = Hash[input.map {|t| [t,0]}]
+    end
+
     input.keys.each do |key|
       input[(key.to_sym rescue key) || key] = input.delete(key)
     end
@@ -90,4 +96,7 @@ class Emote < ActiveRecord::Base
   def calculate_display_rows
     self.display_rows = 1
   end
+end
+
+class TagArrayNotAllowedError < StandardError
 end

@@ -40,6 +40,21 @@ describe Emote do
     it "should calculate the display_row"
   end
 
+  describe "initialization" do
+    it "should be able to take an array for tags if it hasn't been create yet" do
+      emote = Fabricate.build(:emote)
+      emote.tags = ['foo', 'bar']
+      emote.tags.must_equal({ foo: 0, bar: 0 })
+    end
+
+    it "should error when given a tag array if it has been created" do
+      emote = Fabricate :emote
+      proc {
+        emote.tags = ['foo', 'bar']
+      }.must_raise(TagArrayNotAllowedError)
+    end
+  end
+
   describe "relationships" do
     before do
       @emote = Emote.create text: "foobar", tags: { foo: 1, bar: 1 }
