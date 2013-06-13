@@ -20,6 +20,13 @@ class Emote < ActiveRecord::Base
     UserEmote.tag user, self, self.tags.keys
   end
 
+  def favorited_by(user)
+    user = User.find(user) if user.kind_of? String
+    raise ActiveRecord::RecordNotFound unless user.kind_of? User
+
+    UserEmote.create kind: "Favorited", user_id: user.id, emote_id: self.id
+  end
+
   # TAGGING
   def tags=(input)
     # Convenience for creating emotes for the first time
