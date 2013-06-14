@@ -8,10 +8,10 @@ App.directive "tagSpacer", ($timeout) ->
         return if new_value == old_value
         tagContainer = $('#' + element.attr('id'))
         inputField   = $('#tag-search input')
-        baseInputFieldWidth = 209
+        baseInputFieldWidth = 207
 
         inputFieldWidth = baseInputFieldWidth - tagContainer.width()
         inputField.css('width', inputFieldWidth)
-        inputField.css('padding-left', tagContainer.width())
+        inputField.css('padding-left', tagContainer.width() + 4)
       ,
       0
