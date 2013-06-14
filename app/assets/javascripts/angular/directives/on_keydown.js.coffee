@@ -1,21 +1,21 @@
-App.directive "onKeyup", ->
+App.directive "onKeydown", ->
   (scope, element, attrs) ->
     allowedKeys = scope.$eval(attrs.keys)
-    callback = scope.$eval(attrs.onKeyup)
+    callback = scope.$eval(attrs.onKeydown)
 
     hasAllowedKeys = ->
       return false unless allowedKeys
       return false if allowedKeys == true
       return true
 
-    applyKeyup = (key) ->
+    applyKeydown = (key) ->
       scope.$apply ->
         callback.call(scope, key)
 
-    element.bind 'keyup', (event) ->
+    element.bind 'keydown', (event) ->
       if hasAllowedKeys()
         angular.forEach allowedKeys, (key) ->
           if key == event.which
-            applyKeyup(key)
+            applyKeydown(key)
       else
-        applyKeyup(event.which)
+        applyKeydown(event.which)
