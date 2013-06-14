@@ -1,4 +1,4 @@
-<ul ng-controller="EmoticonCtrl" id="emoticon-list">
+<ul ng-controller="EmoticonCtrl" id="emoticon-list" masonry>
   <li ng-repeat="emoticon in fEmoticons = (emoticons | filter:tagFilter)">
     <a class="width-{{emoticon.display_columns}}">
       <pre><span>{{emoticon.text}}</span></pre>
