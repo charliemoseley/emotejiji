@@ -33,7 +33,7 @@ class Emote < ActiveRecord::Base
     # Convenience for creating emotes for the first time
     if input.kind_of? Array
       raise TagArrayNotAllowedError if self.id
-      input = Hash[input.map {|t| [t,0]}]
+      input = Hash[input.map {|t| [t,1]}]
     end
 
     input.keys.each do |key|
@@ -99,7 +99,7 @@ class Emote < ActiveRecord::Base
 
   def calculate_display_columns
     assign_text_numeric_vals
-    if max_length >= 10
+    if max_length >= 7
       self.display_columns = 2
     else
       self.display_columns = 1

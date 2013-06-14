@@ -1,7 +1,7 @@
 <ul ng-controller="EmoticonCtrl" id="emoticon-list">
   <li ng-repeat="emoticon in fEmoticons = (emoticons | filter:tagFilter)">
     <a class="width-{{emoticon.display_columns}}">
-      <pre>{{emoticon.text}}</pre>
+      <pre><span>{{emoticon.text}}</span></pre>
     </a>
   </li>
 </ul>

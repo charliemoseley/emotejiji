@@ -47,6 +47,11 @@ html, body {
       display: table-cell;
       vertical-align: middle;
       font-family: inherit;
+
+      span {
+        display: inline-block;
+        text-align: left;
+      }
     }
   }
 
