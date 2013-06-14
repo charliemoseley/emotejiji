@@ -1,9 +1,9 @@
-<div id="left-bar">
+<div id="left-bar" ng-controller="TagSearchCtrl">
   <div class="logo margin">
     <h1>emotejiji</h1>
     <span>Σ(゜д゜;)</span>
   </div>
-  <div id="tag-search" class="search margin" ng-controller="TagSearchCtrl">
+  <div id="tag-search" class="search margin">
     <input ng-model="searchInput" on-keyup="searchKeyPress" keys="[13, 8]" tag-auto-complete />
     <div id="current-tags" class="current-tags" tag-spacer>
       <span class="tag label" ng-repeat="tag in activeTags">{{tag}}</span>
@@ -15,12 +15,12 @@
   </div>
   <table id="popular-tags" class="nav-table margin">
     <tr>
-      <td class="top-left"><a href="#">happy</a></td>
-      <td class="top-right"><a href="#">sad</a></td>
+      <td class="top-left"><a tag-click-add="happy">happy</a></td>
+      <td class="top-right"><a tag-click-add="sad">sad</a></td>
     </tr>
     <tr>
-      <td><a href="#">angry</a></td>
-      <td><a href="#">animals</a></td>
+      <td><a tag-click-add="angry">angry</a></td>
+      <td><a tag-click-add="animals">animals</a></td>
     </tr>
     <tr>
       <td class="bottom" colspan="2">

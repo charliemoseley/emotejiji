@@ -10,7 +10,8 @@ App.controller 'TagSearchCtrl', ($scope, Data) ->
       searchDelete()
 
   searchDelete = ->
-    if $scope.searchInput == ""
+    console.log "Current Search Input: " + $scope.searchInput
+    if $scope.searchInput == "" || $scope.searchInput == undefined
       $scope.activeTags.pop()
 
   searchEnter = ->
