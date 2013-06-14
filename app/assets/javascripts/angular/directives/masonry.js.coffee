@@ -7,7 +7,7 @@ App.directive "masonry", ($timeout) ->
       ->
         element.masonry {
           itemSelector: 'li',
-          columnWidth: 160
+          columnWidth: 110
         }
       ,
       600

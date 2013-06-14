@@ -10,7 +10,7 @@ html, body {
 }
 
 a {
-  color: gray;
+  color: #666;
   text-decoration: none;
 }
 
@@ -29,7 +29,7 @@ a {
 }
 
 #content {
-  margin-left: 255px;
+  margin-left: 248px;
 }
 
 #emoticon-list {
@@ -45,7 +45,7 @@ a {
     display: table;
     margin: 0 5px 10px 5px;
     background: #F5F5F5;
-    font-size: 30px;
+    font-size: 24px;
     text-align: center;
 
     pre {
@@ -61,13 +61,13 @@ a {
   }
 
   .width-1 {
-    width: 150px;
-    height: 150px;
+    width: 100px;
+    height: 100px;
   }
 
   .width-2 {
-    width: 310px;
-    height: 150px;
+    width: 210px;
+    height: 100px;
   }
 }
 
