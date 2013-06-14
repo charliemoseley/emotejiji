@@ -5,7 +5,7 @@
   </div>
   <div id="tag-search" class="search margin" ng-controller="TagSearchCtrl">
     <input ng-model="searchInput" on-keyup="searchKeyPress" keys="[13, 8]" />
-    <div class="current-tags">
+    <div id="current-tags" class="current-tags" tag-spacer style="background: blue;">
       <span class="tag label" ng-repeat="tag in activeTags">{{tag}}</span>
     </div>
     available tags:<br />

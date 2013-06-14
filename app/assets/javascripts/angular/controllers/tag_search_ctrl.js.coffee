@@ -2,6 +2,7 @@ App.controller 'TagSearchCtrl', ($scope, Data) ->
   $scope.activeTags = Data.activeTags
   $scope.availableTags = ->
     Data.availableTags
+
   $scope.searchKeyPress = (key) ->
     if key == 13 # Enter pressed
       searchEnter()
