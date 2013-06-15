@@ -15,6 +15,6 @@ App.controller 'TagSearchCtrl', ($scope, Data) ->
 
   searchEnter = ->
     unless $scope.searchInput == "" || $scope.searchInput == undefined
-      $scope.activeTags.push $scope.searchInput
+      $scope.activeTags.push $scope.searchInput.toLowerCase()
       Data.availableTags = _.without(Data.availableTags, $scope.searchInput)
       $scope.searchInput = ""

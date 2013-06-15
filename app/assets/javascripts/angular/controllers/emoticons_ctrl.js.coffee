@@ -7,15 +7,19 @@ App.controller 'EmoticonCtrl', ($scope, Restangular, Data) ->
       # TODO: Once we support multiple 'emoticon lists', move this into a watcher on the promise
       # TODO: Maybe use underscore's memoize here?
       unless angular.isDefined $scope.allTags
+        $scope.allTags = []
         angular.forEach $scope.fEmoticons, (emoticon) ->
-          $scope.allTags = _.uniq(_.keys(emoticon.tags))
+          $scope.allTags = $scope.allTags.concat(_.keys(emoticon.tags))
+        $scope.allTags = _.uniq($scope.allTags)
+        Data.availableTags = $scope.allTags
+
       if Data.activeTags.length > 0
         Data.availableTags = []
         angular.forEach $scope.fEmoticons, (emoticon) ->
           Data.availableTags = _.uniq(Data.availableTags.concat(_.keys(emoticon.tags)))
         Data.availableTags = _.difference(Data.availableTags, Data.activeTags)
-      else
-        Data.availableTags = $scope.allTags
+    else
+      Data.availableTags = $scope.allTags
 
   $scope.tagFilter = (emote) ->
     return emote if Data.activeTags.length == 0
