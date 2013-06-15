@@ -4,7 +4,10 @@
     <span>Σ(゜д゜;)</span>
   </div>
   <div id="tag-search" class="search margin">
-    <input ng-model="searchInput" on-keydown="searchKeyPress" keys="[13, 8]" tag-auto-complete />
+    <input ng-model="searchInput"
+           on-keydown="searchKeyDown" down-keys="[8]"
+           on-keyup="searchKeyUp" up-keys="[13]"
+           tag-auto-complete />
     <div id="current-tags" class="current-tags" tag-spacer>
       <span class="tag label" ng-repeat="tag in activeTags">{{tag}}</span>
     </div>

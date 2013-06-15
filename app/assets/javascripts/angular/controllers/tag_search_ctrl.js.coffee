@@ -3,14 +3,13 @@ App.controller 'TagSearchCtrl', ($scope, Data) ->
   $scope.availableTags = ->
     Data.availableTags
 
-  $scope.searchKeyPress = (key) ->
-    if key == 13 # Enter pressed
-      searchEnter()
-    else
-      searchDelete()
+  $scope.searchKeyDown = (key) ->
+    searchDelete()
+
+  $scope.searchKeyUp = (key) ->
+    searchEnter()
 
   searchDelete = ->
-    console.log "Current Search Input: [" + $scope.searchInput + "]"
     if $scope.searchInput == "" || $scope.searchInput == undefined
       $scope.activeTags.pop()
 
