@@ -14,6 +14,7 @@ App.controller 'TagSearchCtrl', ($scope, Data) ->
       $scope.activeTags.pop()
 
   searchEnter = ->
-    $scope.activeTags.push $scope.searchInput
-    Data.availableTags = _.without(Data.availableTags, $scope.searchInput)
-    $scope.searchInput = ""
+    unless $scope.searchInput == "" || $scope.searchInput == undefined
+      $scope.activeTags.push $scope.searchInput
+      Data.availableTags = _.without(Data.availableTags, $scope.searchInput)
+      $scope.searchInput = ""
