@@ -9,6 +9,8 @@
            on-keyup="searchKeyUp" up-keys="[13]"
            auto-complete="autoCompleteSelect"
            auto-complete-source="availableTags()"
+           autocapitalize="off"
+           autocorrect="off"
     />
     <div id="current-tags" class="current-tags" tag-spacer>
       <span class="tag label" ng-repeat="tag in activeTags">{{tag}}</span>
