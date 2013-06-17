@@ -4,3 +4,4 @@ App.directive "tagClickAdd", (Data) ->
       scope.$apply ->
         scope.activeTags.push attrs.tagClickAdd
         Data.availableTags = _.without(Data.availableTags, scope.searchInput)
+        $("#tag-search input").focus()
