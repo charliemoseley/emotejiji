@@ -12,7 +12,7 @@ App.directive "onKeydown", ->
       scope.$apply ->
         callback.call(scope, key)
 
-    element.bind 'keydown', (event) ->
+    element.on 'keydown', (event) ->
       if hasAllowedKeys()
         angular.forEach allowedKeys, (key) ->
           if key == event.which

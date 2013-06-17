@@ -7,7 +7,9 @@
     <input ng-model="searchInput"
            on-keydown="searchKeyDown" down-keys="[8]"
            on-keyup="searchKeyUp" up-keys="[13]"
-           tag-auto-complete />
+           auto-complete="autoCompleteSelect"
+           auto-complete-source="availableTags()"
+    />
     <div id="current-tags" class="current-tags" tag-spacer>
       <span class="tag label" ng-repeat="tag in activeTags">{{tag}}</span>
     </div>

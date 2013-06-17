@@ -12,7 +12,7 @@ App.directive "onKeyup", ->
       scope.$apply ->
         callback.call(scope, key)
 
-    element.bind 'keyup', (event) ->
+    element.on 'keyup', (event) ->
       if hasAllowedKeys()
         angular.forEach allowedKeys, (key) ->
           if key == event.which

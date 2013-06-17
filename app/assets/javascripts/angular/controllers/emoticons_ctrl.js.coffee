@@ -18,8 +18,10 @@ App.controller 'EmoticonCtrl', ($scope, Restangular, Data) ->
         angular.forEach $scope.fEmoticons, (emoticon) ->
           Data.availableTags = _.uniq(Data.availableTags.concat(_.keys(emoticon.tags)))
         Data.availableTags = _.difference(Data.availableTags, Data.activeTags)
-    else
-      Data.availableTags = $scope.allTags
+      else
+        # Handles the final delete key press
+        Data.availableTags = $scope.allTags
+
 
   $scope.tagFilter = (emote) ->
     return emote if Data.activeTags.length == 0

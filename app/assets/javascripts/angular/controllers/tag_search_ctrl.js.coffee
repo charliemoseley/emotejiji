@@ -9,6 +9,10 @@ App.controller 'TagSearchCtrl', ($scope, Data) ->
   $scope.searchKeyUp = (key) ->
     searchEnter()
 
+  $scope.autoCompleteSelect = (val) ->
+    $scope.searchInput = val
+    searchEnter()
+
   searchDelete = ->
     if $scope.searchInput == "" || $scope.searchInput == undefined
       $scope.activeTags.pop()
