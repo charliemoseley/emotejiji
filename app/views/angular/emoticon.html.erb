@@ -1,13 +1,11 @@
 <section id="emoticon-display">
   <p id="selected-note">{{emoticon.description}}</p>
-  <pre><span>{{emoticon.text}}</span></pre>
-  <ul ng-repeat="(tag, count) in emoticon.tags">
-    <li>
+  <h1><pre><span>{{emoticon.text}}</span></pre></h1>
+  <ul>
+    <li ng-repeat="(tag, count) in emoticon.tags">
       <a class="no-link">{{tag}}</a>
     </li>
   </ul>
+  <button class="pure-button">Copy to Clipboard</button>
+  <button class="pure-button pure-button-disabled">Add to Favorites</button>
 </section>
-
-<br />
-<br />
-<a href="#/">back</a>

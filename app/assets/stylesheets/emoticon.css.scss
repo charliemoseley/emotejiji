@@ -1,0 +1,35 @@
+#emoticon-display {
+  background: #F5F5F5;
+  text-align: center;
+
+  p { margin: 0; padding: 0 }
+
+  h1 {
+    display: table;
+    margin: auto;
+    background: #F5F5F5;
+    font-size: 40px;
+    text-align: center;
+    font-weight: normal;
+    line-height: inherit;
+
+    pre {
+      display: table-cell;
+      vertical-align: middle;
+      font-family: inherit;
+      line-height: 100%;
+
+      span {
+        display: inline-block;
+        text-align: left;
+      }
+    }
+  }
+
+  ul {
+    li {
+      display: inline;
+      list-style-type: none;
+    }
+  }
+}
