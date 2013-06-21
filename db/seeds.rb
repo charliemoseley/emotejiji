@@ -21,6 +21,7 @@ emotes.each do |e|
   emote = Emote.new
   emote.text = e["text"]
   emote.tags = e["tags"]
+  emote.description = e["note"]
   begin
     emote.create_with(user)
   rescue

@@ -1,4 +1,13 @@
-{{emoticon.text}}
+<section id="emoticon-display">
+  <p id="selected-note">{{emoticon.description}}</p>
+  <pre><span>{{emoticon.text}}</span></pre>
+  <ul ng-repeat="(tag, count) in emoticon.tags">
+    <li>
+      <a class="no-link">{{tag}}</a>
+    </li>
+  </ul>
+</section>
+
 <br />
 <br />
 <a href="#/">back</a>
