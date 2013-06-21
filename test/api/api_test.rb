@@ -80,19 +80,76 @@ class APISpec < ActionDispatch::IntegrationTest
   end
 
 
-  describe "GET /api/v1/user/:id" do
-    it "should return a user profile" do
-      user = Fabricate :user
-      get "/api/v1/users/#{user.id}"
-      response.body.must_equal "\"user profile get\""
+  describe "User namespace" do
+    before do
+      @user = Fabricate :user
     end
-  end
 
-  describe "GET /api/v1/users/:user_id/favorites" do
-    it "should return a list of the user's favorites" do
-      user = Fabricate :user
-      get "/api/v1/users/#{user.id}/favorites"
-      response.body.must_equal "\"favorites get\""
+    describe "GET /api/v1/user/:id" do
+      it "should return a user profile" do
+        get "/api/v1/users/#{@user.id}"
+        user = parse(response)
+        user.id.must_equal @user.id
+        user.username.must_equal @user.username
+      end
+
+      it "should return a 404 with invalid id" do
+        get "/api/v1/users/fooobar"
+        response.code.must_equal "404"
+      end
+    end
+
+    describe "GET /api/v1/users/:user_id/favorites" do
+      it "should return an empty array if the user has no favorites" do
+        get "/api/v1/users/#{@user.id}/favorites"
+        favorites = parse(response)
+        favorites.kind_of?(Array).must_equal true
+        favorites.empty?.must_equal true
+      end
+
+      describe "with favorites" do
+        before do
+          @emote1 = Fabricate :emote
+          @emote2 = Fabricate :emote
+          @emote1.favorited_by @user
+          @emote2.favorited_by @user
+        end
+
+        it "should return a list of the users favorite emotes" do
+          get "/api/v1/users/#{@user.id}/favorites"
+          favorites = parse(response)
+          favorites.count.must_equal 2
+          favorites.each do |favorite|
+            @emote = favorite.id == @emote1.id ? @emote1 : @emote2
+            favorite.id.must_equal @emote.id
+            favorite.text.must_equal @emote.text
+          end
+        end
+
+        it "should return a list of the users favorites that just contains ids of emoticons" do
+          get "/api/v1/users/#{@user.id}/favorites", { ids_only: true }
+          favorites = JSON.parse(response.body)
+          favorites.count.must_equal 2
+          favorites.include?(@emote1.id).must_equal true
+          favorites.include?(@emote2.id).must_equal true
+        end
+
+        it "should returna  list of the users favorite emotes with ids_only set to false" do
+          get "/api/v1/users/#{@user.id}/favorites", { ids_only: false }
+          favorites = parse(response)
+          favorites.count.must_equal 2
+          favorites.each do |favorite|
+            @emote = favorite.id == @emote1.id ? @emote1 : @emote2
+            favorite.id.must_equal @emote.id
+            favorite.text.must_equal @emote.text
+          end
+        end
+
+        it "should 500 if you butcher the ids_only optional param" do
+          get "/api/v1/users/#{@user.id}/favorites", { ids_only: "foobar" }
+          response.code.must_equal "400"
+        end
+      end
     end
   end
 

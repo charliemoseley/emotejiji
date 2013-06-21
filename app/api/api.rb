@@ -97,13 +97,24 @@ module API
 
     resource :users do
       get ':id' do
-        "user profile get"
+        user = User.find(params.id) rescue error!("Unknown id", 404)
+        present user, with: API::Entities::User
       end
 
       segment '/:user_id' do
         resource :favorites do
+          params do
+            optional :ids_only, type: Boolean
+          end
           get do
-            "favorites get"
+            user = User.find(params.user_id) rescue error!("Unknown user id", 404)
+
+            favorites = user.favorited_emotes
+            unless params.ids_only
+              present favorites, with: API::Entities::Emote
+            else
+              favorites.map{ |e| e.id }
+            end
           end
         end
       end
@@ -120,6 +131,11 @@ module API
       expose :tags
       expose :display_rows
       expose :display_columns
+    end
+
+    class User < Grape::Entity
+      expose :id
+      expose :username
     end
   end
 end
