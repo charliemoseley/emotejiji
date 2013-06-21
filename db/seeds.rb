@@ -27,3 +27,6 @@ emotes.each do |e|
   rescue
   end
 end
+
+Emote.first.favorited_by user
+Emote.last.favorited_by user

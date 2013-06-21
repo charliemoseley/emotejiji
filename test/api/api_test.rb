@@ -134,7 +134,7 @@ class APISpec < ActionDispatch::IntegrationTest
           favorites.include?(@emote2.id).must_equal true
         end
 
-        it "should returna  list of the users favorite emotes with ids_only set to false" do
+        it "should return a list of the users favorite emotes with ids_only set to false" do
           get "/api/v1/users/#{@user.id}/favorites", { ids_only: false }
           favorites = parse(response)
           favorites.count.must_equal 2
