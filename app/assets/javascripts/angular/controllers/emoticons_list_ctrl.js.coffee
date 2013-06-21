@@ -1,4 +1,4 @@
-App.controller 'EmoticonCtrl', ($scope, Restangular, Data) ->
+App.controller 'EmoticonListCtrl', ($scope, Restangular, Data) ->
   $scope.emoticons = Restangular.all('emotes').getList()
 
   $scope.$watch 'fEmoticons.length', (newval, oldval) ->
