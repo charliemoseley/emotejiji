@@ -95,15 +95,19 @@ module API
       end
     end
 
-    #resource :users do
-    #  segment '/:user_id' do
-    #    resource :favorites do
-    #      get do
-    #        "favorites get"
-    #      end
-    #    end
-    #  end
-    #end
+    resource :users do
+      get ':id' do
+        "user profile get"
+      end
+
+      segment '/:user_id' do
+        resource :favorites do
+          get do
+            "favorites get"
+          end
+        end
+      end
+    end
   end
 
   module Entities

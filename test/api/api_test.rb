@@ -79,12 +79,21 @@ class APISpec < ActionDispatch::IntegrationTest
     it "should return a list of all tags"
   end
 
+
+  describe "GET /api/v1/user/:id" do
+    it "should return a user profile" do
+      user = Fabricate :user
+      get "/api/v1/users/#{user.id}"
+      response.body.must_equal "\"user profile get\""
+    end
+  end
+
   describe "GET /api/v1/users/:user_id/favorites" do
-    it "should return a list of the user's favorites" #do
-    #  user = Fabricate :user
-    #  get "/api/v1/users/#{user.id}/favorites"
-    #  response.must_equal "favorites get"
-    #end
+    it "should return a list of the user's favorites" do
+      user = Fabricate :user
+      get "/api/v1/users/#{user.id}/favorites"
+      response.body.must_equal "\"favorites get\""
+    end
   end
 
   def parse(response)
