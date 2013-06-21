@@ -2,5 +2,6 @@ App.factory "Data", ->
   {
     activeTags: [],
     availableTags: [],
-    allEmoticons: []
+    emoticonCurrent: [],
+    emoticonLookup: [],
   }
