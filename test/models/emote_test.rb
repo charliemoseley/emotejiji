@@ -44,7 +44,7 @@ describe Emote do
     it "should be able to take an array for tags if it hasn't been create yet" do
       emote = Fabricate.build(:emote)
       emote.tags = ['foo', 'bar']
-      emote.tags.must_equal({ foo: 0, bar: 0 })
+      emote.tags.must_equal({ foo: 1, bar: 1 })
     end
 
     it "should error when given a tag array if it has been created" do
