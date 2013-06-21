@@ -13,7 +13,8 @@
 <body>
   <div id="content">
     <%= yield %>
-    <ng-view></ng-view>
+    <div ui-view="popOver"></div>
+    <div ui-view="emoticonList"></div>
   </div>
 
   <%= render "layouts/sidebar" %>
