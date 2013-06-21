@@ -198,6 +198,29 @@ describe Emote do
       end
     end
   end
+
+  describe "api meta" do
+    it "should have a field that can be used to store api meta data upon creation" do
+      emote = Emote.new
+      emote.api_meta.kind_of?(Hashie::Mash).must_equal true
+    end
+
+    it "should not persist the api meta field upon save" do
+      emote = Fabricate.build :emote
+      emote.api_meta.foo = "bar"
+      emote.save
+
+      test = Emote.find emote.id
+      test.api_meta.foo.must_equal nil
+    end
+
+    it "should have a api meta field on Emote.find" do
+      emote = Fabricate :emote
+
+      test = Emote.find emote.id
+      test.api_meta.kind_of?(Hashie::Mash).must_equal true
+    end
+  end
 end
 
 

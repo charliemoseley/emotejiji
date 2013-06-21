@@ -1,4 +1,9 @@
 class Emote < ActiveRecord::Base
+  attr_accessor :api_meta
+  after_initialize do |emote|
+    emote.api_meta = Hashie::Mash.new
+  end
+
   validates :text, presence: true, uniqueness: true
 
   # Make sure the text numerics are assigned properly and display row/columns are calculated once
