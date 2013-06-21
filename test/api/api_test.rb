@@ -91,11 +91,36 @@ class APISpec < ActionDispatch::IntegrationTest
         user = parse(response)
         user.id.must_equal @user.id
         user.username.must_equal @user.username
+        user.emoticons_favorited.count.must_equal 0
+        user.emoticons_created.count.must_equal 0
       end
 
       it "should return a 404 with invalid id" do
         get "/api/v1/users/fooobar"
         response.code.must_equal "404"
+      end
+
+      describe "counts" do
+        before do
+          @emote1 = Fabricate.build :emote
+          @emote2 = Fabricate.build :emote
+          @emote1.create_with @user
+          @emote2.create_with @user
+          @emote1.favorited_by @user
+          @emote2.favorited_by @user
+        end
+
+        it "should return a user profile with a valid favorite count" do
+          get "/api/v1/users/#{@user.id}"
+          user = parse(response)
+          user.emoticons_favorited.count.must_equal 2
+        end
+
+        it "should return a user profile with a valid emotes created account" do
+          get "/api/v1/users/#{@user.id}"
+          user = parse(response)
+          user.emoticons_created.count.must_equal 2
+        end
       end
     end
 

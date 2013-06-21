@@ -136,6 +136,8 @@ module API
     class User < Grape::Entity
       expose :id
       expose :username
+      expose(:emoticons_favorited) { |user, options| user.favorited_emotes }
+      expose(:emoticons_created) { |user, options| user.created_emotes }
     end
   end
 end
