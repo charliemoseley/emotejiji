@@ -1,12 +1,22 @@
 App.controller 'EmoticonListCtrl', ($scope, Restangular, Data) ->
-  $scope.emoticons = Restangular.all('emotes').getList()
+  $scope.emoticons = Restangular.all('emotes').getList().then (response) ->
+    # TODO: THeres got to be a more elegant way to format this
+    # Store all the emoticons in an
+    allEmoticons = {}
+    angular.forEach response, (emoticon) ->
+      allEmoticons[emoticon.id] = emoticon
+    Data.allEmoticons = allEmoticons
+
+    response
+
 
   $scope.$watch 'fEmoticons.length', (newval, oldval) ->
+    console.log Data.allEmoticons["001438b2-ff2f-4807-8e17-4b6506fae5f9"]
     if angular.isDefined $scope.fEmoticons
       # Bottle neck here is rebuilding the available tags in reverse for a big set (like the first tag)
       # TODO: Once we support multiple 'emoticon lists', move this into a watcher on the promise
       # TODO: Maybe use underscore's memoize here?
-      unless angular.isDefined $scope.allTags
+       unless angular.isDefined $scope.allTags
         $scope.allTags = []
         angular.forEach $scope.fEmoticons, (emoticon) ->
           $scope.allTags = $scope.allTags.concat(_.keys(emoticon.tags))

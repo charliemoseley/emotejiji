@@ -1,2 +1,6 @@
 App.factory "Data", ->
-  { activeTags: [], availableTags: [] }
+  {
+    activeTags: [],
+    availableTags: [],
+    allEmoticons: []
+  }
