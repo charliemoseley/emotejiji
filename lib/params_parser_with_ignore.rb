@@ -1,4 +1,5 @@
 # https://github.com/intridea/grape/issues/340#issuecomment-13777954
+
 module MyApp
   class ParamsParser < ActionDispatch::ParamsParser
     def initialize(app, opts = {})
