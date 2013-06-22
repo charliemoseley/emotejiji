@@ -1,5 +1,4 @@
 require File.expand_path('../boot', __FILE__)
-require File.dirname(__FILE__) + '/../lib/params_parser_with_ignore.rb'
 
 # Pick the frameworks you want:
 require "active_record/railtie"
@@ -12,6 +11,7 @@ require "sprockets/railtie"
 # you've limited to :test, :development, or :production.
 Bundler.require(:default, Rails.env)
 
+require File.dirname(__FILE__) + '/../lib/params_parser_with_ignore.rb'
 module Emotejiji
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
