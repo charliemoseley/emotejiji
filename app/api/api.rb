@@ -137,6 +137,8 @@ module API
           end
 
           params do
+            # is broken in grape framework; using hacky middleware to fix it
+            # https://groups.google.com/forum/#!topic/ruby-grape/VELsU47wXkU
             requires :emoticon_id, type: String
           end
           post do

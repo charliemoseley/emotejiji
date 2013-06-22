@@ -1,4 +1,5 @@
 require File.expand_path('../boot', __FILE__)
+require File.dirname(__FILE__) + '/../lib/params_parser_with_ignore.rb'
 
 # Pick the frameworks you want:
 require "active_record/railtie"
@@ -24,6 +25,9 @@ module Emotejiji
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
+
+    # Middleware hack to prevent ActionDispatch ParamsParser from hijack grape post body queries
+    config.middleware.swap ActionDispatch::ParamsParser, MyApp::ParamsParser, :ignore_prefix => '/api'
 
     # Change Schema Format to sql due to using postgres specific uuid
     config.active_record.schema_format = :sql
