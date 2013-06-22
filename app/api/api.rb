@@ -5,7 +5,7 @@ module API
     prefix 'api'
 
     before do
-      authenticate
+      #authenticate
     end
 
     helpers do
@@ -96,8 +96,16 @@ module API
     end
 
     resource :users do
+      params do
+        requires :id, type: String
+        optional :include_favorites, type: String
+      end
       get ':id' do
+        unless params.include_favorites.nil?
+          error!("include_favorites must be true, false, or list", 400) unless ["true", "false", "list"].include? params.include_favorites
+        end
         user = User.find(params.id) rescue error!("Unknown id", 404)
+
         present user, with: API::Entities::User
       end
 
@@ -136,8 +144,26 @@ module API
     class User < Grape::Entity
       expose :id
       expose :username
-      expose(:emoticons_favorited) { |user, options| user.favorited_emotes }
-      expose(:emoticons_created) { |user, options| user.created_emotes }
+      expose(:emoticons_favorited) { |user, options| user.favorited_emotes.count }
+      expose(:emoticons_created) { |user, options| user.created_emotes.count }
+
+      # Optionals
+      expose(:favorite_emoticons,
+             if: lambda{ |user, options|
+                   include_favorites = options[:env]["api.endpoint"].params.include_favorites
+                   return_state = true
+                   return_state = false if include_favorites == nil
+                   return_state = false if include_favorites == "false"
+                   return_state
+             }) do
+        |user, options|
+        include_favorites = options[:env]["api.endpoint"].params.include_favorites
+        if include_favorites == "true"
+          user.favorited_emotes.map { |emote| API::Entities::Emote.new(emote) }
+        elsif include_favorites == "list"
+          user.favorited_emotes.map{ |emote| emote.id }
+        end
+      end
     end
   end
 end

@@ -91,8 +91,8 @@ class APISpec < ActionDispatch::IntegrationTest
         user = parse(response)
         user.id.must_equal @user.id
         user.username.must_equal @user.username
-        user.emoticons_favorited.count.must_equal 0
-        user.emoticons_created.count.must_equal 0
+        user.emoticons_favorited.must_equal 0
+        user.emoticons_created.must_equal 0
       end
 
       it "should return a 404 with invalid id" do
@@ -113,13 +113,43 @@ class APISpec < ActionDispatch::IntegrationTest
         it "should return a user profile with a valid favorite count" do
           get "/api/v1/users/#{@user.id}"
           user = parse(response)
-          user.emoticons_favorited.count.must_equal 2
+          user.emoticons_favorited.must_equal 2
         end
 
         it "should return a user profile with a valid emotes created account" do
           get "/api/v1/users/#{@user.id}"
           user = parse(response)
-          user.emoticons_created.count.must_equal 2
+          user.emoticons_created.must_equal 2
+        end
+
+        it "should return the users favorites with the profile" do
+          get "/api/v1/users/#{@user.id}", { include_favorites: true }
+          user = parse(response)
+          user.favorite_emoticons.count.must_equal 2
+          user.favorite_emoticons.each do |favorite|
+            @emote = favorite.id == @emote1.id ? @emote1 : @emote2
+            favorite.id.must_equal @emote.id
+            favorite.text.must_equal @emote.text
+          end
+        end
+
+        it "should return the users favorites as an array of ids" do
+          get "/api/v1/users/#{@user.id}", { include_favorites: "list" }
+          user = parse(response)
+          user.favorite_emoticons.count.must_equal 2
+          user.favorite_emoticons.include?(@emote1.id).must_equal true
+          user.favorite_emoticons.include?(@emote2.id).must_equal true
+        end
+
+        it "should not return the favorite_emoticons field if include_favorites = false" do
+          get "/api/v1/users/#{@user.id}", { include_favorites: false }
+          user = parse(response)
+          user.favorite_emoticons.must_equal nil
+        end
+
+        it "should error 400 if favorite_emoticons is not a valid value" do
+          get "/api/v1/users/#{@user.id}", { include_favorites: "foobar" }
+          response.code.must_equal "400"
         end
       end
     end
