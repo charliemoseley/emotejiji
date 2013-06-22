@@ -2,8 +2,6 @@ require "test_helper"
 
 class APISpec < ActionDispatch::IntegrationTest
   before do
-    API::Router
-
     @emote1 = Emote.create text: "foobar1", description: "the first foobar",  tags: ["foo", "bar"]
     @emote2 = Emote.create text: "foobar2", description: "the second foobar", tags: ["foo", "baz"]
   end
