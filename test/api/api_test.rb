@@ -200,10 +200,45 @@ class APISpec < ActionDispatch::IntegrationTest
           end
         end
 
-        it "should 500 if you butcher the ids_only optional param" do
+        it "should 400 if you butcher the ids_only optional param" do
           get "/api/v1/users/#{@user.id}/favorites", { ids_only: "foobar" }
           response.code.must_equal "400"
         end
+      end
+    end
+
+    describe "Post /api/v1/users/:user_id/favorites" do
+      before do
+        @emote = Fabricate :emote
+      end
+
+      it "should return a 400 if no emote id is sent" do
+        post "/api/v1/users/#{@user.id}/favorites"
+        response.code.must_equal "400"
+      end
+
+      it "should return an 404 if the emote id is invalid" do
+        post "/api/v1/users/#{@user.id}/favorites", { emoticon_id: "foobar" }
+        response.code.must_equal "404"
+      end
+
+      it "should create a new favorite emote with a valid id" do
+        post "/api/v1/users/#{@user.id}/favorites", { emoticon_id: @emote.id }
+        UserEmote.where(kind: "Favorited", user_id: @user.id, emote_id: @emote.id).count.must_equal 1
+      end
+
+      it "should not create a duplicate favorite if it already exists" do
+        @emote.favorited_by @user
+        post "/api/v1/users/#{@user.id}/favorites", { emoticon_id: @emote.id }
+        response.code.must_equal "409"
+        UserEmote.where(kind: "Favorited", user_id: @user.id, emote_id: @emote.id).count.must_equal 1
+      end
+
+      it "should notify you the limit is reached and no more favorites can be added if over 15" do
+        (1..15).each {  Fabricate(:emote).favorited_by @user }
+        post "/api/v1/users/#{@user.id}/favorites", { emoticon_id: @emote.id }
+        response.code.must_equal "409"
+        UserEmote.where(kind: "Favorited", user_id: @user.id).count.must_equal 15
       end
     end
   end

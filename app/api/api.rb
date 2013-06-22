@@ -135,6 +135,29 @@ module API
               favorites.map{ |e| e.id }
             end
           end
+
+          params do
+            requires :emoticon_id, type: String
+          end
+          post do
+            if params.user_id == "me"
+              user = current_user
+              error!("Unknown user id", 404) if user.nil?
+            else
+              user = User.find(params.user_id) rescue error!("Unknown id", 404)
+            end
+            emote = Emote.find(params.emoticon_id) rescue error!("Unknown emote id", 404)
+
+            total_favorites = UserEmote.where(kind: "Favorited", user_id: user.id).count
+            error!("Maximum number of favorites reached", 409) if total_favorites >= 15
+
+            if UserEmote.where(kind: "Favorited", user_id: user.id, emote_id: emote.id).count >= 1
+              error!("Emoticon with id of #{emote.id} is already a favorite of user #{user.id}", 409)
+            end
+
+            emote.favorited_by(user)
+            present emote, with: API::Entities::Emote
+          end
         end
       end
     end
