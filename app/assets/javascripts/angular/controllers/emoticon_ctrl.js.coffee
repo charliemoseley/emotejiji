@@ -4,3 +4,7 @@ App.controller 'EmoticonCtrl', ($scope, Restangular, Data, $stateParams) ->
       $scope.emoticon = emote
   else
     $scope.emoticon = Data.emoticonLookup[$stateParams.id]
+
+  $scope.addToFavorites = (emoticon_id) ->
+    console.log "running add to favorites"
+    Restangular.one('user', 'me').customPOST("favorites", {}, {emoticon_id: emoticon_id})

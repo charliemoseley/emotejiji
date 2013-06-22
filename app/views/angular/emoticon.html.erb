@@ -1,4 +1,4 @@
-<section id="emoticon-display">
+<section ng-controller="EmoticonCtrl" id="emoticon-display">
   <p id="selected-note">{{emoticon.description}}</p>
   <h1><pre><span>{{emoticon.text}}</span></pre></h1>
   <ul>
@@ -8,7 +8,8 @@
   </ul>
   <button class="pure-button">Copy to Clipboard</button>
   <button class="pure-button"
-          logged-in-toggle="pure-button-disabled">
+          logged-in-toggle="pure-button-disabled"
+          ng-click="addToFavorites(emoticon.id)">
     Add to Favorites
   </button>
 </section>
