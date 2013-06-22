@@ -235,10 +235,18 @@ class APISpec < ActionDispatch::IntegrationTest
       end
 
       it "should notify you the limit is reached and no more favorites can be added if over 15" do
-        (1..15).each {  Fabricate(:emote).favorited_by @user }
+        (1..15).each { Fabricate(:emote).favorited_by @user }
         post "/api/v1/users/#{@user.id}/favorites", { emoticon_id: @emote.id }
         response.code.must_equal "409"
         UserEmote.where(kind: "Favorited", user_id: @user.id).count.must_equal 15
+      end
+
+      it "should return the list of favorites when a new one is added" do
+        (1..3).each { Fabricate(:emote).favorited_by @user }
+        post "/api/v1/users/#{@user.id}/favorites", { emoticon_id: @emote.id }
+        favorites = parse(response)
+        favorites.count.must_equal 4
+        object_array_includes?(favorites, :id, @emote.id).must_equal true
       end
     end
   end
@@ -250,5 +258,11 @@ class APISpec < ActionDispatch::IntegrationTest
     else
       Hashie::Mash.new parsed
     end
+  end
+
+  def object_array_includes?(array, field, value)
+    included = false
+    array.each { |obj| included = true if obj.send(field) == value }
+    included
   end
 end

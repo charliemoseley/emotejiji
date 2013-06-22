@@ -158,7 +158,7 @@ module API
             end
 
             emote.favorited_by(user)
-            present emote, with: API::Entities::Emote
+            present user.favorited_emotes, with: API::Entities::Emote
           end
         end
       end
