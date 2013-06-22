@@ -98,6 +98,8 @@ class APISpec < ActionDispatch::IntegrationTest
         response.code.must_equal "404"
       end
 
+      it "should work with me instead of a user id"
+
       describe "counts" do
         before do
           @emote1 = Fabricate.build :emote

@@ -104,7 +104,12 @@ module API
         unless params.include_favorites.nil?
           error!("include_favorites must be true, false, or list", 400) unless ["true", "false", "list"].include? params.include_favorites
         end
-        user = User.find(params.id) rescue error!("Unknown id", 404)
+
+        if params.id == "me"
+          user = current_user
+        else
+          user = User.find(params.id) rescue error!("Unknown id", 404)
+        end
 
         present user, with: API::Entities::User
       end
@@ -115,7 +120,11 @@ module API
             optional :ids_only, type: Boolean
           end
           get do
-            user = User.find(params.user_id) rescue error!("Unknown user id", 404)
+            if params.user_id == "me"
+              user = current_user
+            else
+              user = User.find(params.user_id) rescue error!("Unknown id", 404)
+            end
 
             favorites = user.favorited_emotes
             unless params.ids_only
