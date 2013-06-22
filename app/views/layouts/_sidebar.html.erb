@@ -54,18 +54,13 @@
       <li><a href="#">settings</a></li>
     </ul>
   </div>
-
-
-  <!--
-  <% if current_user %>
-  Hi, <%= current_user.username %><br />
-  <% end %>
-  <% if signed_in? %>
-  User signed in<br />
-  <%= link_to "signout", signout_path %>
-  <% else %>
-  User signed out<br />
-  <%= link_to "signin", signin_path %>
-  <% end %>
-  -->
+  <br />
+  <br />
+  <div ng-show="loggedIn">
+    Hi, {{currentUser.username}}<br />
+    <a href="/signout">logout</a>
+  </div>
+  <div ng-hide="loggedIn">
+    <a href="/signin">sign in</a>
+  </div>
 </div>

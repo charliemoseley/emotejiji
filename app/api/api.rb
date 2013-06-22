@@ -107,6 +107,7 @@ module API
 
         if params.id == "me"
           user = current_user
+          error!("Unknown id", 404) if user.nil?
         else
           user = User.find(params.id) rescue error!("Unknown id", 404)
         end
@@ -122,6 +123,7 @@ module API
           get do
             if params.user_id == "me"
               user = current_user
+              error!("Unknown id", 404) if user.nil?
             else
               user = User.find(params.user_id) rescue error!("Unknown id", 404)
             end
