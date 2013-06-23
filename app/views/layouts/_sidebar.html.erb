@@ -1,48 +1,53 @@
-<div id="left-bar" ng-controller="TagSearchCtrl">
+<div id="left-bar">
   <div class="logo margin">
     <h1>emotejiji</h1>
     <span>Σ(゜д゜;)</span>
   </div>
-  <div id="tag-search" class="search margin">
-    <input ng-model="searchInput"
-           on-keydown="searchKeyDown" down-keys="[8]"
-           on-keyup="searchKeyUp" up-keys="[13]"
-           auto-complete="autoCompleteSelect"
-           auto-complete-source="availableTags()"
-           autocapitalize="off"
-           autocorrect="off"
-    />
-    <div id="current-tags" class="current-tags" tag-spacer>
-      <span class="tag label" ng-repeat="tag in activeTags">{{tag}}</span>
+
+  <div ng-controller="TagSearchCtrl">
+    <div id="tag-search" class="search margin">
+      <input ng-model="searchInput"
+             on-keydown="searchKeyDown" down-keys="[8]"
+             on-keyup="searchKeyUp" up-keys="[13]"
+             auto-complete="autoCompleteSelect"
+             auto-complete-source="availableTags()"
+             autocapitalize="off"
+             autocorrect="off"
+      />
+      <div id="current-tags" class="current-tags" tag-spacer>
+        <span class="tag label" ng-repeat="tag in activeTags">{{tag}}</span>
+      </div>
     </div>
+
+    <div class="heading margin" style="margin: 15px 0 1px 20px;">
+      <span>POPULAR TAGS</span>
+    </div>
+    <table id="popular-tags" class="nav-table margin">
+      <tr>
+        <td class="top-left"><a tag-click-add="happy">happy</a></td>
+        <td class="top-right"><a tag-click-add="sad">sad</a></td>
+      </tr>
+      <tr>
+        <td><a tag-click-add="angry">angry</a></td>
+        <td><a tag-click-add="animals">animals</a></td>
+      </tr>
+      <tr>
+        <td class="bottom" colspan="2">
+          <a href="#">show all</a>
+        </td>
+      </tr>
+    </table>
   </div>
 
-  <div class="heading margin" style="margin: 15px 0 1px 20px;">
-    <span>POPULAR TAGS</span>
-  </div>
-  <table id="popular-tags" class="nav-table margin">
-    <tr>
-      <td class="top-left"><a tag-click-add="happy">happy</a></td>
-      <td class="top-right"><a tag-click-add="sad">sad</a></td>
-    </tr>
-    <tr>
-      <td><a tag-click-add="angry">angry</a></td>
-      <td><a tag-click-add="animals">animals</a></td>
-    </tr>
-    <tr>
-      <td class="bottom" colspan="2">
-        <a href="#">show all</a>
-      </td>
-    </tr>
-  </table>
-
-  <div class="heading margin" style="margin: 15px 0 1px 20px;">
-    <span>FILTERS</span>
-  </div>
-  <div class="btn-group margin">
-    <button class="btn" style="padding: 4px 21px;">all</button>
-    <button class="btn" style="padding: 4px 15px;" logged-in-toggle>favorites</button>
-    <button class="btn" style="padding: 4px 13px;" logged-in-toggle>recent</button>
+  <div ng-controller="EmoticonFilterCtrl">
+    <div class="heading margin" style="margin: 15px 0 1px 20px;">
+      <span>FILTERS</span>
+    </div>
+    <div class="btn-group margin">
+      <button ng-click="changeEmoticonList('all')" class="btn" style="padding: 4px 21px;">all</button>
+      <button ng-click="changeEmoticonList('favorites')" class="btn" style="padding: 4px 15px;" logged-in-toggle>favorites</button>
+      <button ng-click="changeEmoticonList('recent')" class="btn" style="padding: 4px 13px;" logged-in-toggle>recent</button>
+    </div>
   </div>
 
   <div class="heading margin" style="margin: 15px 0 1px 20px;">

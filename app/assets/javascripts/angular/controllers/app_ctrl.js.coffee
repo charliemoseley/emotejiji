@@ -1,10 +1,10 @@
-App.controller 'AppCtrl', ($scope, Restangular) ->
+App.controller 'AppCtrl', ($scope, Restangular, Data) ->
   $scope.loggedIn = false
 
   $scope.isLoggedIn = ->
     $scope.loggedIn
 
-  $scope.currentUser = Restangular.one('users', 'me').get().then \
+  $scope.currentUser = Restangular.one('users', 'me?include_favorites=list').get().then \
     (user) ->
       $scope.loggedIn = true
       user
