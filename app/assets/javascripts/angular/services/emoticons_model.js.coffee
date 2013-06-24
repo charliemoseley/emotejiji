@@ -1,8 +1,6 @@
-App.service "EmoticonsModel", (Restangular, $rootScope) ->
+App.service "EmoticonsModel", (Restangular) ->
   this.activeTags = []
   this.availableTags = []
-  this.emoticonCurrent = []
-  this.emoticonLookup = []
 
   # New Storage
   this.full = []
@@ -50,7 +48,3 @@ App.service "EmoticonsModel", (Restangular, $rootScope) ->
   # work:
   # http://jsfiddle.net/manishchhabra/Ne5P8/
   this
-
-# Angular forEach vs underscoe .each
-# http://jsperf.com/angular-foreach-vs-underscore-foreach/2
-# Almost exactly the same so I'm going to with the underscore syntax since I find it prettier.
