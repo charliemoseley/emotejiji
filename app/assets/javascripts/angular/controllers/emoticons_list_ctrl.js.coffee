@@ -1,5 +1,5 @@
 App.controller 'EmoticonListCtrl', ($scope, EmoticonsModel) ->
-  EmoticonsModel.loader()
+  $scope.emoticons = EmoticonsModel.loader()
 
   $scope.$watch 'fEmoticons.length', (newval, oldval) ->
     if angular.isDefined $scope.fEmoticons

@@ -1,4 +1,4 @@
-App.controller 'EmoticonFilterCtrl', ($scope, Data) ->
+App.controller 'EmoticonFilterCtrl', ($scope) ->
 #  $scope.changeEmoticonList = (list) ->
 #    if list == "all"
 #      console.log "all clicked"

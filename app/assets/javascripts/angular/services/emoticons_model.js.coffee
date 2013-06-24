@@ -6,16 +6,26 @@ App.service "EmoticonsModel", (Restangular, $rootScope) ->
 
   # New Storage
   this.full = []
-  this.currentScope = []
+  this.currentList = []
+  this.currentEmote = []
   this.lookups = {
     favorites: [],
     recent: []
   }
 
-  this.loader = ->
-    emoticonListLoader()
+  this.loader = (kind = "full", emoticon_id) ->
+    switch kind
+      when "full"   then emoticonFullLoader()
+      when "single" then emoticonSingleLoader(emoticon_id)
 
-  emoticonListLoader = ->
+  emoticonSingleLoader = (emoticon_id) ->
+    if _.isEmpty this.full
+      Restangular.one('emotes', emoticon_id).get().then (emote) ->
+        this.currentEmote = emote
+    else
+      lookupSingle emoticon_id
+
+  emoticonFullLoader = ->
     if _.isEmpty this.full
       Restangular.all('emotes').getList().then (response) ->
         this.full = _.reduce(
@@ -24,14 +34,16 @@ App.service "EmoticonsModel", (Restangular, $rootScope) ->
             lookupTable[emoticon.id] = emoticon
             lookupTable
           {})
-        this.currentScope = response
-        $rootScope.emoticons = this.currentScope
+        this.currentList = response
     else
-      $rootScope.emoticons = this.currentScope
+      lookupFull()
 
   lookupFull = ->
     _.map this.full, (lookup) ->
       lookup
+
+  lookupSingle = (id) ->
+    this.full[id]
 
   # GUIDE: Due to how coffeescript returns the last value, you need to specify to return the object when using Angular
   # services otherwise it'll return [] instead and thus you get [].foo() attempts in your code.  Example on how it should

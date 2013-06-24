@@ -17,13 +17,13 @@ App.config ($stateProvider, $routeProvider) ->
     .state 'singleEmoticon', {
         url: '/emoticons/{id}',
         views: {
-          'emoticonList': {
-            templateUrl: '/angular/emoticon_list',
-            controller: 'EmoticonListCtrl'
-          },
           'popOver': {
             templateUrl: '/angular/emoticon',
             controller: 'EmoticonCtrl'
+          },
+          'emoticonList': {
+            templateUrl: '/angular/emoticon_list',
+            controller: 'EmoticonListCtrl'
           }
         }
       }
