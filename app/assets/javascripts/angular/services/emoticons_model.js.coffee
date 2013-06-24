@@ -1,47 +1,62 @@
 App.service "EmoticonsModel", (Restangular) ->
+  # Tags
   this.activeTags = []
   this.availableTags = []
 
   # New Storage
+  this.currentListType = undefined
   this.full = []
   this.currentList = []
   this.currentEmote = []
   this.lookups = {
+    foo: "bar",
     favorites: [],
     recent: []
   }
 
   this.loader = (kind = "full", emoticon_id) ->
     switch kind
-      when "full"   then emoticonFullLoader()
-      when "single" then emoticonSingleLoader(emoticon_id)
+      when "full"   then emoticonFullLoader(this)
+      when "single" then emoticonSingleLoader(emoticon_id, this)
 
-  emoticonSingleLoader = (emoticon_id) ->
-    if _.isEmpty this.full
+  this.switchCurrentList = (list) ->
+    switch list
+      when "all"      then this.currentList = lookupFull(this)
+      when "favorites" then this.currentList = lookupList(this, "favorites")
+
+  # Private Methods
+  emoticonSingleLoader = (klass, emoticon_id) ->
+    if _.isEmpty klass.full
       Restangular.one('emotes', emoticon_id).get().then (emote) ->
-        this.currentEmote = emote
+        klass.currentEmote = emote
     else
-      lookupSingle emoticon_id
+      lookupSingle(klass, emoticon_id)
 
-  emoticonFullLoader = ->
-    if _.isEmpty this.full
+  emoticonFullLoader =  (klass) ->
+    if _.isEmpty klass.full
       Restangular.all('emotes').getList().then (response) ->
-        this.full = _.reduce(
+        klass.full = _.reduce(
           response
           (lookupTable, emoticon) ->
             lookupTable[emoticon.id] = emoticon
             lookupTable
           {})
-        this.currentList = response
+        klass.currentList = response
     else
-      lookupFull()
+      lookupFull(klass)
 
-  lookupFull = ->
-    _.map this.full, (lookup) ->
+  lookupFull = (klass) ->
+    _.map klass.full, (lookup) ->
       lookup
 
-  lookupSingle = (id) ->
-    this.full[id]
+  lookupSingle = (klass, id) ->
+    klass.full[id]
+
+  lookupList = (klass, list_type) ->
+    if list_type == "favorites"
+      _.map klass.lookups.favorites, (id) ->
+        klass.full[id]
+
 
   # GUIDE: Due to how coffeescript returns the last value, you need to specify to return the object when using Angular
   # services otherwise it'll return [] instead and thus you get [].foo() attempts in your code.  Example on how it should
