@@ -1,5 +1,5 @@
-App.controller 'EmoticonListCtrl', ($scope, Restangular, Data) ->
-  Data.loader()
+App.controller 'EmoticonListCtrl', ($scope, EmoticonsModel) ->
+  EmoticonsModel.loader()
 
   $scope.$watch 'fEmoticons.length', (newval, oldval) ->
     if angular.isDefined $scope.fEmoticons
@@ -11,22 +11,22 @@ App.controller 'EmoticonListCtrl', ($scope, Restangular, Data) ->
         angular.forEach $scope.fEmoticons, (emoticon) ->
           $scope.allTags = $scope.allTags.concat(_.keys(emoticon.tags))
         $scope.allTags = _.uniq($scope.allTags)
-        Data.availableTags = $scope.allTags
+        EmoticonsModel.availableTags = $scope.allTags
 
-      if Data.activeTags.length > 0
-        Data.availableTags = []
+      if EmoticonsModel.activeTags.length > 0
+        EmoticonsModel.availableTags = []
         angular.forEach $scope.fEmoticons, (emoticon) ->
-          Data.availableTags = _.uniq(Data.availableTags.concat(_.keys(emoticon.tags)))
-        Data.availableTags = _.difference(Data.availableTags, Data.activeTags)
+          EmoticonsModel.availableTags = _.uniq(EmoticonsModel.availableTags.concat(_.keys(emoticon.tags)))
+        EmoticonsModel.availableTags = _.difference(EmoticonsModel.availableTags, EmoticonsModel.activeTags)
       else
         # Handles the final delete key press
-        Data.availableTags = $scope.allTags
+        EmoticonsModel.availableTags = $scope.allTags
 
 
   $scope.tagFilter = (emote) ->
-    return emote if Data.activeTags.length == 0
+    return emote if EmoticonsModel.activeTags.length == 0
     valid = true
-    angular.forEach Data.activeTags, (tag) ->
+    angular.forEach EmoticonsModel.activeTags, (tag) ->
       valid = false if _.indexOf(_.keys(emote.tags), tag) == -1
     if valid
       return emote

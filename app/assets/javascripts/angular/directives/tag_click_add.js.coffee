@@ -1,7 +1,7 @@
-App.directive "tagClickAdd", (Data) ->
+App.directive "tagClickAdd", (EmoticonsModel) ->
   (scope, element, attrs) ->
     element.click ->
       scope.$apply ->
         scope.activeTags.push attrs.tagClickAdd
-        Data.availableTags = _.without(Data.availableTags, scope.searchInput)
+        EmoticonsModel.availableTags = _.without(EmoticonsModel.availableTags, scope.searchInput)
         $("#tag-search input").focus()

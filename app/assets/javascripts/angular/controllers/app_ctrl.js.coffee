@@ -1,4 +1,4 @@
-App.controller 'AppCtrl', ($scope, Restangular, Data) ->
+App.controller 'AppCtrl', ($scope, Restangular) ->
   $scope.loggedIn = false
 
   $scope.isLoggedIn = ->
