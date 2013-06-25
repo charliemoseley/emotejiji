@@ -4,7 +4,7 @@ App.service "EmoticonsModel", (Restangular) ->
   this.availableTags = []
 
   # New Storage
-  this.currentListType = undefined
+  this.currentListType = null
   this.full = []
   this.currentList = []
   this.currentEmote = []
@@ -21,7 +21,7 @@ App.service "EmoticonsModel", (Restangular) ->
 
   this.switchCurrentList = (list) ->
     switch list
-      when "all"      then this.currentList = lookupFull(this)
+      when "all"       then this.currentList = lookupFull(this)
       when "favorites" then this.currentList = lookupList(this, "favorites")
 
   # Private Methods

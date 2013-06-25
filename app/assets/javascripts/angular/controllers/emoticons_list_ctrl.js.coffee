@@ -1,14 +1,20 @@
-App.controller 'EmoticonListCtrl', ($scope, EmoticonsModel) ->
-  $scope.emoticons = EmoticonsModel.loader()
+App.controller 'EmoticonListCtrl', ($scope, $state, EmoticonsModel) ->
+  # Initialization Code
+  EmoticonsModel.currentListType = $state.current.data.currentListType
+  EmoticonsModel.loader()
 
-  $scope.currentListType = ->
+  # Setup the Scopes needed for this controller
+  $scope.emoticons = () ->
+    EmoticonsModel.currentList
+  $scope.currentListType = () ->
     EmoticonsModel.currentListType
 
-  $scope.$watch 'currentListType()', (currentList, previousList) ->
-    unless currentList == previousList
-      $scope.emoticons = EmoticonsModel.switchCurrentList currentList
+  # Controller Logic
+  $scope.$watch 'currentListType()', (currentType, previousType) ->
+    unless currentType == previousType
+      EmoticonsModel.switchCurrentList(currentType)
 
-  $scope.$watch 'fEmoticons.length', (newval, oldval) ->
+  $scope.$watch 'emoticonList.length', (newval, oldval) ->
     if angular.isDefined $scope.fEmoticons
       # Bottle neck here is rebuilding the available tags in reverse for a big set (like the first tag)
       # TODO: Once we support multiple 'emoticon lists', move this into a watcher on the promise
@@ -39,3 +45,11 @@ App.controller 'EmoticonListCtrl', ($scope, EmoticonsModel) ->
       return emote
     else
       return false
+
+
+# The proper way map and use model is this.  First load the state into the model, then make a scope method that
+# fetches that state.  When you need to update the state, you write to the model, never the scope, otherwise your
+# unbinding the connection to the model you created.
+#  DataService.currentListType = $state.current.data.currentListType
+#  $scope.currentListType =  () ->
+#    DataService.currentListType

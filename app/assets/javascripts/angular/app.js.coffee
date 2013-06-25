@@ -12,6 +12,9 @@ App.config ($stateProvider, $routeProvider) ->
           templateUrl: '/angular/emoticon_list',
           controller: 'EmoticonListCtrl'
         }
+      },
+      data: {
+        currentListType: 'all'
       }
     })
     .state 'singleEmoticon', {
