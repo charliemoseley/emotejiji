@@ -14,14 +14,15 @@ App.service "EmoticonsModel", (Restangular) ->
     recent: []
   }
 
-  this.loader = (kind = "full", emoticon_id) ->
+  # The loader takes the current list type and an optional emoticon id and loads up the model to the appropriate state
+  this.loader = (kind = "all", emoticon_id) ->
     switch kind
-      when "full"   then emoticonFullLoader(this)
-      when "single" then emoticonSingleLoader(emoticon_id, this)
+      when "all"       then emoticonAllLoader(this, emoticon_id)
+      when "favorites" then emoticonFavoritesLoader(this, emoticon_id)
 
   this.switchCurrentList = (list) ->
     switch list
-      when "all"       then this.currentList = lookupFull(this)
+      when "all"       then this.currentList = lookupList(this, "all")
       when "favorites" then this.currentList = lookupList(this, "favorites")
 
   # Private Methods
@@ -32,27 +33,50 @@ App.service "EmoticonsModel", (Restangular) ->
     else
       lookupSingle(klass, emoticon_id)
 
-  emoticonFullLoader =  (klass) ->
+  emoticonAllLoader =  (klass, emoticon_id) ->
+    console.log "emoticonAllLoader"
     if _.isEmpty klass.full
-      Restangular.all('emotes').getList().then (response) ->
-        klass.full = _.reduce(
-          response
-          (lookupTable, emoticon) ->
-            lookupTable[emoticon.id] = emoticon
-            lookupTable
-          {})
-        klass.currentList = response
+      # If an emoticon id is passed, kick of an AJAX call to get it and assign it ASAP so we can redner the view
+      unless _.isUndefined emoticon_id
+        fetchSingle(klass, emoticon_id)
+      # Load up the rest of the emoticons in the background
+      fetchAll(klass)
     else
-      lookupFull(klass)
+      lookupAll(klass)
 
-  lookupFull = (klass) ->
-    _.map klass.full, (lookup) ->
-      lookup
+  emoticonFavoritesLoader = (klass, emoticon_id) ->
+    console.log "emoticonFavoritesLoader"
+    if _.isEmpty klass.full
+      # If an emoticon id is passed, kick of an AJAX call to get it and assign it ASAP so we can redner the view
+      unless _.isUndefined emoticon_id
+        fetchSingle(klass, emoticon_id)
+      # An api call that fetches teh favorites emoticons which we assign to the scope
+      Restangular.one('users', 'me').all('favorites').getList().then (response) ->
+        klass.currentList = response
+        fetchAll(klass, false)
+
+  fetchSingle = (klass, emoticon_id) ->
+    Restangular.one('emotes', emoticon_id).get().then (emote) ->
+      klass.currentEmote = emote
+
+  fetchAll = (klass, assignToCurrent = true) ->
+    Restangular.all('emotes').getList().then (response) ->
+      klass.full = _.reduce(
+        response
+        (lookupTable, emoticon) ->
+          lookupTable[emoticon.id] = emoticon
+          lookupTable
+      {})
+      if assignToCurrent
+        klass.currentList = response
 
   lookupSingle = (klass, id) ->
     klass.full[id]
 
   lookupList = (klass, list_type) ->
+    if list_type == "all"
+      _.map klass.full, (lookup) ->
+        lookup
     if list_type == "favorites"
       _.map klass.lookups.favorites, (id) ->
         klass.full[id]

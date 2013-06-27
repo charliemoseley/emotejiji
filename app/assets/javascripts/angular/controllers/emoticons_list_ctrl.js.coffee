@@ -1,7 +1,7 @@
 App.controller 'EmoticonListCtrl', ($scope, $state, EmoticonsModel) ->
   # Initialization Code
   EmoticonsModel.currentListType = $state.current.data.currentListType
-  EmoticonsModel.loader()
+  EmoticonsModel.loader($state.current.data.currentListType)
 
   # Setup the Scopes needed for this controller
   $scope.emoticons = () ->
@@ -11,6 +11,7 @@ App.controller 'EmoticonListCtrl', ($scope, $state, EmoticonsModel) ->
 
   # Controller Logic
   $scope.$watch 'currentListType()', (currentType, previousType) ->
+    console.log "current list type: " +  currentType
     unless currentType == previousType
       EmoticonsModel.switchCurrentList(currentType)
 
