@@ -42,7 +42,7 @@ App.service "EmoticonsModel", (Restangular) ->
       # Load up the rest of the emoticons in the background
       fetchAll(klass)
     else
-      lookupAll(klass)
+      klass.currentList = lookupList(klass, "all")
 
   emoticonFavoritesLoader = (klass, emoticon_id) ->
     console.log "emoticonFavoritesLoader"
@@ -54,6 +54,8 @@ App.service "EmoticonsModel", (Restangular) ->
       Restangular.one('users', 'me').all('favorites').getList().then (response) ->
         klass.currentList = response
         fetchAll(klass, false)
+    else
+      klass.currentList = lookupList(klass, 'favorites')
 
   fetchSingle = (klass, emoticon_id) ->
     Restangular.one('emotes', emoticon_id).get().then (emote) ->
@@ -75,10 +77,10 @@ App.service "EmoticonsModel", (Restangular) ->
 
   lookupList = (klass, list_type) ->
     if list_type == "all"
-      _.map klass.full, (lookup) ->
+      return _.map klass.full, (lookup) ->
         lookup
     if list_type == "favorites"
-      _.map klass.lookups.favorites, (id) ->
+      return _.map klass.lookups.favorites, (id) ->
         klass.full[id]
 
 
