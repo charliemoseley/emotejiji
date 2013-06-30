@@ -7,7 +7,7 @@ App.service "EmoticonsModel", (Restangular) ->
   this.currentListType = null
   this.lookupTable = []
   this.currentList = []
-  this.currentEmote = 'foobar'
+  this.currentEmote = null
   this.lookups = {
     favorites: [],
     recent: []
