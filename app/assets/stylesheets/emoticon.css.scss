@@ -1,13 +1,21 @@
+#pop-over {
+  position: fixed;
+  width: 100%;
+  left: 0px;
+  top: 13px;
+}
+
 #emoticon-display {
-  background: #F5F5F5;
+  background: #FFF;
   text-align: center;
+  padding: 30px 5px;
+  margin-left: 220px;
 
   p { margin: 0; padding: 0 }
 
   h1 {
     display: table;
     margin: auto;
-    background: #F5F5F5;
     font-size: 40px;
     text-align: center;
     font-weight: normal;
