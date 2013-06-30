@@ -11,7 +11,12 @@
   padding: 30px 5px;
   margin-left: 220px;
 
-  p { margin: 0; padding: 0 }
+  p {
+    margin: 0 0 7px 0;
+    padding: 0;
+    color: darkgray;
+    font-style: italic;
+  }
 
   h1 {
     display: table;
@@ -20,6 +25,7 @@
     text-align: center;
     font-weight: normal;
     line-height: inherit;
+    margin-bottom: 20px;
 
     pre {
       display: table-cell;
@@ -34,10 +40,22 @@
     }
   }
 
+  input {
+    display: block;
+    margin: auto;
+    width: 303px;
+  }
+
   ul {
+    padding: 0;
+    margin: 5px 0 20px 0;
     li {
       display: inline;
       list-style-type: none;
     }
+  }
+
+  button:first-child {
+    margin-right: 5px;
   }
 }
