@@ -1,11 +1,11 @@
 <div id="left-bar">
-  <div class="logo margin">
+  <div id="logo" class="logo content">
     <h1>emotejiji</h1>
     <span>Σ(゜д゜;)</span>
   </div>
 
   <div ng-controller="TagSearchCtrl">
-    <div id="tag-search" class="search margin">
+    <section id="tag-search" class="search content">
       <input ng-model="searchInput"
              on-keydown="searchKeyDown" down-keys="[8]"
              on-keyup="searchKeyUp" up-keys="[13]"
@@ -17,53 +17,52 @@
       <div id="current-tags" class="current-tags" tag-spacer>
         <span class="tag label" ng-repeat="tag in activeTags">{{tag}}</span>
       </div>
+    </section>
+
+    <section id="popular-tags" class="content">
+      <h4>POPULAR TAGS</h4>
+      <table id="popular-tags" class="nav-table">
+        <tr>
+          <td class="top-left"><a tag-click-add="happy">happy</a></td>
+          <td class="top-right"><a tag-click-add="sad">sad</a></td>
+        </tr>
+        <tr>
+          <td><a tag-click-add="angry">angry</a></td>
+          <td><a tag-click-add="animals">animals</a></td>
+        </tr>
+        <tr>
+          <td class="bottom" colspan="2">
+            <a href="#">show all</a>
+          </td>
+        </tr>
+      </table>
+    </section>
+  </div>
+
+  <section id="filters" class="content">
+    <h4>FILTERS</h4>
+    <div class="btn-group">
+      <a href="/#"
+         class="btn">
+        all
+      </a>
+      <a href="/#/favorites"
+         class="btn"
+         logged-in-toggle>
+        favorites
+      </a>
+      <!-- <a class="btn" logged-in-toggle>recent</a> -->
     </div>
+  </section>
 
-    <div class="heading margin" style="margin: 15px 0 1px 20px;">
-      <span>POPULAR TAGS</span>
-    </div>
-    <table id="popular-tags" class="nav-table margin">
-      <tr>
-        <td class="top-left"><a tag-click-add="happy">happy</a></td>
-        <td class="top-right"><a tag-click-add="sad">sad</a></td>
-      </tr>
-      <tr>
-        <td><a tag-click-add="angry">angry</a></td>
-        <td><a tag-click-add="animals">animals</a></td>
-      </tr>
-      <tr>
-        <td class="bottom" colspan="2">
-          <a href="#">show all</a>
-        </td>
-      </tr>
-    </table>
-  </div>
-
-  <div class="heading margin" style="margin: 15px 0 1px 20px;">
-    <span>FILTERS</span>
-  </div>
-  <div class="btn-group margin">
-    <a href="/#" class="btn" style="padding: 4px 21px;">all</a>
-    <a href="/#/favorites" class="btn" style="padding: 4px 15px;" logged-in-toggle>favorites</a>
-    <a class="btn" style="padding: 4px 13px;" logged-in-toggle>recent</a>
-  </div>
-
-  <div class="heading margin" style="margin: 15px 0 1px 20px;">
-    <span>MYSELF</span>
-  </div>
-  <div style="margin: 3px 0 0px 20px;">
-    <ul style="margin: 0 0 0 20px; padding: 0;">
+  <section id="myself" class="content">
+    <h4>MYSELF</h4>
+    <ul>
       <li><a href="#">add emote</a></li>
-      <li><a href="#">settings</a></li>
+      <li>
+        <a ng-show="loggedIn" href="/signout">logout</a>
+        <a ng-hide="loggedIn" href="/signin">sign in</a>
+      </li>
     </ul>
-  </div>
-  <br />
-  <br />
-  <div ng-show="loggedIn">
-    Hi, {{currentUser.username}}<br />
-    <a href="/signout">logout</a>
-  </div>
-  <div ng-hide="loggedIn">
-    <a href="/signin">sign in</a>
-  </div>
+  </section>
 </div>

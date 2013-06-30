@@ -7,6 +7,7 @@ html, body {
   padding: 0;
   margin: 0;
   color: #333326;
+  font-size: 14px;
 }
 
 a {
@@ -29,7 +30,7 @@ a {
 }
 
 #content {
-  margin-left: 248px;
+  margin-left: 220px;
 }
 
 #emoticon-list {
@@ -79,14 +80,18 @@ a {
   bottom: 0;
   left: 0;
   height: 100%;
-  width: 260px;
+  width: 220px;
   padding-bottom: 30px;
 
-  .margin {
-    margin: 0 20px;
+  .content {
+    width: 200px;
+    margin: 0 10px 20px 10px;
   }
 
-  .heading {
+  h4 {
+    margin: 0;
+    font-weight: normal;
+    line-height: inherit;
     font-size: 12px;
     font-weight: bold;
     color: gray;
@@ -97,11 +102,13 @@ a {
   position: relative;
 
   input {
+    -webkit-appearance: none;
+    border-radius: 0;
     border: 1px solid #CCC;
     padding-top: 4px;
     padding-bottom: 4px;
     padding-left: 4px;
-    width: 207px;
+    width: 190px;
   }
 
   .current-tags {
@@ -115,9 +122,24 @@ a {
   }
 }
 
+#myself {
+  ul {
+    margin: 0;
+    padding: 0;
+  }
+
+  a {
+    color: #4BC5C5;
+  }
+
+  a:hover {
+    color: #EB8014;
+  }
+}
+
 
 .nav-table {
-  width: 210px;
+  width: 200px;
   text-align: center;
   border-radius: 4px;
 
@@ -175,27 +197,30 @@ a {
   }
 }
 
-.logo {
+#logo {
   margin-top: 3px;
   h1 {
     display: inline-block;
     line-height: normal;
     letter-spacing: normal;
-    font-size: 30px;
+    font-size: 27px;
     font-weight: normal;
     font-family: 'Raleway', sans-serif;
     margin-top: 5px;
-    margin-bottom: 8px;
+    margin-bottom: 0px;
   }
 
   span {
-    font-size: 20px;
+    font-size: 18px;
     color: #FFF;
     background: #EB8014;
     padding: 4px 5px 4px 6px;
     position: relative;
     top: -2px;
   }
+}
+#logo.content {
+  margin-bottom: 5px;
 }
 
 // Top Decoration
@@ -210,13 +235,24 @@ a {
   position: fixed;
 
   div {
-    width: 220px;
+    width: 200px;
     height: 3px;
-    margin-left: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
     background: #FF9900;
   }
 }
 
+#filters {
+  .btn-group {
+    width: 200px;
+    .btn {
+      padding-left: 0;
+      padding-right: 0;
+      width: 98px;
+    }
+  }
+}
 
 // Bootstrap button group
 .btn-group {
