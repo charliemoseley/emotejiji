@@ -1,15 +1,17 @@
 <section id="emoticon-display">
-  <p id="selected-note">{{emoticon.description}}</p>
-  <h1><pre><span>{{emoticon.text}}</span></pre></h1>
+  <p id="selected-note">{{currentEmoticon().description}}</p>
+  <h1><pre><span>{{currentEmoticon().text}}</span></pre></h1>
   <ul>
-    <li ng-repeat="(tag, count) in emoticon.tags">
+    <li ng-repeat="(tag, count) in currentEmoticon().tags">
       <a class="no-link">{{tag}}</a>
     </li>
   </ul>
   <button class="pure-button">Copy to Clipboard</button>
   <button class="pure-button"
           logged-in-toggle="pure-button-disabled"
-          ng-click="addToFavorites(emoticon.id)">
+          ng-click="addToFavorites(currentEmoticon().id)">
     Add to Favorites
   </button>
+
+  <button class="pure-button" ng-click="checkState()">Check State</button>
 </section>

@@ -7,13 +7,13 @@ App.service "EmoticonsModel", (Restangular) ->
   this.currentListType = null
   this.lookupTable = []
   this.currentList = []
-  this.currentEmote = []
+  this.currentEmote = 'foobar'
   this.lookups = {
     favorites: [],
     recent: []
   }
 
-  # The loader takes the current list type and an optional emoticon id and loads up the model to the appropriate state
+  # MULTIPLE EMOTICONS
   this.loader = (kind = "all") ->
     switch kind
       when "all"
@@ -46,21 +46,19 @@ App.service "EmoticonsModel", (Restangular) ->
         klass.currentList = _.map klass.lookups.favorites, (id) ->
           klass.lookupTable[id]
 
-  # Private Methods
-#  lookupSingle = (klass, id) ->
-#    klass.lookupTable[id]
-#
-#  fetchSingle = (klass, emoticon_id) ->
-#    Restangular.one('emotes', emoticon_id).get().then (emote) ->
-#      klass.currentEmote = emote
-#
-#  emoticonSingleLoader = (klass, emoticon_id) ->
-#    if _.isEmpty klass.lookupTable
-#      Restangular.one('emotes', emoticon_id).get().then (emote) ->
-#        klass.currentEmote = emote
-#    else
-#      lookupSingle(klass, emoticon_id)
+  # SINGLE EMOTICONS
+  this.singleLoader = (emoticon_id) ->
+    if _.isEmpty this.lookupTable
+      # Tutorial; Javascript scopes yoh, this isn't refering to the class anymore in restangular block
+      # Restangular.one('emotes', emoticon_id).get().then (emote) ->
+      #  this.currentEmote = emote
+      fetchSingle this, emoticon_id
+    else
+      this.currentEmote = this.lookupTable[emoticon_id]
 
+  fetchSingle = (klass, emoticon_id) ->
+    Restangular.one('emotes', emoticon_id).get().then (emote) ->
+      klass.currentEmote = emote
 
   # GUIDE: Due to how coffeescript returns the last value, you need to specify to return the object when using Angular
   # services otherwise it'll return [] instead and thus you get [].foo() attempts in your code.  Example on how it should
