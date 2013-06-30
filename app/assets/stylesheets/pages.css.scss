@@ -44,7 +44,7 @@ a {
   a {
     display: table;
     margin: 0 5px 10px 5px;
-    background: rgb(250, 250, 250);
+    background: #F5F5F5;
     font-size: 24px;
     text-align: center;
     //border: 1px solid #eee;
@@ -63,12 +63,12 @@ a {
   }
 
   .width-1 {
-    width: 100px;
+    width: 150px;
     height: 100px;
   }
 
   .width-2 {
-    width: 210px;
+    width: 310px;
     height: 100px;
   }
 }
@@ -176,6 +176,7 @@ a {
 }
 
 .logo {
+  margin-top: 3px;
   h1 {
     display: inline-block;
     line-height: normal;
@@ -190,10 +191,29 @@ a {
   span {
     font-size: 20px;
     color: #FFF;
-    background: #DB7600;
+    background: #EB8014;
     padding: 4px 5px 4px 6px;
     position: relative;
     top: -2px;
+  }
+}
+
+// Top Decoration
+.top-decoration {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: #4BC5C5;
+  height: 3px;
+  z-index: 20;
+  position: fixed;
+
+  div {
+    width: 220px;
+    height: 3px;
+    margin-left: 20px;
+    background: #FF9900;
   }
 }
 
