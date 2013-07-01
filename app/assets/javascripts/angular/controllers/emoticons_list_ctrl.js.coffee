@@ -1,9 +1,6 @@
-App.controller 'EmoticonListCtrl', ($scope, $state, EmoticonsModel, Restangular) ->
+App.controller 'EmoticonListCtrl', ($scope, $state, EmoticonsModel) ->
   # Initialization Code
-  if _.isUndefined $state.current.data
-    EmoticonsModel.currentListType = 'all'
-  else
-    EmoticonsModel.currentListType = $state.current.data.currentListType
+  EmoticonsModel.currentListType = $state.current.data.currentListType
   EmoticonsModel.loader EmoticonsModel.currentListType
 
   # Setup the Scopes needed for this controller
@@ -18,7 +15,7 @@ App.controller 'EmoticonListCtrl', ($scope, $state, EmoticonsModel, Restangular)
       # Bottle neck here is rebuilding the available tags in reverse for a big set (like the first tag)
       # TODO: Once we support multiple 'emoticon lists', move this into a watcher on the promise
       # TODO: Maybe use underscore's memoize here?
-       unless angular.isDefined $scope.allTags
+      unless angular.isDefined $scope.allTags
         $scope.allTags = []
         angular.forEach $scope.fEmoticons, (emoticon) ->
           $scope.allTags = $scope.allTags.concat(_.keys(emoticon.tags))
@@ -45,14 +42,19 @@ App.controller 'EmoticonListCtrl', ($scope, $state, EmoticonsModel, Restangular)
     else
       return false
 
-  $scope.boxsizes = () ->
-    _.each $scope.emoticonList, (emoticon) ->
-      element_width = $('#' + emoticon.id).width()
-      display_columns = 4 if element_width > 380
-      display_columns = 3 if element_width <= 380
-      display_columns = 2 if element_width <= 250
-      display_columns = 1 if element_width <= 120
-      Restangular.one('emotes', emoticon.id).put( { display_columns: display_columns})
+  $scope.emoticonLinkFilter = (input) ->
+    console.log 'link filter: ' + input
+    return "emoticons" if input == "all"
+    return input
+
+#  $scope.boxsizes = () ->
+#    _.each $scope.emoticonList, (emoticon) ->
+#      element_width = $('#' + emoticon.id).width()
+#      display_columns = 4 if element_width > 380
+#      display_columns = 3 if element_width <= 380
+#      display_columns = 2 if element_width <= 250
+#      display_columns = 1 if element_width <= 120
+#      Restangular.one('emotes', emoticon.id).put( { display_columns: display_columns})
 
 # The proper way map and use model is this.  First load the state into the model, then make a scope method that
 # fetches that state.  When you need to update the state, you write to the model, never the scope, otherwise your

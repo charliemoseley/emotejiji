@@ -1,4 +1,4 @@
-window.App = angular.module('Emotejiji', ['restangular', 'ui.state'])
+window.App = angular.module('Emotejiji', ['restangular', 'ui.state', 'emotejijiFilters'])
 
 App.config (RestangularProvider) ->
   RestangularProvider.setBaseUrl("/api/v1")

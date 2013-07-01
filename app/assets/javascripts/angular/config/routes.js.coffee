@@ -22,7 +22,10 @@ App.config ($stateProvider, $routeProvider) ->
         'emoticonList': {
           templateUrl: '/angular/emoticon_list',
           controller: 'EmoticonListCtrl'
-        }
+        },
+      },
+      data: {
+        currentListType: 'all'
       }
     })
     .state('favorites', {
@@ -32,6 +35,22 @@ App.config ($stateProvider, $routeProvider) ->
           templateUrl: '/angular/emoticon_list',
           controller: 'EmoticonListCtrl'
         }
+      },
+      data: {
+        currentListType: 'favorites'
+      }
+    })
+    .state('favoritesSingleEmoticon', {
+      url: '/favorites/{id}',
+      views: {
+        'popOver': {
+          templateUrl: '/angular/emoticon',
+          controller: 'EmoticonCtrl'
+        },
+        'emoticonList': {
+          templateUrl: '/angular/emoticon_list',
+          controller: 'EmoticonListCtrl'
+        },
       },
       data: {
         currentListType: 'favorites'
