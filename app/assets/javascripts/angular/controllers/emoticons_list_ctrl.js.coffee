@@ -1,4 +1,4 @@
-App.controller 'EmoticonListCtrl', ($scope, $state, EmoticonsModel) ->
+App.controller 'EmoticonListCtrl', ($scope, $state, EmoticonsModel, Restangular) ->
   # Initialization Code
   if _.isUndefined $state.current.data
     EmoticonsModel.currentListType = 'all'
@@ -49,6 +49,14 @@ App.controller 'EmoticonListCtrl', ($scope, $state, EmoticonsModel) ->
     else
       return false
 
+  $scope.boxsizes = () ->
+    _.each $scope.emoticonList, (emoticon) ->
+      element_width = $('#' + emoticon.id).width()
+      display_columns = 4 if element_width > 380
+      display_columns = 3 if element_width <= 380
+      display_columns = 2 if element_width <= 250
+      display_columns = 1 if element_width <= 120
+      Restangular.one('emotes', emoticon.id).put( { display_columns: display_columns})
 
 # The proper way map and use model is this.  First load the state into the model, then make a scope method that
 # fetches that state.  When you need to update the state, you write to the model, never the scope, otherwise your

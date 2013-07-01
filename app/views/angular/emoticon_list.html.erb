@@ -1,7 +1,7 @@
 <ul id="emoticon-list" masonry>
   <li ng-repeat="emoticon in emoticonList = (emoticons() | filter:tagFilter)">
     <a href="#/emoticons/{{emoticon.id}}" class="width-{{emoticon.display_columns}}">
-      <pre><span>{{emoticon.text}}</span></pre>
+      <pre><span id="{{emoticon.id}}">{{emoticon.text}}</span></pre>
     </a>
   </li>
 </ul>

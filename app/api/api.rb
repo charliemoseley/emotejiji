@@ -74,7 +74,7 @@ module API
       end
       post do
         clean_params = sanitize_params(params)
-        emote  = Emote.create clean_params.permit(:text, :description, tags: [])
+        emote  = Emote.create clean_params.permit(:text, :description, :display_rows, :display_columns, tags: [])
 
         present emote, with: API::Entities::Emote
       end
@@ -85,7 +85,7 @@ module API
         error!("Unknown id", 404) if emote.nil?
 
         clean_params = sanitize_params params
-        emote.update_attributes clean_params.permit(:text, :description, tags: [])
+        emote.update_attributes clean_params.permit(:text, :description, :display_rows, :display_columns, tags: [], )
         present emote, with: API::Entities::Emote
       end
 
