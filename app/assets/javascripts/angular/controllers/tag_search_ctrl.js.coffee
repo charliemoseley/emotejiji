@@ -13,6 +13,11 @@ App.controller 'TagSearchCtrl', ($scope, EmoticonsModel) ->
     $scope.searchInput = val
     searchEnter()
 
+  $scope.addTag = (input) ->
+    $scope.activeTags.push input
+    EmoticonsModel.availableTags = _.without(EmoticonsModel.availableTags, $scope.searchInput)
+    $("#tag-search input").focus()
+
   searchDelete = ->
     if $scope.searchInput == "" || $scope.searchInput == undefined
       $scope.activeTags.pop()
