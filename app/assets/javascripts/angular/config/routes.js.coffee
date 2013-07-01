@@ -1,7 +1,7 @@
 App.config ($stateProvider, $routeProvider) ->
   $stateProvider
     .state('index', {
-      url: '', # root route
+      url: '/', # root route
       views: {
         'emoticonList': {
           templateUrl: '/angular/emoticon_list',

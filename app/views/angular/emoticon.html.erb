@@ -14,7 +14,6 @@
   </ul>
 
   <div>
-
     <button class="pure-button"
             data-clipboard-target="{{currentEmoticon().id}}"
             zero-clipboard>
@@ -26,5 +25,7 @@
             ng-click="addToFavorites(currentEmoticon().id)">
       Add to Favorites
     </button>
-  </div
+  </div>
+
+  <a cancel-link-scroll href="{{closePopoverUrl()}}">close</a>
 </section>
