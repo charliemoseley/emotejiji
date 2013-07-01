@@ -57,5 +57,16 @@
 
   button:first-child {
     margin-right: 5px;
+    position: relative;
+  }
+
+  .checkmark {
+    position: absolute;
+    display: block;
+    top: 3px;
+    left: 5px;
+    font-size: 20px;
+    color: limegreen;
+    display: none;
   }
 }

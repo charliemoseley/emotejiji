@@ -2,7 +2,7 @@
   <p id="selected-note">{{currentEmoticon().description}}</p>
 
   <h1>
-    <pre><span>{{currentEmoticon().text}}</span></pre>
+    <pre><span id="{{currentEmoticon().id}}">{{currentEmoticon().text}}</span></pre>
   </h1>
 
   <input type="text" />
@@ -14,7 +14,13 @@
   </ul>
 
   <div>
-    <button class="pure-button">Copy to Clipboard</button>
+
+    <button class="pure-button"
+            data-clipboard-target="{{currentEmoticon().id}}"
+            zero-clipboard>
+      <span id="clipboard-success" class="checkmark">✓</span>
+      Copy to Clipboard
+    </button>
     <button class="pure-button"
             logged-in-toggle="pure-button-disabled"
             ng-click="addToFavorites(currentEmoticon().id)">

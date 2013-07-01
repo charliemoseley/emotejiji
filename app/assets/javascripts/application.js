@@ -12,5 +12,7 @@
 //
 //= require jquery_ujs
 //= require jquery.masonry.js
+//= require ZeroClipboard.js
 //= require angular-ui-router.js
+
 //= require_tree .

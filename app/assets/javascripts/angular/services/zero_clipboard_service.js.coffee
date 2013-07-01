@@ -1,0 +1,2 @@
+App.factory 'ZeroClipboardService', ->
+  ZeroClipboard
