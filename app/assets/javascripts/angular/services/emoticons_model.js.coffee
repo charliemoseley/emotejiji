@@ -1,8 +1,4 @@
-App.service "EmoticonsModel", (Restangular) ->
-  # Tags
-  this.activeTags = []
-  this.availableTags = []
-
+App.service "EmoticonsModel", (Restangular, TagsService) ->
   # New Storage
   this.currentListType = null
   this.lookupTable = []
@@ -29,12 +25,19 @@ App.service "EmoticonsModel", (Restangular) ->
           lookupTable[emoticon.id] = emoticon
           lookupTable
       {})
+
+      # Build the full tag library
+      TagsService.populateTagArray response
+      if klass.currentListType == 'all'
+        TagsService.populateTagArray response, 'copy_full'
+
       if assignToCurrent
         klass.currentList = response
 
   fetchFavorites = (klass) ->
     Restangular.one('users', 'me').all('favorites').getList().then (response) ->
       klass.currentList = response
+      TagsService.populateTagArray response, 'current'
       fetchAll(klass, false)
 
   lookupList = (klass, list_type) ->
@@ -42,9 +45,11 @@ App.service "EmoticonsModel", (Restangular) ->
       when "all"
         klass.currentList = _.map klass.lookupTable, (lookup) ->
           lookup
+        TagsService.populateTagArray klass.currentList, 'copy_full'
       when "favorites"
         klass.currentList = _.map klass.lookups.favorites, (id) ->
           klass.lookupTable[id]
+        TagsService.populateTagArray klass.currentList, 'current'
 
   # SINGLE EMOTICONS
   this.singleLoader = (emoticon_id) ->

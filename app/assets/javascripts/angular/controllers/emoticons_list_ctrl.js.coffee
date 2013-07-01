@@ -1,4 +1,4 @@
-App.controller 'EmoticonListCtrl', ($scope, $state, EmoticonsModel) ->
+App.controller 'EmoticonListCtrl', ($scope, $state, EmoticonsModel, TagsService) ->
   # Initialization Code
   EmoticonsModel.currentListType = $state.current.data.currentListType
   EmoticonsModel.loader EmoticonsModel.currentListType
@@ -10,40 +10,14 @@ App.controller 'EmoticonListCtrl', ($scope, $state, EmoticonsModel) ->
     EmoticonsModel.currentListType
 
   # Controller Logic
-  $scope.$watch 'emoticonList.length', (newval, oldval) ->
-    if angular.isDefined $scope.fEmoticons
-      # Bottle neck here is rebuilding the available tags in reverse for a big set (like the first tag)
-      # TODO: Once we support multiple 'emoticon lists', move this into a watcher on the promise
-      # TODO: Maybe use underscore's memoize here?
-      unless angular.isDefined $scope.allTags
-        $scope.allTags = []
-        angular.forEach $scope.fEmoticons, (emoticon) ->
-          $scope.allTags = $scope.allTags.concat(_.keys(emoticon.tags))
-        $scope.allTags = _.uniq($scope.allTags)
-        EmoticonsModel.availableTags = $scope.allTags
+  $scope.$watch 'emoticonList.length', ->
+    if angular.isDefined $scope.emoticonList
+      TagsService.updateAvailableTags $scope.emoticonList
 
-      if EmoticonsModel.activeTags.length > 0
-        EmoticonsModel.availableTags = []
-        angular.forEach $scope.fEmoticons, (emoticon) ->
-          EmoticonsModel.availableTags = _.uniq(EmoticonsModel.availableTags.concat(_.keys(emoticon.tags)))
-        EmoticonsModel.availableTags = _.difference(EmoticonsModel.availableTags, EmoticonsModel.activeTags)
-      else
-        # Handles the final delete key press
-        EmoticonsModel.availableTags = $scope.allTags
-
-
-  $scope.tagFilter = (emote) ->
-    return emote if EmoticonsModel.activeTags.length == 0
-    valid = true
-    angular.forEach EmoticonsModel.activeTags, (tag) ->
-      valid = false if _.indexOf(_.keys(emote.tags), tag) == -1
-    if valid
-      return emote
-    else
-      return false
+  $scope.tagFilter = (emoticon) ->
+    TagsService.filterEmoticonByTag emoticon
 
   $scope.emoticonLinkFilter = (input) ->
-    console.log 'link filter: ' + input
     return "emoticons" if input == "all"
     return input
 

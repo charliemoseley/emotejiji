@@ -1,7 +1,8 @@
-App.controller 'TagSearchCtrl', ($scope, EmoticonsModel) ->
-  $scope.activeTags = EmoticonsModel.activeTags
+App.controller 'TagSearchCtrl', ($scope, TagsService) ->
+  $scope.activeTags = ->
+    TagsService.active
   $scope.availableTags = ->
-    EmoticonsModel.availableTags
+    TagsService.available
 
   $scope.searchKeyDown = (key) ->
     searchDelete()
@@ -14,16 +15,14 @@ App.controller 'TagSearchCtrl', ($scope, EmoticonsModel) ->
     searchEnter()
 
   $scope.addTag = (input) ->
-    $scope.activeTags.push input
-    EmoticonsModel.availableTags = _.without(EmoticonsModel.availableTags, $scope.searchInput)
+    TagsService.active.push input
     $("#tag-search input").focus()
 
   searchDelete = ->
     if $scope.searchInput == "" || $scope.searchInput == undefined
-      $scope.activeTags.pop()
+      TagsService.active.pop()
 
   searchEnter = ->
     unless $scope.searchInput == "" || $scope.searchInput == undefined
-      $scope.activeTags.push $scope.searchInput.toLowerCase()
-      EmoticonsModel.availableTags = _.without(EmoticonsModel.availableTags, $scope.searchInput)
+      TagsService.active.push $scope.searchInput.toLowerCase()
       $scope.searchInput = ""
