@@ -1,4 +1,4 @@
-App.controller 'AppCtrl', ($scope, Restangular, EmoticonsModel) ->
+App.controller 'AppCtrl', ($scope, $location, $state, Restangular, EmoticonsModel) ->
   $scope.loggedIn = false
 
   $scope.isLoggedIn = ->
@@ -12,3 +12,9 @@ App.controller 'AppCtrl', ($scope, Restangular, EmoticonsModel) ->
     (response) ->
       $scope.loggedIn = false
       $scope.currentUser = undefined)
+
+  $scope.keyboardShortcuts = (keycode) ->
+    unless _.isUndefined $state.current.views.popOver
+      currentListType = EmoticonsModel.currentListType
+      currentListType = if currentListType == 'all' then '/' else currentListType
+      $location.path(currentListType)
