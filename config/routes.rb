@@ -10,7 +10,7 @@ Emotejiji::Application.routes.draw do
   get '/angular/emoticon_list',  to: 'angular#emoticon_list'
   get '/angular/emoticon',       to: 'angular#emoticon'
   get '/angular/available_tags', to: 'angular#available_tags'
-
+  get '/angular/add_emoticon',   to: 'angular#add_emoticon'
 
   # Angular HTML5 Reroutes
   get '/emoticons',        to: redirect('/')
@@ -18,6 +18,9 @@ Emotejiji::Application.routes.draw do
   get '/favorites',        to: 'pages#index'
   get '/favorites/*other', to: 'pages#index'
   get '/available-tags',   to: 'pages#index'
+  get '/add-emoticon',     to: 'pages#index'
+
   root "pages#index"
+
   mount Emotejiji::API::Router => '/'
 end

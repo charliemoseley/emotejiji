@@ -1,7 +1,7 @@
 App.config ($stateProvider, $routeProvider) ->
   $stateProvider
     .state('index', {
-      url: '/', # root route
+      url: '/',
       views: {
         'emoticonList': {
           templateUrl: '/angular/emoticon_list',
@@ -29,7 +29,7 @@ App.config ($stateProvider, $routeProvider) ->
       }
     })
     .state('favorites', {
-      url: '/favorites', # root route
+      url: '/favorites',
       views: {
         'emoticonList': {
           templateUrl: '/angular/emoticon_list',
@@ -46,6 +46,22 @@ App.config ($stateProvider, $routeProvider) ->
         'popOver': {
           templateUrl: '/angular/available_tags',
           controller: 'AvailableTagsCtrl'
+        },
+        'emoticonList': {
+          templateUrl: '/angular/emoticon_list',
+          controller: 'EmoticonListCtrl'
+        },
+      },
+      data: {
+        currentListType: 'inherit'
+      }
+    })
+    .state('addEmoticon', {
+      url: '/add-emoticon',
+      views: {
+        'popOver': {
+          templateUrl: '/angular/add_emoticon',
+          controller: 'AddEmoticonCtrl'
         },
         'emoticonList': {
           templateUrl: '/angular/emoticon_list',
