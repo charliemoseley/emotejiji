@@ -60,8 +60,13 @@
     <ul>
       <li><a href="#">add emote</a></li>
       <li>
-        <a ng-show="loggedIn" href="/signout">logout</a>
-        <a ng-hide="loggedIn" href="/signin">sign in</a>
+        <!--
+          How to handle links in Angular in HTML5 mode when you don't want the HTML5 link rewriter overriding a
+          traditional link
+          http://stackoverflow.com/questions/11580004/angular-js-link-behaviour-disable-deep-linking-for-specific-urls
+        -->
+        <a ng-show="loggedIn" target="_self" href="/signout">logout</a>
+        <a ng-hide="loggedIn" target="_self" href="/signin">sign in</a>
       </li>
     </ul>
   </section>
