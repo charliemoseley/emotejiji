@@ -13,10 +13,6 @@ App.controller 'EmoticonListCtrl', ($scope, $state, EmoticonsModel, Restangular)
     EmoticonsModel.currentListType
 
   # Controller Logic
-  $scope.$watch 'currentListType()', (currentType, previousType) ->
-    unless currentType == previousType
-      EmoticonsModel.switchCurrentList(currentType)
-
   $scope.$watch 'emoticonList.length', (newval, oldval) ->
     if angular.isDefined $scope.fEmoticons
       # Bottle neck here is rebuilding the available tags in reverse for a big set (like the first tag)
