@@ -66,6 +66,7 @@ input {
       display: table-cell;
       vertical-align: middle;
       font-family: inherit;
+      line-height: 100%;
 
       span {
         display: inline-block;
@@ -212,8 +213,7 @@ input {
   }
 }
 
-#logo {
-  margin-top: 3px;
+#logo {;
   h1 {
     display: inline-block;
     line-height: normal;
@@ -235,6 +235,7 @@ input {
   }
 }
 #logo.content {
+  margin-top: 1px;
   margin-bottom: 5px;
 }
 
