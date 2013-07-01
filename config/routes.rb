@@ -7,8 +7,9 @@ Emotejiji::Application.routes.draw do
   get '/signout', to: 'sessions#destroy'
 
   # TODO: Figure out a nice way to automagically have the angular routes work
-  get '/angular/emoticon_list', to: 'angular#emoticon_list'
-  get '/angular/emoticon',      to: 'angular#emoticon'
+  get '/angular/emoticon_list',  to: 'angular#emoticon_list'
+  get '/angular/emoticon',       to: 'angular#emoticon'
+  get '/angular/available_tags', to: 'angular#available_tags'
 
 
   # Angular HTML5 Reroutes
@@ -16,6 +17,7 @@ Emotejiji::Application.routes.draw do
   get '/emoticons/*other', to: 'pages#index'
   get '/favorites',        to: 'pages#index'
   get '/favorites/*other', to: 'pages#index'
+  get '/available-tags',   to: 'pages#index'
   root "pages#index"
   mount Emotejiji::API::Router => '/'
 end

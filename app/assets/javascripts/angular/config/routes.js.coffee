@@ -25,7 +25,7 @@ App.config ($stateProvider, $routeProvider) ->
         },
       },
       data: {
-        currentListType: 'all'
+        currentListType: 'inherit'
       }
     })
     .state('favorites', {
@@ -40,12 +40,12 @@ App.config ($stateProvider, $routeProvider) ->
         currentListType: 'favorites'
       }
     })
-    .state('favoritesSingleEmoticon', {
-      url: '/favorites/{id}',
+    .state('availableTags', {
+      url: '/available-tags',
       views: {
         'popOver': {
-          templateUrl: '/angular/emoticon',
-          controller: 'EmoticonCtrl'
+          templateUrl: '/angular/available_tags',
+          controller: 'AvailableTagsCtrl'
         },
         'emoticonList': {
           templateUrl: '/angular/emoticon_list',
@@ -53,6 +53,6 @@ App.config ($stateProvider, $routeProvider) ->
         },
       },
       data: {
-        currentListType: 'favorites'
+        currentListType: 'inherit'
       }
     })

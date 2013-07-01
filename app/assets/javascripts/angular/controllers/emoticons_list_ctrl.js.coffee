@@ -1,7 +1,6 @@
 App.controller 'EmoticonListCtrl', ($scope, $state, EmoticonsModel, TagsService) ->
   # Initialization Code
-  EmoticonsModel.currentListType = $state.current.data.currentListType
-  EmoticonsModel.loader EmoticonsModel.currentListType
+  EmoticonsModel.loader $state.current.data.currentListType
 
   # Setup the Scopes needed for this controller
   $scope.emoticons = () ->
@@ -16,10 +15,6 @@ App.controller 'EmoticonListCtrl', ($scope, $state, EmoticonsModel, TagsService)
 
   $scope.tagFilter = (emoticon) ->
     TagsService.filterEmoticonByTag emoticon
-
-  $scope.emoticonLinkFilter = (input) ->
-    return "emoticons" if input == "all"
-    return input
 
 #  $scope.boxsizes = () ->
 #    _.each $scope.emoticonList, (emoticon) ->

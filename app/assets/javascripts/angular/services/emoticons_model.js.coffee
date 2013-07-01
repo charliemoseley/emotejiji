@@ -10,7 +10,14 @@ App.service "EmoticonsModel", (Restangular, TagsService) ->
   }
 
   # MULTIPLE EMOTICONS
-  this.loader = (kind = "all") ->
+  this.loader = (kind) ->
+    if kind == 'inherit'
+      if _.isNull(this.currentListType)
+        kind = 'all'
+      else
+        kind = this.currentListType
+    this.currentListType = kind
+
     switch kind
       when "all"
         if _.isEmpty this.lookupTable then fetchAll(this) else lookupList(this, "all")
