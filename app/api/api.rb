@@ -73,6 +73,11 @@ module API
         requires :text, type: String, desc: "The content of your emote."
       end
       post do
+        existing = Emote.find_by_text params.text
+        unless existing.nil?
+          error!("An emoticon with that content already exists: #{existing.id}", 409)
+        end
+
         clean_params = sanitize_params(params)
         emote  = Emote.create clean_params.permit(:text, :description, :display_rows, :display_columns, tags: [])
 

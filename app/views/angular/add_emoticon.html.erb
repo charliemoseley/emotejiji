@@ -1,4 +1,7 @@
-<section id="emoticon-display" class="add-emoticon">
+<section  id="emoticon-display" class="add-emoticon"><br />
+  <span ng-show="isThereErrors()" style="color: red">
+    {{errors}}
+  </span>
   <label for="new-emoticon-description">
     a short one sentence description of the emoticon
   </label>
