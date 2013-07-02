@@ -22,5 +22,5 @@ Emotejiji::Application.routes.draw do
 
   root "pages#index"
 
-  mount Emotejiji::API::Router => '/'
+  mount API::Router => '/'
 end
