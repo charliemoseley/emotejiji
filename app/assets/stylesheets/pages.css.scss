@@ -8,6 +8,7 @@ html, body {
   margin: 0;
   color: #333326;
   font-size: 14px;
+  min-width: 704px;
 }
 
 a {
@@ -16,6 +17,15 @@ a {
 }
 
 input {
+  -webkit-appearance: none;
+  border-radius: 0;
+  border: 1px solid #CCC;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 4px;
+}
+
+textarea {
   -webkit-appearance: none;
   border-radius: 0;
   border: 1px solid #CCC;

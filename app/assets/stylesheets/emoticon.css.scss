@@ -10,6 +10,7 @@
   text-align: center;
   padding: 30px 5px 45px 5px;
   margin-left: 220px;
+  min-width: 464px;
 
   p {
     margin: 0 0 7px 0;
@@ -68,6 +69,26 @@
     font-size: 20px;
     color: limegreen;
     display: none;
+  }
+}
+
+.add-emoticon {
+  label {
+    font-size: 14px;
+    color: #CCC;
+    font-style: italic;
+  }
+
+  /* Refactor this out when we go to #pop-over and .emoticon-detail / .available-tags */
+  input {
+    width: 310px !important;
+    text-align: center;
+  }
+
+  textarea {
+    width: 340px;
+    height: 60px;
+    padding: 10px 20px;
   }
 }
 
