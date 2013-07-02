@@ -1,11 +1,11 @@
 source 'https://rubygems.org'
 
 # Rails Core
-gem 'rails', '4.0.0.rc1'
+gem 'rails'
 gem 'sqlite3'
-gem 'sass-rails', '~> 4.0.0.rc1'
-gem 'uglifier', '>= 1.3.0'
-gem 'coffee-rails', '~> 4.0.0'
+gem 'sass-rails'
+gem 'uglifier'
+gem 'coffee-rails'
 gem 'jquery-rails'
 gem 'bcrypt-ruby'
 
