@@ -1,11 +1,40 @@
 <section id="emoticon-display" class="add-emoticon">
-  <label for="add-emoticon-description">a short one sentance description of the emoticon</label>
-  <input id="add-emoticon-description" type="text" /><br />
-  <label for="add-emoticon">the emoticon itself</label><br />
-  <textarea id="add-emoticon"></textarea><br />
+  <label for="new-emoticon-description">
+    a short one sentence description of the emoticon
+  </label>
+  <input id="new-emoticon-description"
+         type="text"
+         ng-model="newEmoticonDescription" />
   <br />
+
+  <label for="new-emoticon-text">
+    the emoticon itself
+  </label>
+  <br />
+  <textarea id="new-emoticon-text"
+            ng-model="newEmoticonText"></textarea>
+  <br />
+  <br />
+
   <label for="add-emoticon-tags">tags for the emoticon</label>
-  <input id="add-emoticon-tags" type="text" /><br />
+  <input id="add-emoticon-tags"
+         type="text"
+         auto-complete="addTagAutoComplete"
+         auto-complete-source="allTags()"
+         on-keyup="addTagKeyDown" up-keys="[13]"
+         ng-model="tagInput"
+         autocapitalize="off"
+         autocorrect="off" />
+
+  <ul>
+    <li ng-repeat="tag in tagsToAdd">
+      <a ng-click="removeTag(tag)" class="label">{{tag}}</a>
+    </li>
+  </ul>
+
   <br />
-  <button class="btn">creates</button>
+  <br />
+  <button ng-click="saveEmoticon()" class="btn">
+    create
+  </button>
 </section>
