@@ -1,4 +1,4 @@
-App.controller 'AddEmoticonCtrl', ($scope, $location, EmoticonsModel, TagsService, Restangular) ->
+App.controller 'AddEmoticonCtrl', ($scope, $location, EmoticonsModel, TagsService, Restangular, FlashMessageService) ->
   $scope.allTags = ->
     TagsService.full
 
@@ -30,6 +30,8 @@ App.controller 'AddEmoticonCtrl', ($scope, $location, EmoticonsModel, TagsServic
       (emoticon) ->
         EmoticonsModel.lookupTable[emoticon.id] = emoticon
         TagsService.full = _.uniq TagsService.full.concat(emoticon.tags)
+
+        FlashMessageService.set 'success', 'emoticon successfully created'
         $location.path('/emoticons/' + emoticon.id)
       # Error
       (response) ->

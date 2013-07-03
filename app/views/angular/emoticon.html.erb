@@ -1,4 +1,8 @@
 <section id="emoticon-display">
+  <p class="notification {{flash.kind()}}" ng-show="flash.shouldShowFlash()">
+    {{flash.message()}}
+  </p>
+
   <p id="selected-note">{{currentEmoticon().description}}</p>
 
   <h1>

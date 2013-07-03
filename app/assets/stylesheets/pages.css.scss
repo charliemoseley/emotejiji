@@ -34,6 +34,26 @@ textarea {
   padding-left: 4px;
 }
 
+.notification {
+  padding: 0 20px !important;
+  display: inline-block;
+  font-size: 14px;
+  line-height: 30px;
+  font-style: normal !important;
+  height: 30px;
+  color: #fff !important;
+  background: #E6E6E6;
+}
+
+.notification.success {
+  background: #1CB841;
+}
+.notification.error {
+  background: #CA3C3C;
+}
+
+
+
 
 .label {
   border-radius: 3px;
