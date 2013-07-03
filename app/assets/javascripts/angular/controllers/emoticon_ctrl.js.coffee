@@ -13,6 +13,9 @@ App.controller 'EmoticonCtrl', ($scope, $stateParams, EmoticonsModel, FlashMessa
         EmoticonsModel.lookups.favorites.unshift emoticon_id
         FlashMessageService.set 'success', 'added to favorites'
         FlashMessageService.showNow()
+      (response) ->
+        FlashMessageService.set 'error', 'max number of favorites reached, please remove some'
+        FlashMessageService.showNow()
     )
 
   $scope.flash = FlashMessageService
