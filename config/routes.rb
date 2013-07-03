@@ -1,10 +1,10 @@
 Emotejiji::Application.routes.draw do
   resource :users,    only: [:create, :new]
-  resource :sessions, only: [:new, :create, :destroy]
+  resource :sessions, only: [:create, :destroy]
 
-  get '/signup',  to: 'users#new'
-  get '/signin',  to: 'sessions#new'
-  get '/signout', to: 'sessions#destroy'
+  get '/login',    to: 'users#new'
+  get '/register', to: 'users#new'
+  get '/logout',   to: 'sessions#destroy'
 
   # TODO: Figure out a nice way to automagically have the angular routes work
   get '/angular/emoticon_list',  to: 'angular#emoticon_list'

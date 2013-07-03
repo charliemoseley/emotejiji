@@ -1,13 +1,14 @@
-<h1>Sign up</h1>
+<div id="logo" class="logo">
+  <h1>emotejiji</h1>
+  <span>Σ(゜д゜;)</span>
+</div>
+
 
 <div>
-  <%= form_for(@user) do |f| %>
+  <%= form_for(@user, html: { class: 'pure-form pure-form-stacked' }) do |f| %>
 
     <%= f.label :username %>
     <%= f.text_field :username %>
-
-    <%= f.label :email %>
-    <%= f.text_field :email %>
 
     <%= f.label :password %>
     <%= f.password_field :password %>
@@ -15,6 +16,22 @@
     <%= f.label :password_confirmation, "Confirmation" %>
     <%= f.password_field :password_confirmation %>
 
-    <%= f.submit "Create my account", class: "btn btn-large btn-primary" %>
+    <%= f.label :email %>
+    <%= f.text_field :email %>
+
+    <%= f.submit "register", class: "btn btn-large btn-primary" %>
+  <% end %>
+</div>
+
+<div>
+  <%= form_for(:session, url: sessions_path,  html: { class: 'pure-form pure-form-stacked' }) do |f| %>
+
+    <%= f.label :username_or_email %>
+    <%= f.text_field :username_or_email %>
+
+    <%= f.label :password %>
+    <%= f.password_field :password %>
+
+    <%= f.submit "login", class: "btn btn-large btn-primary" %>
   <% end %>
 </div>
