@@ -13,6 +13,9 @@ App.controller 'AppCtrl', ($scope, $location, $state, Restangular, EmoticonsMode
       $scope.loggedIn = false
       $scope.currentUser = undefined)
 
+  $scope.closePopoverUrl = () ->
+    if EmoticonsModel.currentListType == 'all' then '/' else '/' + EmoticonsModel.currentListType
+
   $scope.keyboardShortcuts = (keycode) ->
     unless _.isUndefined $state.current.views.popOver
       currentListType = EmoticonsModel.currentListType
