@@ -18,6 +18,8 @@ App.factory "FlashMessageService", ($rootScope) ->
       currentMessage.kind unless _.isNull currentMessage
     message: ->
       currentMessage.message unless _.isNull currentMessage
+    showNow: ->
+      currentMessage = queue.shift()
     shouldShowFlash: ->
       if _.isNull currentMessage then false else true
   }
