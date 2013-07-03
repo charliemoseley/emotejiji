@@ -1,37 +1,61 @@
-<div id="logo" class="logo">
-  <h1>emotejiji</h1>
-  <span>Σ(゜д゜;)</span>
-</div>
+<div id="login-register" class="pure-g-r">
+  <header class="pure-u-1-1 blue-divider-bottom">
+    <div id="logo" class="logo">
+      <h1>emotejiji</h1>
+      <span>Σ(゜д゜;)</span>
+    </div>
+  </header>
 
-
-<div>
-  <%= form_for(@user, html: { class: 'pure-form pure-form-stacked' }) do |f| %>
-
-    <%= f.label :username %>
-    <%= f.text_field :username %>
-
-    <%= f.label :password %>
-    <%= f.password_field :password %>
-
-    <%= f.label :password_confirmation, "Confirmation" %>
-    <%= f.password_field :password_confirmation %>
-
-    <%= f.label :email %>
-    <%= f.text_field :email %>
-
-    <%= f.submit "register", class: "btn btn-large btn-primary" %>
+  <% if defined? @errors %>
+    <div class="pure-u-1-1">
+      <section class="errors">
+        <span><%= @errors[:kind] %></span>
+        <ul>
+          <% @errors[:errors].each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </section>
+    </div>
   <% end %>
-</div>
 
-<div>
-  <%= form_for(:session, url: sessions_path,  html: { class: 'pure-form pure-form-stacked' }) do |f| %>
 
-    <%= f.label :username_or_email %>
-    <%= f.text_field :username_or_email %>
 
-    <%= f.label :password %>
-    <%= f.password_field :password %>
+  <div class="pure-u-1-2">
+    <section class="login">
+      <h4>LOGIN</h4>
+      <%= form_for(:session, url: sessions_path,  html: { class: 'pure-form pure-form-stacked' }) do |f| %>
 
-    <%= f.submit "login", class: "btn btn-large btn-primary" %>
-  <% end %>
+        <%= f.label :username_or_email %>
+        <%= f.text_field :username_or_email %>
+
+        <%= f.label :password %>
+        <%= f.password_field :password %>
+
+        <%= f.submit "login", class: "btn btn-large btn-primary" %>
+      <% end %>
+    </section>
+  </div>
+
+  <div class="pure-u-1-2">
+    <section class="register">
+      <h4>REGISTER</h4>
+      <%= form_for(@user, html: { class: 'pure-form pure-form-stacked' }) do |f| %>
+
+        <%= f.label :username %>
+        <%= f.text_field :username %>
+
+        <%= f.label :email %>
+        <%= f.text_field :email %>
+
+        <%= f.label :password %>
+        <%= f.password_field :password %>
+
+        <%= f.label :password_confirmation, "Confirmation" %>
+        <%= f.password_field :password_confirmation %>
+
+        <%= f.submit "register", class: "btn btn-large btn-primary" %>
+      <% end %>
+    </section>
+  </div>
 </div>

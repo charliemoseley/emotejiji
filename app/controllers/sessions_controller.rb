@@ -9,8 +9,11 @@ class SessionsController < ApplicationController
       sign_in user
       redirect_back_or root_url
     else
-      flash.now[:error] = 'Invalid email/password combination'
-      render 'new'
+      # Used for if the user needs to register
+      @user = User.new
+
+      @errors = { kind: "Login Error", errors: ['Invalid username/email password combination'] }
+      render 'users/new', layout: 'simple'
     end
   end
 

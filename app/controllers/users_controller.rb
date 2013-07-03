@@ -8,10 +8,10 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       sign_in @user
-      flash[:success] = "Welcome to the Sample App!"
       redirect_to root_url
     else
-      render 'new'
+      @errors = { kind: "Registration Error", errors: @user.errors.full_messages }
+      render 'new', layout: 'simple'
     end
   end
 

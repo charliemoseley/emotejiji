@@ -1,0 +1,68 @@
+#simple-layout {
+
+  header {
+    border-bottom: 3px solid #4BC5C5;
+    margin-bottom: 15px;
+  }
+
+  // TODO: Duplicate style in sidebar, refactor it out
+  h4 {
+    margin: 0;
+    font-weight: normal;
+    line-height: inherit;
+    font-size: 12px;
+    font-weight: bold;
+    color: gray;
+  }
+
+  input.btn {
+    margin-top: 10px;
+  }
+
+  // TODO: Track down whatever is causing this fucked up letter spacing.
+  .errors * {
+    letter-spacing: 0px;
+  }
+
+  #logo {
+    span {
+      letter-spacing: 0px;
+    }
+  }
+}
+
+#login-register {
+  width: 600px;
+  margin: auto;
+
+  #logo {
+    margin-left: 20px;
+  }
+
+  .login {
+    margin: 0 40px 0 20px;
+  }
+
+  .register {
+    margin: 0 20px 0 40px;
+  }
+
+  .errors {
+    margin: 0 20px 20px 20px;
+    background: #CA3C3C;
+    color: #FFF;
+    padding: 5px 15px 9px 15px;
+
+    span {
+      font-weight: bold;
+    }
+
+    ul {
+      margin: 0;
+    }
+  }
+
+  input[type=text], input[type=password] {
+    width: 100%;
+  }
+}
