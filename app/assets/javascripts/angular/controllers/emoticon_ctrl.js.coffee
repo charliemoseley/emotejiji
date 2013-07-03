@@ -7,7 +7,6 @@ App.controller 'EmoticonCtrl', ($scope, $stateParams, EmoticonsModel, FlashMessa
     EmoticonsModel.currentEmote
 
   $scope.addToFavorites = (emoticon_id) ->
-    console.log "running add to favorites"
     Restangular.one('users', 'me').customPOST("favorites", {}, {}, {emoticon_id: emoticon_id}).then(
       ->
         EmoticonsModel.lookups.favorites.unshift emoticon_id
@@ -17,5 +16,14 @@ App.controller 'EmoticonCtrl', ($scope, $stateParams, EmoticonsModel, FlashMessa
         FlashMessageService.set 'error', 'max number of favorites reached, please remove some'
         FlashMessageService.showNow()
     )
+
+  $scope.removeFromFavorites = (emoticon_id) ->
+    console.log "Remove from favorites"
+
+  $scope.showAddToFavorites = ->
+    unless _.isNull $scope.currentEmoticon() # Prevent JS errors from promise not initalized yet
+      unless _.indexOf(EmoticonsModel.lookups.favorites, $scope.currentEmoticon().id) == -1
+        return false
+    return true
 
   $scope.flash = FlashMessageService
