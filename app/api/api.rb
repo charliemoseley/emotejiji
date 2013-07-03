@@ -165,6 +165,23 @@ module API
             emote.favorited_by(user)
             present user.favorited_emotes, with: API::Entities::Emote
           end
+
+          # TODO: Write error handling
+          params do
+            requires :emoticon_id, type: String
+          end
+          delete do
+            if params.user_id == "me"
+              user = current_user
+              error!("Unknown user id", 404) if user.nil?
+            else
+              user = User.find(params.user_id) rescue error!("Unknown id", 404)
+            end
+            emote_ref = UserEmote.where(kind: "Favorited", user_id: user.id, emote_id: params.emoticon_id)
+            error!("User doesn't have that emoticon in their favorites", 404) if emote_ref.empty?
+
+            emote_ref.first.delete
+          end
         end
       end
     end

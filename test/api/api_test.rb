@@ -207,7 +207,7 @@ class APISpec < ActionDispatch::IntegrationTest
       end
     end
 
-    describe "Post /api/v1/users/:user_id/favorites" do
+    describe "POST /api/v1/users/:user_id/favorites" do
       before do
         @emote = Fabricate :emote
       end
@@ -248,6 +248,29 @@ class APISpec < ActionDispatch::IntegrationTest
         favorites.count.must_equal 4
         object_array_includes?(favorites, :id, @emote.id).must_equal true
       end
+    end
+
+    describe "DELETE /api/v1/users/:user_id/favorites" do
+      before do
+        @emote = Fabricate :emote
+      end
+
+      it "should remove a valid emoticon from the user's favorites" do
+        @emote.favorited_by @user
+        delete "/api/v1/users/#{@user.id}/favorites", { emoticon_id: @emote.id }
+
+        response.code.must_equal "200"
+        @user.favorited_emotes.count.must_equal 0
+      end
+
+      it "should throw a 404 error if the user doesn't have that emoticon as a favorite" do
+        delete "/api/v1/users/#{@user.id}/favorites", { emoticon_id: @emote.id }
+
+        response.code.must_equal "404"
+      end
+
+      # TODO: Add way more functionality here
+      it "should handle errors"
     end
   end
 
