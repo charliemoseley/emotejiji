@@ -1,3 +1,5 @@
+# TODO: This doesn't prevent the user from navigating to the url while not being logged in.  Fix that sometime too.
+
 App.directive "loggedInToggle", ->
   link: (scope, element, attrs) ->
     scope.$watch 'isLoggedIn()', ->
@@ -7,3 +9,8 @@ App.directive "loggedInToggle", ->
       else
         element.removeClass(attrs.loggedInToggle)
         element.removeClass('disabled')
+
+    $(element).click (event) ->
+      unless scope.isLoggedIn()
+        event.preventDefault()
+        return false

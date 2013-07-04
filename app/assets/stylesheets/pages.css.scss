@@ -16,6 +16,19 @@ a {
   text-decoration: none;
 }
 
+a.a-disabled {
+  color: #DDD !important;
+  text-decoration: line-through;
+  cursor: not-allowed;
+}
+
+a.btn-disabled {
+  background: #E6E6E6;
+  color: rgba(0, 0, 0, 0.8);
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
 input {
   -webkit-appearance: none;
   border-radius: 0;
