@@ -19,6 +19,12 @@ App.controller 'EmoticonCtrl', ($scope, $stateParams, EmoticonsModel, FlashMessa
 
   $scope.removeFromFavorites = (emoticon_id) ->
     console.log "Remove from favorites"
+    Restangular.one('users', 'me').customDELETE("favorites", {}, {}, {emoticon_id: emoticon_id}).then(
+      ->
+        EmoticonsModel.lookups.favorites = _.without EmoticonsModel.lookups.favorites, emoticon_id
+        FlashMessageService.set 'success', 'removed from favorites'
+        FlashMessageService.showNow()
+    )
 
   $scope.showAddToFavorites = ->
     unless _.isNull $scope.currentEmoticon() # Prevent JS errors from promise not initalized yet
@@ -27,3 +33,6 @@ App.controller 'EmoticonCtrl', ($scope, $stateParams, EmoticonsModel, FlashMessa
     return true
 
   $scope.flash = FlashMessageService
+
+  # TODO: See if you can finesse either the API or the restangular call to not use customPOSt and customDelete
+  # https://github.com/mgonto/restangular/issues/135

@@ -14,5 +14,6 @@
 //= require jquery.masonry.js
 //= require ZeroClipboard.js
 //= require angular-ui-router.js
+//= require restangular.1.0.4.min.js
 
 //= require_tree .
