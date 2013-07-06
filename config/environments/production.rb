@@ -22,6 +22,9 @@ Emotejiji::Application.configure do
   # Disable Rails's static asset server (Apache or nginx will already do this).
   config.serve_static_assets = false
 
+  # Add some nice expires headers for our asset pipeline
+  config.static_cache_control = "public, max-age=3600"
+
   # Compress JavaScripts and CSS (Prevent uglifier from running over angular too).
   config.assets.js_compressor  = Uglifier.new(mangle: false)
   config.assets.css_compressor = :sass
