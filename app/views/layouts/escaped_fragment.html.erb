@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" ng-controller="AppCtrl" global-key-press>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Emotejiji</title>
+  <link href="http://yui.yahooapis.com/pure/0.2.0/pure-min.css" rel="stylesheet" type="text/css">
+  <link href='http://fonts.googleapis.com/css?family=Raleway:500' rel='stylesheet' type='text/css' />
+  <link href="//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" rel="stylesheet" type="text/css"  />
+  <%= stylesheet_link_tag "application", media: "all" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+<div id="content">
+  <%= yield %>
+</div>
+
+<%= render "layouts/sidebar" %>
+
+<div class="top-decoration"><div></div></div>
+
+<script src="//code.jquery.com/jquery-1.9.1.js"></script>
+<script src="//code.jquery.com/ui/1.10.3/jquery-ui.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.6/angular.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.6/angular-resource.min.js"></script>
+<script src="//cdn.jsdelivr.net/underscorejs/1.4.4/underscore-min.js"></script>
+<%= javascript_include_tag "application" %>
+</body>
+</html>

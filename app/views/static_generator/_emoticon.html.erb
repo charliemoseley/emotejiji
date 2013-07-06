@@ -1,0 +1,40 @@
+<section id="emoticon-display">
+  <p id="selected-note"><%= @emoticon.description %></p>
+
+  <h1>
+    <pre><span id="<%= @emoticon.id %>"></span><%= @emoticon.text %></pre>
+  </h1>
+
+  <input type="text" />
+
+  <ul>
+    <% @emoticon.tags.each do |tag, count| %>
+      <li>
+        <a class="label"><%= tag %></a>
+      </li>
+    <% end %>
+  </ul>
+
+  <div>
+    <button class="pure-button"
+            data-clipboard-target="<%= @emoticon.text %>"
+            zero-clipboard>
+      <span id="clipboard-success" class="checkmark">✓</span>
+      Copy to Clipboard
+    </button>
+    <button class="pure-button"
+            logged-in-toggle="pure-button-disabled"
+            ng-click="addToFavorites(<%= @emoticon.text %>)"
+            ng-show="showAddToFavorites()">
+      Add to Favorites
+    </button>
+    <button class="pure-button"
+            logged-in-toggle="pure-button-disabled"
+            ng-click="removeFromFavorites(<%= @emoticon.text %>)"
+            ng-hide="showAddToFavorites()">
+      Remove from Favorites
+    </button>
+  </div>
+
+  <a id="close-popover" href="{{closePopoverUrl()}}">X</a>
+</section>

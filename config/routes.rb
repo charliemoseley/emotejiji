@@ -13,10 +13,12 @@ Emotejiji::Application.routes.draw do
   get '/angular/add_emoticon',   to: 'angular#add_emoticon'
 
   # Angular Static Controller
-  static_routes = ['emoticons/*id', '/available-tag', '/']
+  static_routes = ['/emoticons/*id', '/available-tags', '/']
   static_routes.each do |route|
     get route, to: 'static_generator#generate', constraints: { escaped_fragment?: true }
   end
+
+  # TODO: Need to reject routes that have an escaped fragment that are not supposed to be rendered like favorites
 
   # Angular HTML5 Reroutes
   html5_reroutes = ['/emoticons/*id', '/favorites', '/favorites/*id', '/available-tags', '/add-emoticon']

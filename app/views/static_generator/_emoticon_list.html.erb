@@ -1,0 +1,14 @@
+<div id="pop-over" ui-view="popOver">
+</div>
+<div ui-view="emoticonList">
+  <ul id="emoticon-list" masonry>
+    <% @emoticons.each do |emoticon| %>
+      <li>
+        <a href="/emoticons/<%= emoticon.id %>"
+           class="width-<%= emoticon.display_columns %>">
+          <pre><span id="<%= emoticon.id %>"><%= emoticon.text %></span></pre>
+        </a>
+      </li>
+    <% end %>
+  </ul>
+</div>

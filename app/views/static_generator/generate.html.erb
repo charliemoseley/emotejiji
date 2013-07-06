@@ -1,0 +1,13 @@
+<div id="pop-over" ui-view="popOver">
+  <% if defined? @emoticon %>
+    <%= render "static_generator/emoticon" %>
+  <% end %>
+  <% if defined? @tags %>
+    <%= render "static_generator/available_tags" %>
+  <% end %>
+</div>
+<div ui-view="emoticonList">
+  <% if defined? @emoticons %>
+    <%= render "static_generator/emoticon_list" %>
+  <% end %>
+</div>
