@@ -12,15 +12,19 @@ Emotejiji::Application.routes.draw do
   get '/angular/available_tags', to: 'angular#available_tags'
   get '/angular/add_emoticon',   to: 'angular#add_emoticon'
 
-  # Angular HTML5 Reroutes
-  get '/emoticons',        to: redirect('/')
-  get '/emoticons/*other', to: 'pages#index'
-  get '/favorites',        to: 'pages#index'
-  get '/favorites/*other', to: 'pages#index'
-  get '/available-tags',   to: 'pages#index'
-  get '/add-emoticon',     to: 'pages#index'
+  # Angular Static Controller
+  static_routes = ['emoticons/*id', '/available-tag', '/']
+  static_routes.each do |route|
+    get route, to: 'static_generator#generate', constraints: { escaped_fragment?: true }
+  end
 
-  root "pages#index"
+  # Angular HTML5 Reroutes
+  html5_reroutes = ['/emoticons/*id', '/favorites', '/favorites/*id', '/available-tags', '/add-emoticon']
+  html5_reroutes.each do |route|
+    get route, to: 'pages#index'
+  end
+  get  '/emoticons', to: redirect('/')
+  root 'pages#index'
 
   mount API::Router => '/'
 end

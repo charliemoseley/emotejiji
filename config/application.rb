@@ -11,7 +11,10 @@ require "sprockets/railtie"
 # you've limited to :test, :development, or :production.
 Bundler.require(:default, Rails.env)
 
+# Require my custom rack middlewares
 require File.dirname(__FILE__) + '/../lib/params_parser_with_ignore.rb'
+require File.dirname(__FILE__) + '/../lib/rack_escaped_fragment.rb'
+
 module Emotejiji
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
@@ -28,6 +31,8 @@ module Emotejiji
 
     # Middleware hack to prevent ActionDispatch ParamsParser from hijack grape post body queries
     config.middleware.swap ActionDispatch::ParamsParser, MyApp::ParamsParser, :ignore_prefix => '/api'
+
+    config.middleware.use Rack::EscapedFragment
 
     # Change Schema Format to sql due to using postgres specific uuid
     config.active_record.schema_format = :sql
