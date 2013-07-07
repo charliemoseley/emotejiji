@@ -29,4 +29,7 @@ Emotejiji::Application.routes.draw do
   root 'pages#index'
 
   mount API::Router => '/api'
+
+  # All pages where returning 404 header even though content was being shown fine with:
+  #  mount API::Router => '/'
 end
