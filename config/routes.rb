@@ -28,5 +28,5 @@ Emotejiji::Application.routes.draw do
   get  '/emoticons', to: redirect('/')
   root 'pages#index'
 
-  mount API::Router => '/'
+  mount API::Router => '/api'
 end

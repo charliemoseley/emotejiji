@@ -2,7 +2,6 @@ module API
   class Router < Grape::API
     version 'v1', using: :path, vendor: 'emotejiji', cascade: false
     format :json
-    prefix 'api'
 
     before do
       #authenticate
