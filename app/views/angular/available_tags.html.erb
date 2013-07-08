@@ -1,8 +1,8 @@
-<section id="emoticon-display">
+<section id="emoticon-display" class="available-tags">
   <h1>available tags</h1>
   <ul>
     <li ng-repeat="tag in availableTags()">
-      <a ng-click="addTag(tag)">{{tag}}</a>
+      <a class="label" ng-click="addTag(tag)">{{tag}}</a>
     </li>
   </ul>
 

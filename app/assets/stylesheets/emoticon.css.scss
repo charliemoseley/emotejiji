@@ -6,7 +6,7 @@
 }
 
 #emoticon-display {
-  background: #FFF;
+  background: rgba(255, 255, 255, 0.9);
   text-align: center;
   padding: 30px 5px 45px 5px;
   margin-left: 220px;
@@ -89,6 +89,14 @@
     width: 340px;
     height: 60px;
     padding: 10px 20px;
+  }
+}
+
+.available-tags {
+  .label {
+    font-size: 12.5px;
+    margin: 2px 1px;
+    cursor: pointer;
   }
 }
 
