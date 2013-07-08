@@ -196,6 +196,8 @@ module API
       expose :tags
       expose :display_rows
       expose :display_columns
+      expose(:created_at) { |emoticon, options| emoticon.created_at.iso8601 }
+      expose(:updated_at) { |emoticon, options| emoticon.updated_at.iso8601 }
     end
 
     class User < Grape::Entity

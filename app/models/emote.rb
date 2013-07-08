@@ -14,6 +14,8 @@ class Emote < ActiveRecord::Base
   scope :all_tags, -> (tags) { where("tags ?& ARRAY[:tags]", tags: tags) }
   scope :any_tags, -> (tags) { where("tags ?| ARRAY[:tags]", tags: tags) }
 
+  default_scope order('created_at DESC')
+
   # When creating tags, this should always be used, not save
   def create_with(user)
     user = User.find(user) if user.kind_of? String

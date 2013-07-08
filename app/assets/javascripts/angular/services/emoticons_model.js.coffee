@@ -52,10 +52,14 @@ App.service "EmoticonsModel", (Restangular, TagsService) ->
       when "all"
         klass.currentList = _.map klass.lookupTable, (lookup) ->
           lookup
+        klass.currentList = _.sortBy klass.currentList, (emoticon) ->
+          -Date.parse(emoticon.created_at)
         TagsService.populateTagArray klass.currentList, 'copy_full'
       when "favorites"
         klass.currentList = _.map klass.lookups.favorites, (id) ->
           klass.lookupTable[id]
+        klass.currentList = _.sortBy klass.currentList, (emoticon) ->
+          -Date.parse(emoticon.created_at)
         TagsService.populateTagArray klass.currentList, 'current'
 
   # SINGLE EMOTICONS
