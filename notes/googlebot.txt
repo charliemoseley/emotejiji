@@ -1,0 +1,4 @@
+http://productforums.google.com/forum/#!category-topic/webmasters/crawling-indexing--ranking/bZgWCJTnl08%5B1-25-false%5D
+
+WHen make a feth from webmaster tools as googlebot, it doesn't parse meta fragment.  Use #! instead and trust that google
+bot will do the right thing.
