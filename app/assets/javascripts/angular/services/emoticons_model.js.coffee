@@ -11,6 +11,11 @@ App.service "EmoticonsModel", (Restangular, TagsService) ->
 
   # MULTIPLE EMOTICONS
   this.loader = (kind) ->
+    # We've switched between states so we want to clear out any tags that are being actively search for
+    unless _.isNull(this.currentListType)
+      unless kind == 'inherit'
+        if kind != this.currentListType
+          TagsService.active = []
     if kind == 'inherit'
       if _.isNull(this.currentListType)
         kind = 'all'
