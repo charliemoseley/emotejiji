@@ -6,6 +6,14 @@ App.controller 'EmoticonCtrl', ($scope, $stateParams, EmoticonsModel, FlashMessa
   $scope.currentEmoticon = ->
     EmoticonsModel.currentEmote
 
+  # Override of the existing EmoticonsModel.currentEmote.tags to strip out the count numbers as angular with complain if
+  # there are repeat values in an ng-repeat
+  # http://stackoverflow.com/questions/16296670/error-duplicates-in-a-repeater-are-not-allowed-when-using-cutom-filter-in-ang
+  # TODO: Make a real model file that we can pass the restangular response for emotes to that actually exposes a nice .tag
+  # and .tagCounts method so we don't have to do this hack.
+  $scope.currentEmoticon['tags'] = ->
+    _.keys EmoticonsModel.currentEmote.tags
+
   $scope.addToFavorites = (emoticon_id) ->
     Restangular.one('users', 'me').customPOST("favorites", {}, {}, {emoticon_id: emoticon_id}).then(
       ->
