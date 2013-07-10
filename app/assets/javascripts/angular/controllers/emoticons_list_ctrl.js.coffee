@@ -1,6 +1,7 @@
-App.controller 'EmoticonListCtrl', ($scope, $state, EmoticonsModel, TagsService) ->
+App.controller 'EmoticonListCtrl', ($scope, $state, EmoticonsModel, TagsService, BrowserStateService) ->
   # Initialization Code
   EmoticonsModel.loader $state.current.data.currentListType
+  BrowserStateService.load()
 
   # Setup the Scopes needed for this controller
   $scope.emoticons = () ->
