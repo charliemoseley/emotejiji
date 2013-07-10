@@ -14,7 +14,7 @@ class Emote < ActiveRecord::Base
   scope :all_tags, -> (tags) { where("tags ?& ARRAY[:tags]", tags: tags) }
   scope :any_tags, -> (tags) { where("tags ?| ARRAY[:tags]", tags: tags) }
 
-  default_scope order('created_at DESC')
+  default_scope { order('created_at DESC') }
 
   # When creating tags, this should always be used, not save
   def create_with(user)
@@ -106,15 +106,17 @@ class Emote < ActiveRecord::Base
 
   def calculate_display_columns
     assign_text_numeric_vals
-    if max_length >= 7
-      self.display_columns = 2
-    else
+    # TODO: Add this to the migration as the default for display_columns
+    if self.display_columns.nil?
       self.display_columns = 1
     end
   end
 
   def calculate_display_rows
-    self.display_rows = 1
+    # TODO: Add this to the migration as the default for display_columns
+    if self.display_rows.nil?
+      self.display_rows = 1
+    end
   end
 end
 

@@ -16,12 +16,13 @@ end
 
 user = User.create(username: "emotejiji_robot", password: "c1j2m3c1j2m3", password_confirmation: "c1j2m3c1j2m3")
 
-emotes = JSON.parse(File.read("db/emotes.json"))
-emotes.each do |e|
+emotes = JSON.parse(File.read("db/emoticons.json"))
+emotes.reverse_each do |e|
   emote = Emote.new
   emote.text = e["text"]
   emote.tags = e["tags"]
   emote.description = e["description"]
+  emote.display_columns = e["display_columns"]
   begin
     emote.create_with(user)
   rescue
