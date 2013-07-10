@@ -55,9 +55,14 @@ App.controller 'AddEmoticonCtrl', ($scope, $location, EmoticonsModel, TagsServic
     {
       text: $scope.newEmoticonText,
       description: $scope.newEmoticonDescription,
-      tags: $scope.tagsToAdd
+      tags: $scope.tagsToAdd,
+      display_columns: emoticonColumnCalculator($scope.newEmoticonText)
     }
 
-  emoticonLookupFormatter = (emoticon) ->
-    lookup = {}
-    lookup[emoticon.id] = emoticon
+  emoticonColumnCalculator = (emoticon_text) ->
+    element_width = $('#size-calculator span').text(emoticon_text).width()
+    display_columns = 4 if element_width > 450
+    display_columns = 3 if element_width <= 450
+    display_columns = 2 if element_width <= 290
+    display_columns = 1 if element_width <= 130
+    display_columns

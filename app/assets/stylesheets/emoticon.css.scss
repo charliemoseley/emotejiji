@@ -90,6 +90,27 @@
     height: 60px;
     padding: 10px 20px;
   }
+
+  a#size-calculator {
+    margin: auto;
+    display: table;
+    font-size: 20px;
+    //border: 1px solid #eee;
+    width: 9999px;
+    visibility: hidden;
+
+    pre {
+      display: table-cell;
+      vertical-align: middle;
+      font-family: inherit;
+      line-height: 100%;
+
+      span {
+        display: inline-block;
+        text-align: left;
+      }
+    }
+  }
 }
 
 .available-tags {
