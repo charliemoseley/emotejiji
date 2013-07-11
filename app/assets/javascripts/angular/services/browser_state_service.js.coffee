@@ -14,6 +14,5 @@ App.service "BrowserStateService", ->
 
   this.load = ->
     this.flash = this.isFlashEnabled()
-    console.log this.flash
 
   this

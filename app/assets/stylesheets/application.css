@@ -11,6 +11,7 @@
  *= require_self
  *= require pure.0.2.0.min.css
  *= require jquery-ui-smoothness.1.10.3.css
+ *= require bootstrap-tooltip-popover-transitions.2.3.2.min.css
  *= require_tree .
  */
 

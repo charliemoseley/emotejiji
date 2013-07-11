@@ -21,5 +21,6 @@
 //= require angular/restangular.1.0.4.min.js
 
 //= require jquery/jquery.masonry.2.1.08.min.js
+//= require jquery/bootstrap-tooltip-popover-transitions.2.3.2.min.js
 
 //= require_tree .
