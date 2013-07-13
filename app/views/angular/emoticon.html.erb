@@ -9,7 +9,14 @@
     <pre><span id="{{currentEmoticon().id}}">{{currentEmoticon().text}}</span></pre>
   </h1>
 
-  <input type="text" />
+  <input type="text"
+         logged-in-toggle="input-disabled"
+         tooltip="log in to use"
+         tooltip-enabled="isLoggedIn()"
+         tooltip-check-type="false"
+         data-delay="200"
+         enabled-input-value="enabled value"
+         disabled-input-value="disabled value" />
 
   <ul>
     <li ng-repeat="tag in currentEmoticon.tags()">
@@ -27,7 +34,11 @@
     <button class="pure-button"
             logged-in-toggle="pure-button-disabled"
             ng-click="addToFavorites(currentEmoticon().id)"
-            ng-show="showAddToFavorites()">
+            ng-show="showAddToFavorites()"
+            tooltip="log in to use"
+            tooltip-enabled="isLoggedIn()"
+            tooltip-check-type="false"
+            data-placement="bottom">
       Add to Favorites
     </button>
     <button class="pure-button"
