@@ -10,6 +10,7 @@ gem 'bcrypt-ruby'
 
 # Architectural
 gem 'pg'
+gem 'rack-cors'
 
 # API
 gem 'grape'
