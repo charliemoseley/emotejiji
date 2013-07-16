@@ -6,7 +6,8 @@
 
   <div ng-controller="TagSearchCtrl">
     <section id="tag-search" class="search content">
-      <input ng-model="searchInput"
+      <input placeholder="{{tagSearchPlaceholder()}}"
+             ng-model="searchInput"
              on-keydown="searchKeyDown" down-keys="[8]"
              on-keyup="searchKeyUp" up-keys="[13]"
              auto-complete="autoCompleteSelect"

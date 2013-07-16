@@ -4,6 +4,12 @@ App.controller 'TagSearchCtrl', ($scope, TagsService) ->
   $scope.availableTags = ->
     TagsService.available
 
+  $scope.tagSearchPlaceholder = ->
+    if $scope.activeTags().length > 0
+      ""
+    else
+      "search by tags"
+
   $scope.searchKeyDown = (key) ->
     searchDelete()
 
