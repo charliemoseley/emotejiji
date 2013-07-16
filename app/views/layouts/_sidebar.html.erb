@@ -51,16 +51,18 @@
     <h4>FILTERS</h4>
     <div class="btn-group">
       <a href="/"
-         class="btn">
+         class="btn all-filter"
+         ng-class="currentListType()">
         all
       </a>
       <a href="/favorites"
-         class="btn"
+         class="btn favorites-filter"
          logged-in-toggle="btn-disabled"
          tooltip="log in to use"
          tooltip-enabled="isLoggedIn()"
          tooltip-check-type="false"
-         data-delay="200">
+         data-delay="200"
+         ng-class="currentListType()">
         favorites
       </a>
       <!-- <a class="btn" logged-in-toggle>recent</a> -->

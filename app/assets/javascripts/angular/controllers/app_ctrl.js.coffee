@@ -4,6 +4,9 @@ App.controller 'AppCtrl', ($scope, $location, $state, Restangular, EmoticonsMode
   $scope.isLoggedIn = ->
     $scope.loggedIn
 
+  $scope.currentListType = ->
+    EmoticonsModel.currentListType
+
   $scope.currentUser = Restangular.one('users', 'me?include_favorites=list').get().then(
     (user) ->
       $scope.loggedIn = true
