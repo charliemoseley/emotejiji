@@ -21,13 +21,13 @@ a.a-disabled {
   text-decoration: line-through;
   cursor: not-allowed;
 }
-
-a.btn-disabled {
-  background: #E6E6E6;
-  color: rgba(0, 0, 0, 0.8);
-  opacity: 0.4;
-  cursor: not-allowed;
-}
+//
+//a.btn-disabled {
+//  background: #E6E6E6;
+//  color: rgba(0, 0, 0, 0.8);
+//  opacity: 0.4;
+//  cursor: not-allowed;
+//}
 
 input {
   -webkit-appearance: none;
@@ -368,7 +368,6 @@ textarea {
 .btn-group > .btn:first-child {
   margin-left: 0;
   margin-right: 0;
-  border-right: 1px solid #AA6F3B !important;
   border-bottom-left-radius: 4px;
   border-top-left-radius: 4px;
 }
@@ -415,6 +414,22 @@ textarea {
     box-shadow: 0 1px #E6E6E6;
     top: 3px;
   }
+}
+
+.btn.disabled {
+  color: rgba(0, 0, 0, 0.4);
+  opacity: 0.6;
+
+  &:hover {
+    box-shadow: 0 4px #E6E6E6;
+    top: 0px;
+  }
+
+  &:active {
+    box-shadow: 0 4px #E6E6E6;
+    top: 0px;
+  }
+
 }
 
 .all-filter.all,
