@@ -10,13 +10,13 @@
   </h1>
 
   <input type="text"
+         placeholder="add a tag to this emoticon"
          logged-in-toggle="input-disabled"
          tooltip="log in to use"
          tooltip-enabled="isLoggedIn()"
          tooltip-check-type="false"
          data-delay="200"
-         logged-in-placeholder="enabled value"
-         logged-out-placeholder="disabled value" />
+  />
 
   <ul>
     <li ng-repeat="tag in currentEmoticon.tags()">

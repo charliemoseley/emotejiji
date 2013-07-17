@@ -8,15 +8,11 @@ App.directive "loggedInToggle", ->
       unless scope.isLoggedIn()
         element.addClass(attrs.loggedInToggle)
         element.addClass('disabled')
+        element.attr('disabled', 'disabled')
       else
         element.removeClass(attrs.loggedInToggle)
         element.removeClass('disabled')
-
-      if element.get(0).tagName == "INPUT"
-        if scope.isLoggedIn() and !_.isUndefined(attrs.loggedInPlaceholder)
-          element.attr('placeholder', attrs.loggedInPlaceholder)
-        if !scope.isLoggedIn() and !_.isUndefined(attrs.loggedOutPlaceholder)
-          element.attr('placeholder', attrs.loggedOutPlaceholder)
+        element.removeAttr('disabled')
 
     # Deal with disabling links
     $(element).click (event) ->
