@@ -11,6 +11,8 @@
 
   <input type="text"
          placeholder="add a tag to this emoticon"
+         on-keyup="addTag" up-keys="[13]"
+         ng-model="addTagText"
          logged-in-toggle="input-disabled"
          tooltip="log in to use"
          tooltip-enabled="isLoggedIn()"

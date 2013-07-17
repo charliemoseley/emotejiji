@@ -50,19 +50,29 @@ class Emote < ActiveRecord::Base
   end
 
   def add_tags(user, tags)
+    # TODO: This errors out when you try to send it a tag that already exists:
+    # TypeError (no implicit conversion of Fixnum into String):
+    #      app/models/emote.rb:71:in `+'
+    # app/models/emote.rb:71:in `block in add_tags'
+    # app/models/emote.rb:67:in `each'
+
     user = User.find(user) if user.kind_of? String
     raise ActiveRecord::RecordNotFound unless user.kind_of? User
 
     UserEmote.tag user, self, tags
 
     tags.each do |tag|
-      tag = tag.to_sym
+      tag = tag.to_s
       if self.tags.has_key? tag
         self.tags[tag] += 1
       else
         self.tags[tag] = 1
       end
     end
+
+    # This is needed due to an issue with Rails4 to not be able to detect changes on hstore changes, and thus save will
+    # not fire off unless you explicitly tell it one of the fields has changed.
+    tags_will_change!
     save
   end
 

@@ -42,5 +42,18 @@ App.controller 'EmoticonCtrl', ($scope, $stateParams, EmoticonsModel, FlashMessa
 
   $scope.flash = FlashMessageService
 
+  $scope.addTag = ->
+    unless _.isEmpty $scope.addTagText
+      tagToAdd = $scope.addTagText
+      $scope.addTagText = ''
+      currentEmoticonId = $scope.currentEmoticon().id
+
+      Restangular.one('emotes', currentEmoticonId).customPUT("", {}, {}, { tags: [tagToAdd] })
+      EmoticonsModel.currentEmote.tags[tagToAdd] = 1
+      EmoticonsModel.lookupTable[currentEmoticonId].tags[tagToAdd] = 1
+
+      FlashMessageService.set 'success', 'added ' + tagToAdd + ' to tags'
+      FlashMessageService.showNow()
+
   # TODO: See if you can finesse either the API or the restangular call to not use customPOSt and customDelete
   # https://github.com/mgonto/restangular/issues/135

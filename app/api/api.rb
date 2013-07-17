@@ -1,4 +1,8 @@
-module API 
+# TODO: (refactor) Break this API file into multiple smaller chunks.
+# TODO: (refactor) Rename the /emotes/ route to /emoticons/.
+# TODO: Require many of the API methods to have a current user set to be performed.
+
+module API
   class Router < Grape::API
     version 'v1', using: :path, vendor: 'emotejiji', cascade: false
     format :json
@@ -87,9 +91,11 @@ module API
       put ':id' do
         emote = Emote.find(params.id) rescue error!("Unknown id", 404)
         error!("Unknown id", 404) if emote.nil?
+        error!("Unknown user", 404) if current_user.nil?
 
         clean_params = sanitize_params params
-        emote.update_attributes clean_params.permit(:text, :description, :display_rows, :display_columns, tags: [], )
+        emote.update_attributes clean_params.permit(:text, :description, :display_rows, :display_columns)
+        emote.add_tags(current_user, clean_params[:tags])
         present emote, with: API::Entities::Emote
       end
 

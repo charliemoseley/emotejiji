@@ -51,9 +51,20 @@ class APISpec < ActionDispatch::IntegrationTest
   end
 
   describe "PUT /api/v1/emotes/:id" do
-    # Currently invalid test
-    it "should update the emote" #do
-    #  put "/api/v1/emotes/#{@emote1.id}", { text: "moobar", tags: { "overrides tags" => 1 } }
+    it "should update the emote" do
+      # TODO: Ugh, figure out how to set cookies in ActionDispatch::IntegrtationTests
+      #@user = Fabricate :user
+      #
+      ##cookies.permanent[:remember_token] = @user.remember_token
+      #puts "*" * 88
+      #puts request.inspect
+      ##puts cookies.permanent[:remember_token]
+      ##puts @user.remember_token
+      #puts "*" * 88
+      #user = User.find_by_remember_token cookies[:remember_token]
+      #
+      #@user.remember_token.must_equal user.remember_token
+    #put "/api/v1/emotes/#{@emote1.id}", { text: "moobar", tags: { "overrides tags" => 1 } }
     #  returned_emote = parse(response)
     #  returned_emote.text.must_equal "moobar"
     #  returned_emote.tags.include?("overrides tags").must_equal true
@@ -65,7 +76,11 @@ class APISpec < ActionDispatch::IntegrationTest
     #  returned_emote.text.must_equal "moobar"
     #  returned_emote.tags.include?("overrides tags").must_equal true
     #  returned_emote.tags.include?("foo").must_equal false
-    #end
+    end
+
+    it "should error if a user is not set" do
+      put "/api/v1/emotes/#{@emote1.id}", { text: "moobar", tags: ['foobar', "foo"]}
+    end
 
     it "should error if the id is not valid" do
       put "/api/v1/emotes/foobar", { text: "moobar" }
