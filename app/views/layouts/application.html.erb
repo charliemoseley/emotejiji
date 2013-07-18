@@ -8,7 +8,13 @@
   <!-- Also refer to the image AngularHTML5-FML.jpg for more pain/explanation when you write this up as a tutorial -->
   <base href="/" />
   <meta name="fragment" content="!">
-  <title>Emotejiji, the emoticon search engine</title>
+  <meta name="description" content="{{metaDescription()}}"
+  <meta property="og:url" content="{{metaOgUrl()}}"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:title" content="{{metaTitle()}}"/>
+  <meta property="og:image" content=""/>
+  <meta property="og:description" content="{{metaDescription()}}"/>
+  <title>{{metaTitle()}}</title>
   <link href='http://fonts.googleapis.com/css?family=Raleway:500' rel='stylesheet' type='text/css' />
   <%= stylesheet_link_tag "application", media: "all" %>
   <%= csrf_meta_tags %>
