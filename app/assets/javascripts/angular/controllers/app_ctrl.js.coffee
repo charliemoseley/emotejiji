@@ -46,4 +46,6 @@ App.controller 'AppCtrl', ($scope, $location, $state, $analytics, Restangular, E
     $location.$$absUrl
 
   # Google Analytics Pagetrack
+  # Tutorial Note / Pull request: Angulartics can't auto track when your using something like Angular-UI router.  See
+  # if you can make it do so.
   $analytics.pageTrack($location.$$url)
