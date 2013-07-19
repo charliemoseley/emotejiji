@@ -57,7 +57,9 @@
   <div id="content">
     <%= yield %>
     <div id="pop-over" ui-view="popOver"></div>
-    <div ui-view="emoticonList"></div>
+    <div ui-view="emoticonList">
+      <div class="spinner"></div>
+    </div>
   </div>
 
   <%= render "layouts/sidebar" %>

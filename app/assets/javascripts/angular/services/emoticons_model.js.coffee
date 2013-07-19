@@ -22,6 +22,8 @@ App.service "EmoticonsModel", (Restangular, TagsService) ->
       else
         kind = this.currentListType
     this.currentListType = kind
+    # HACK: This is ugly, should probably be put into a directive during a refactor, but for now this is the easiest option
+    $('.spinner').hide()
 
     switch kind
       when "all"
