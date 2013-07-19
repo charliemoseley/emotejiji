@@ -20,20 +20,29 @@ class User < ActiveRecord::Base
 
   # CUSTOM RELATIONSHIPS (all indexed)
   def created_emotes
-    UserEmote.includes(:emote).where(kind: 'Owner', user_id: self.id).map do |result|
-      result.emote
+    cache_key = UserEmote.includes(:emote).where(kind: 'Owner', user_id: self.id).order("updated_at").last.emote.cache_key
+    Rails.cache.fetch(cache_key) do
+      UserEmote.includes(:emote).where(kind: 'Owner', user_id: self.id).map do |result|
+        result.emote
+      end
     end
   end
 
   def tagged_emotes
-    UserEmote.includes(:emote).where(kind: 'Tagged', user_id: self.id).map do |result|
-      result.emote
+    cache_key = UserEmote.includes(:emote).where(kind: 'Tagged', user_id: self.id).order("updated_at").last.emote.cache_key
+    Rails.cache.fetch(cache_key) do
+      UserEmote.includes(:emote).where(kind: 'Tagged', user_id: self.id).map do |result|
+        result.emote
+      end
     end
   end
 
   def favorited_emotes
-    UserEmote.includes(:emote).where(kind: 'Favorited', user_id: self.id).map do |result|
-      result.emote
+    cache_key = UserEmote.includes(:emote).where(kind: 'Favorited', user_id: self.id).order("updated_at").last.emote.cache_key
+    Rails.cache.fetch(cache_key) do
+      UserEmote.includes(:emote).where(kind: 'Favorited', user_id: self.id).map do |result|
+        result.emote
+      end
     end
   end
 

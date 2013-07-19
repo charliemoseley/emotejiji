@@ -54,7 +54,7 @@ module API
         if params.tags
           emotes = Emote.all_tags params.tags
         else
-          emotes = Emote.all
+          emotes = Emote.cached_all
         end
         present emotes, with: API::Entities::Emote
       end

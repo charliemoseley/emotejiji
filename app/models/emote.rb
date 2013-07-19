@@ -16,6 +16,13 @@ class Emote < ActiveRecord::Base
 
   default_scope { order('created_at DESC') }
 
+  def self.cached_all
+    cache_key = Emote.order("updated_at").last.cache_key
+    Rails.cache.fetch(cache_key) do
+      Emote.all.order('created_at DESC')
+    end
+  end
+
   # When creating tags, this should always be used, not save
   def create_with(user)
     user = User.find(user) if user.kind_of? String
