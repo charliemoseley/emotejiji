@@ -1,6 +1,13 @@
 # This file is used by Rack-based servers to start the application.
-require 'rack/cors'
 
+# Load up all the config vars using dontenv if we're not in production
+unless ENV['RACK_ENV'] == 'production'
+  require 'dotenv'
+  Dotenv.load
+end
+
+# Add Cors support for the API
+require 'rack/cors'
 use Rack::Cors do
   allow do
     origins '*'

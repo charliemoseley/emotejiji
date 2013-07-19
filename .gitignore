@@ -18,5 +18,8 @@
 # OSX
 *.DS_Store
 
+# Private Environmental File
+.env
+
 # Intelli-J
 .idea

@@ -14,7 +14,7 @@ Emote.all.each do |e|
   e.delete
 end
 
-user = User.create(username: "emotejiji_robot", password: "c1j2m3c1j2m3", password_confirmation: "c1j2m3c1j2m3")
+user = User.create(username: "emotejiji_robot", password: ENV['ROBOT_PASSWORD'], password_confirmation:  ENV['ROBOT_PASSWORD'])
 
 emotes = JSON.parse(File.read("db/emoticons.json"))
 emotes.reverse_each do |e|

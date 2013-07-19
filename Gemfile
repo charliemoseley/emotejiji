@@ -19,6 +19,7 @@ gem 'hashie'
 
 group :development, :test do
   gem 'minitest-rails'
+  gem 'dotenv-rails'
 end
 
 group :test do
