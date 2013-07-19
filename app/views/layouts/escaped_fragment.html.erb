@@ -4,7 +4,15 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="google-site-verification" content="SGWuZrv6HADc9znyZxB0ES-eAILmzJyqodrRJimtt6c" />
-  <title>Emotejiji</title>
+  <base href="/" />
+  <meta name="fragment" content="!">
+  <meta name="description" content="<%= @meta.description %>"
+  <meta property="og:url" content="<%= @meta.url %>"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:title" content="<%= @meta.title %>/>
+  <meta property="og:image" content=""/>
+  <meta property="og:description" content="<%= @meta.description %>"/>
+  <title><%= @meta.title %></title>
   <link href="http://yui.yahooapis.com/pure/0.2.0/pure-min.css" rel="stylesheet" type="text/css">
   <link href='http://fonts.googleapis.com/css?family=Raleway:500' rel='stylesheet' type='text/css' />
   <link href="//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" rel="stylesheet" type="text/css"  />
