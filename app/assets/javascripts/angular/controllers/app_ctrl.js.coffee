@@ -1,4 +1,4 @@
-App.controller 'AppCtrl', ($scope, $location, $state, Restangular, EmoticonsModel) ->
+App.controller 'AppCtrl', ($scope, $location, $state, $analytics, Restangular, EmoticonsModel) ->
   $scope.loggedIn = false
 
   $scope.isLoggedIn = ->
@@ -44,3 +44,6 @@ App.controller 'AppCtrl', ($scope, $location, $state, Restangular, EmoticonsMode
 
   $scope.metaOgUrl = ->
     $location.$$absUrl
+
+  # Google Analytics Pagetrack
+  $analytics.pageTrack($location.$$url)
