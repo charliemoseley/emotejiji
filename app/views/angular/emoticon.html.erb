@@ -34,7 +34,7 @@
       <span id="clipboard-success" class="checkmark">✓</span>
       Copy to Clipboard
     </button>
-    <button class="pure-button"
+    <a class="pure-button"
             logged-in-toggle="pure-button-disabled"
             ng-click="addToFavorites(currentEmoticon().id)"
             ng-show="showAddToFavorites()"
@@ -43,13 +43,13 @@
             tooltip-check-type="false"
             data-placement="bottom">
       Add to Favorites
-    </button>
-    <button class="pure-button"
+    </a>
+    <a class="pure-button"
             logged-in-toggle="pure-button-disabled"
             ng-click="removeFromFavorites(currentEmoticon().id)"
             ng-hide="showAddToFavorites()">
       Remove from Favorites
-    </button>
+    </a>
   </div>
 
   <a id="close-popover" href="{{closePopoverUrl()}}">X</a>
