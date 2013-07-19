@@ -8,7 +8,7 @@ module API
     format :json
 
     before do
-      #authenticate
+      authenticate
     end
 
     helpers do
@@ -22,7 +22,6 @@ module API
 
       def session
         Rack::Request.new(env).session
-        #raise request.session[:_csrf_token].inspect
       end
 
       def sanitize_params(params)
