@@ -47,6 +47,6 @@ module Emotejiji
     end
 
     # Specify Redis as our caching engine
-    config.cache_store = :redis_store
+    config.cache_store = :redis_store, ENV["REDISCLOUD_URL"]
   end
 end
