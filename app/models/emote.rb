@@ -18,7 +18,7 @@ class Emote < ActiveRecord::Base
 
   def self.cached_all
     cache_key = Emote.order("updated_at").last.cache_key
-    Rails.cache.fetch(cache_key) do
+    Rails.cache.fetch("all/" + cache_key) do
       Emote.all.order('created_at DESC')
     end
   end

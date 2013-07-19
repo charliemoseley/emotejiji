@@ -1,3 +1,4 @@
+<% cache 'emoticon_list' do %>
 <ul id="emoticon-list" masonry>
   <li ng-repeat="emoticon in emoticonList = (emoticons() | filter:tagFilter)">
     <a href="/emoticons/{{emoticon.id}}"
@@ -6,3 +7,4 @@
     </a>
   </li>
 </ul>
+<% end %>
