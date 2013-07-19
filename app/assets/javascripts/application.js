@@ -16,7 +16,8 @@
 //= require misc/zero-clipboard.1.1.7.min.js
 
 //= require angular/angular.1.1.5.min.js
-//= require angular/angular-google-analytics.0.0.4.js
+//= require angular/angulartics.0.3.5.js
+//= require angular/angulartics-ga.0.3.5.js
 //= require angular/angular-resource.1.1.5.min.js
 //= require angular/angular-ui-router.0.0.1.min.js
 //= require angular/restangular.1.0.4.min.js
