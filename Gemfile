@@ -10,6 +10,7 @@ gem 'bcrypt-ruby'
 
 # Architectural
 gem 'pg'
+gem 'redis-rails', git: 'git://github.com/jodosha/redis-store.git'
 gem 'rack-cors'
 
 # API

@@ -45,5 +45,8 @@ module Emotejiji
     config.generators do |g|
       g.test_framework :mini_test, spec: true, fixture: false
     end
+
+    # Specify Redis as our caching engine
+    config.cache_store = :redis_store
   end
 end

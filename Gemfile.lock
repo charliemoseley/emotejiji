@@ -1,3 +1,22 @@
+GIT
+  remote: git://github.com/jodosha/redis-store.git
+  revision: f445272b30ae3030b942a9a10681c2672d04b39b
+  specs:
+    redis-actionpack (3.2.3)
+      actionpack (>= 3.2.3)
+      redis-rack (~> 1.4.0)
+      redis-store (~> 1.1.0)
+    redis-activesupport (3.2.3)
+      activesupport (>= 3.2.3)
+      redis-store (~> 1.1.0)
+    redis-rack (1.4.2)
+      rack (~> 1.4)
+      redis-store (~> 1.1.0)
+    redis-rails (3.2.3)
+      redis-actionpack (>= 3.2.3)
+      redis-activesupport (>= 3.2.3)
+      redis-store (~> 1.1.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -110,6 +129,9 @@ GEM
     rake (10.1.0)
     rdoc (3.12.2)
       json (~> 1.4)
+    redis (3.0.4)
+    redis-store (1.1.2)
+      redis (>= 2.2.0)
     sass (3.2.9)
     sass-rails (4.0.0)
       railties (>= 4.0.0.beta, < 5.0)
@@ -161,6 +183,7 @@ DEPENDENCIES
   rack-cors
   rails
   rails_12factor
+  redis-rails!
   sass-rails
   sdoc
   uglifier
