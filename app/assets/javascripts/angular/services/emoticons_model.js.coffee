@@ -22,8 +22,6 @@ App.service "EmoticonsModel", (Restangular, TagsService) ->
       else
         kind = this.currentListType
     this.currentListType = kind
-    # HACK: This is ugly, should probably be put into a directive during a refactor, but for now this is the easiest option
-    $('.spinner').hide()
 
     switch kind
       when "all"
@@ -47,12 +45,16 @@ App.service "EmoticonsModel", (Restangular, TagsService) ->
 
       if assignToCurrent
         klass.currentList = response
+      # HACK: This is ugly, should probably be put into a directive during a refactor, but for now this is the
+      # easiest option
+      $('.spinner').hide()
 
   fetchFavorites = (klass) ->
     Restangular.one('users', 'me').all('favorites').getList().then (response) ->
       klass.currentList = response
       TagsService.populateTagArray response, 'current'
       fetchAll(klass, false)
+      $('.spinner').hide()
 
   lookupList = (klass, list_type) ->
     switch list_type
