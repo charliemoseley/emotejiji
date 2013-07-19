@@ -12,7 +12,7 @@ App.controller 'EmoticonCtrl', ($scope, $stateParams, EmoticonsModel, FlashMessa
   # TODO: Make a real model file that we can pass the restangular response for emotes to that actually exposes a nice .tag
   # and .tagCounts method so we don't have to do this hack.
   $scope.currentEmoticon['tags'] = ->
-    if _.isUndefined EmoticonsModel.currentEmote
+    unless _.isUndefined EmoticonsModel.currentEmote
       _.keys EmoticonsModel.currentEmote.tags
 
   $scope.addToFavorites = (emoticon_id) ->

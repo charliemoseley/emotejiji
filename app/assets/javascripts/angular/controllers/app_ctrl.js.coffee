@@ -29,7 +29,7 @@ App.controller 'AppCtrl', ($scope, $location, $state, $analytics, Restangular, E
   # TODO: Double chaining of if statements is pretty ugly, clean up sometime
   $scope.metaTitle = ->
     unless $location.path().indexOf('emoticons') == -1
-      if _.isUndefined EmoticonsModel.currentEmote
+      unless _.isUndefined EmoticonsModel.currentEmote
         current = EmoticonsModel.currentEmote
         return current.text + " :: " + current.description + " emoticon / text face :: Emotejiji"
     else
@@ -37,7 +37,7 @@ App.controller 'AppCtrl', ($scope, $location, $state, $analytics, Restangular, E
 
   $scope.metaDescription = ->
     unless $location.path().indexOf('emoticons') == -1
-      if _.isUndefined EmoticonsModel.currentEmote
+      unless _.isUndefined EmoticonsModel.currentEmote
         current = EmoticonsModel.currentEmote
         flattened_tags = _.keys(current.tags).join(", ")
         description = current.description + " :: emoticon / text face for " + flattened_tags
