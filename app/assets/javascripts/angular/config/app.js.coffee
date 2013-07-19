@@ -1,10 +1,14 @@
-window.App = angular.module('Emotejiji', ['restangular', 'ui.state', 'emotejijiFilters'])
+window.App = angular.module('Emotejiji', ['restangular', 'ui.state', 'emotejijiFilters', 'angular-google-analytics'])
 
 App.config (RestangularProvider) ->
   RestangularProvider.setBaseUrl("/api/v1")
 
 App.config ($locationProvider) ->
   $locationProvider.html5Mode true
+
+App.config (AnalyticsProvider) ->
+  AnalyticsProvider.setAccount('UA-22723319-1');
+  AnalyticsProvider.setDomainName('http//emotejiji.com');
 
 # Prevent angular from scrolling when ui-view/ng-view is updated by clicking a link
 # http://stackoverflow.com/questions/16821798/angular-disable-scroll-to-top-when-changing-view
