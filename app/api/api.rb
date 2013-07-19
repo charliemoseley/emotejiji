@@ -205,11 +205,12 @@ module API
       expose(:updated_at) { |emoticon, options| emoticon.updated_at.iso8601 }
     end
 
+    # TODO: OH GOD! RESCUE GALORE!  PLEASE SAVE ME AND DO SOME REFACTORING!  AND TESTING WHILE YOUR AT IT TOO!
     class User < Grape::Entity
       expose :id
       expose :username
-      expose(:emoticons_favorited) { |user, options| user.favorited_emotes.count }
-      expose(:emoticons_created) { |user, options| user.created_emotes.count }
+      expose(:emoticons_favorited) { |user, options| user.favorited_emotes.count rescue 0 }
+      expose(:emoticons_created) { |user, options| user.created_emotes.count rescue 0 }
 
       # Optionals
       expose(:favorite_emoticons,
@@ -223,9 +224,9 @@ module API
         |user, options|
         include_favorites = options[:env]["api.endpoint"].params.include_favorites
         if include_favorites == "true"
-          user.favorited_emotes.map { |emote| API::Entities::Emote.new(emote) }
+          user.favorited_emotes.map { |emote| API::Entities::Emote.new(emote) } rescue []
         elsif include_favorites == "list"
-          user.favorited_emotes.map{ |emote| emote.id }
+          user.favorited_emotes.map{ |emote| emote.id } rescue []
         end
       end
     end
