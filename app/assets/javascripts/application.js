@@ -15,6 +15,9 @@
 //= require misc/underscore.1.4.4.min.js
 //= require misc/zero-clipboard.1.1.7.min.js
 
+//= require jquery/jquery.2.0.3.js
+//= require jquery/jquery.1.10.3.min.js
+
 //= require angular/angular.1.1.5.min.js
 //= require angular/angulartics.0.3.5.js
 //= require angular/angulartics-ga.0.3.5.js
